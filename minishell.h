@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbrauer <kbrauer@student.42vienna.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/27 14:47:52 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/02/29 14:04:58 by mvolgger         ###   ########.fr       */
+/*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
+/*   Updated: 2024/03/01 14:10:29 by kbrauer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include <stdlib.h>
-#include <signal.h>
+#include <errno.h>
+#include <string.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 
-
-void	input_handler(char *str)
+typedef struct s_shell
 {
+	char	**input;
 	
-}
+}	t_shell;
 
-int	main()
-{
-	char	*input;
-	while (1)
-	{
-		input = readline("minishell$ ");
-		if (strcmp(input, "exit") == 0)
-			break ;
-		else 
-			input_handler(input);
-	}
-	return (0);
-}
+//main
+int	create_tokens(char *str, t_shell shell);

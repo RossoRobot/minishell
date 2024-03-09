@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kbrauer <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: kbrauer <kbrauer@student.42vienna.com >    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 14:00:52 by kbrauer           #+#    #+#              #
-#    Updated: 2024/03/01 14:00:55 by yourLogin        ###   ########.fr        #
+#    Updated: 2024/03/09 17:50:35 by kbrauer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-FLAGS = -lreadline -g#-Wall -Wextra -Werror 
+FLAGS = -lreadline -g #-Wall -Wextra -Werror 
 
 SRCS_DIR = .
 LIBFT_DIR = ./libft_bonus

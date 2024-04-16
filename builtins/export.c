@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/16 14:40:44 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:27:46 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	export(t_data *data, char *str, char *key, char *value)
 {
 	if ((!str && !key) || (str && str[0] == '\0'))
 	{
+		
 		print_myenv(data, 1);
 		free(str);
 		return (0);
@@ -50,7 +51,10 @@ int	export(t_data *data, char *str, char *key, char *value)
 		key = get_key(data, str);
 		value = get_value(data, str);
 		if (!value && check_for_equal(str) == 0)
-			return (free(key) , free(str), 0);
+		{
+			append_node(data, key, value, str, 1);
+			return (0);
+		}
 	}
 	if (replace_var(data, key, value, 1) == 0)
 		return (free(str), 0);
@@ -105,7 +109,7 @@ int	unset(t_data *data, char *str)
 	int		flag;
 	t_env	*temp;
 
-	if (!str)
+	if (str == NULL)
 		return (-1);
 	flag = check_for_equal(str);
 	temp = data->env_line;
@@ -115,6 +119,10 @@ int	unset(t_data *data, char *str)
 			&& flag == 0 && ft_strlen(str) == ft_strlen(temp->key_value->key))
 		{
 			free(str);
+			if (temp->previous == NULL && temp->next != NULL)
+				data->env_line = data->env_line->next;
+			else if (temp->previous == NULL && temp->next == NULL)
+				data->env_line = NULL;
 			return (delete_node(temp));
 		}
 		temp = temp->next;

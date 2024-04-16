@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 08:21:43 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/16 10:47:38 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:49:32 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ void	print_myenv(t_data *data, int flag)
 			printf("declare -x ");
 			printf("%s", data->env_line->key_value->key);
 			if (data->env_line->key_value->value != NULL)
-				printf("=%s\n", data->env_line->key_value->value);
+				printf("=\"%s\"\n", data->env_line->key_value->value);
 			else
 				printf("\n");
 		}

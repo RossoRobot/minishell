@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:25:27 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/16 14:24:12 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:08:03 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ char	*get_value(t_data *data, char *str);
 void	first_node_init(t_data *data, char *key, char *value, char *str);
 void	append_node(t_data *data, char *key, char *value, char *str, int flag);
 void	env_duplicate(t_data *data, char **envp);
+int		check_missing_env(t_data *data);
 void	print_myenv(t_data *data, int flag);
 t_key_value	*set_keys_n_values(t_data *data, char *key, char *value, char *str);
-void	handle_empty_env(t_data *data);
+void	handle_empty_env(t_data *data, char *key);
 
 int		ft_listsize(t_env *myenv);
 char	*join_key_value(t_env *temp, t_data *data);

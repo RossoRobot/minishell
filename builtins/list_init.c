@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 08:21:43 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/16 16:49:32 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:15:37 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_exit(t_data *data, int error_flag)
 	free_arr(data->env_arr);
 	free(data);
 	if (error_flag == 1)
-		exit (EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 }
 void	first_node_init(t_data *data, char *key, char *value, char *str)
 {
@@ -73,7 +73,7 @@ char	*get_key(t_data *data, char *str)
 	while (str[i])
 	{
 		if (str[i] == '=')
-			break;
+			break ;
 		i++;
 	}
 	key = (char *)malloc(sizeof(char) * (i + 1));
@@ -87,7 +87,6 @@ char	*get_key(t_data *data, char *str)
 	}
 	return (key);
 }
-
 
 char	*get_value(t_data *data, char *str)
 {
@@ -118,11 +117,14 @@ char	*get_value(t_data *data, char *str)
 
 t_key_value	*set_keys_n_values(t_data *data, char *key, char *value, char *str)
 {
-	t_key_value *key_value_pair;
+	t_key_value	*key_value_pair;
 
 	key_value_pair = malloc(sizeof(t_key_value));
 	if (!key_value_pair)
+	{
+		// add free(key) and value
 		free_exit(data, 1);
+	}
 	key_value_pair->key = NULL;
 	key_value_pair->value = NULL;
 	if (key)
@@ -147,7 +149,6 @@ void	append_node(t_data *data, char *key, char *value, char *str, int flag)
 	t_env	*temp;
 
 	temp = data->env_line;
-	
 	if (!temp)
 		first_node_init(data, NULL, NULL, str);
 	else
@@ -171,7 +172,7 @@ void	append_node(t_data *data, char *key, char *value, char *str, int flag)
 
 char	*increment_shlvl(t_data *data, char *str)
 {
-	char 	*value;
+	char	*value;
 	int		temp;
 
 	if (!str)
@@ -186,6 +187,28 @@ char	*increment_shlvl(t_data *data, char *str)
 		free_exit(data, 1);
 	return (value);
 }
+int	check_missing_env(t_data *data)
+{
+	t_env	*temp;
+	int		counter;
+
+	counter = 3;
+	temp = data->env_line;
+	if (temp == NULL)
+		return (-1);
+	while (temp != NULL)
+	{
+		if (ft_strncmp(temp->key_value->key, "PWD", 3) == 0
+			|| ft_strncmp(temp->key_value->key, "_", 1) == 0
+			|| ft_strncmp(temp->key_value->key, "SHLVL", 5) == 0)
+			counter--;
+		temp = temp->next;
+	}
+	if (counter == 0)
+		return (0);
+	else
+		return (-1);
+}
 
 void	env_duplicate(t_data *data, char **envp)
 {
@@ -196,8 +219,11 @@ void	env_duplicate(t_data *data, char **envp)
 	i = 0;
 	shlvl = NULL;
 	key = ft_strdup(data, "SHLVL");
-	if (!envp[i])
-		handle_empty_env(data);
+	if (!envp || !envp[i])
+	{
+		handle_empty_env(data, key);
+		return ;
+	}
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "SHLVL=", 6) == 0)
@@ -209,14 +235,16 @@ void	env_duplicate(t_data *data, char **envp)
 		append_node(data, NULL, NULL, envp[i], 0);
 		i++;
 	}
-	
+	if (check_missing_env(data) == -1)
+		handle_empty_env(data, key);
 }
 
 void	print_myenv(t_data *data, int flag)
 {
 	t_env	*temp;
-	int		i = 0;
+	int		i;
 
+	i = 0;
 	temp = data->env_line;
 	while (data->env_line != NULL)
 	{
@@ -239,4 +267,3 @@ void	print_myenv(t_data *data, int flag)
 	}
 	data->env_line = temp;
 }
-

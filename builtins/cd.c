@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 12:47:16 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/16 14:14:09 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:47:26 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	ft_cd(t_data *data, char *parameter)
         {
             replace_var(data, "OLDPWD", old_pwd, 0);
 			replace_var(data, "PWD", parameter, 0);
+			free(old_pwd);
 			if (ft_strncmp(parameter, "..", 2) == 0)
 				replace_var(data, "PWD", getcwd(NULL, 0), 0);
         }

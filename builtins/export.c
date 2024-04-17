@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/16 17:27:46 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:57:54 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,6 @@ int	unset(t_data *data, char *str)
 		}
 		temp = temp->next;
 	}
+	free(str);
 	return (0);
 }

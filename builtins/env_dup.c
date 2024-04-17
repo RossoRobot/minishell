@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/17 18:12:09 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:21:49 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	handle_empty_env(t_data *data, char *key)
 	export(data, pwd_str, NULL, NULL);
 	export(data, shlvl, NULL, NULL);
 	export(data, lst_cmd, NULL, NULL);
-	// append_node(data, NULL, NULL, pwd_str, 1);
-	// append_node(data, NULL, NULL, "SHLVL=1", 0);
-	// append_node(data, NULL, NULL,"_=/usr/bin/env", 0);
+
 }
 

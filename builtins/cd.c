@@ -46,11 +46,11 @@ int	change_to_home(t_data *data, char *oldpwd, char *parameter)
 	if (home == NULL)
 	{
 		free(oldpwd);
-		return (printf("cd: no such file or directory: HOME\n"), -1);
+		return (printf("cd: HOME not set\n"), -1);
 	}
 	if (chdir(home) == -1)
 	{
-		printf("cd: no such file or directory: %s\n", "HOME");
+		printf("cd: HOME not set\n");
 		free(oldpwd);
 		free(home);
 		return (-1);

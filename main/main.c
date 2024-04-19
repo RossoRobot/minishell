@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:55:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/04/19 14:45:33 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:39:56 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	shell = (t_shell*) malloc (sizeof(t_shell));
 	if (!shell)
 		return (0);
+	init_values(shell);
 	env_duplicate(shell, envp);
 	while (1)
 	{
@@ -31,7 +32,7 @@ int	main(int argc, char **argv, char **envp)
 		parse(cmd, shell);
 		
 		if (!ft_strncmp(cmd, "exit", 10))
-			return (free(cmd), 0);
+			return (free_exit(shell, 0), free(cmd), 0);
 		free(cmd);
 	}
 }

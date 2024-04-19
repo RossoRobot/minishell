@@ -64,13 +64,18 @@ typedef struct s_shell
 	t_list	**lists;
 }	t_shell;
 
-
-//main
-//int	create_tokens(char *cmd, t_shell *shell);
+//parse
+int 	parse(char *cmd, t_shell *shell);
+int		init_values(t_shell *shell);
+int		check_input(char *str, t_shell *shell);
+void 	print_tokens(t_shell *shell);
+void	create_tokens(char *input, t_shell *shell);
+void	mal_list(t_shell *shell);
 
 //utils
 t_list	*ft_lstnew(char *content, int *k);
 void	ft_lstadd_back(t_list *lst, t_list *neu);
+
 // int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		check_del(char	chr, int flag);
 

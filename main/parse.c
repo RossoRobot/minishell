@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:59:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/04/19 14:36:56 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:40:36 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ int	check_input(char *str, t_shell *shell)
 
 int	init_values(t_shell *shell)
 {
+	shell->env_arr = NULL;
+	shell->env_line = NULL;
 	shell->lists = NULL;
 	shell->n_pipes = 0;
 	return (0);

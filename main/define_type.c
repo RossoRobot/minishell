@@ -45,8 +45,8 @@ int	set_type(t_list *node)
 		node->type = unset_a;
 	else if (!strncmp(node->content, "env", 10))
 		node->type = env_a;
-	//else if (!strncmp(node->content, "exit", 10))
-	//	node->type = exit;
+	else if (!strncmp(node->content, "exit", 10))
+		node->type = exit_a;
 	else
 		node->type = command_a;
 	return (0);

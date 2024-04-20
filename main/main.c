@@ -28,7 +28,6 @@ int	main(int argc, char **argv, char **envp)
 		cmd = readline("minishell$ ");
 		if (!cmd)
 			return (1);
-
 		parse(cmd, shell);
 		
 		if (!ft_strncmp(cmd, "exit", 10))

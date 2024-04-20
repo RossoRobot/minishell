@@ -12,7 +12,7 @@
 
 #include "./../include/minishell.h"
 
-void    free_all(t_shell *shell)
+void    free_parse(t_shell *shell)
 {
     int     i;
     t_list  *ptr;

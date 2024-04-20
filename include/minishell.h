@@ -39,6 +39,7 @@ typedef enum e_tokentype
 	export_a = 13,
 	unset_a = 14,
 	env_a = 15,
+	exit_a = 16,
 }	t_tokentype;
 
 typedef struct s_token
@@ -60,7 +61,7 @@ typedef struct s_shell
 	int		n_pipes;
 	t_env	*env_line;
 	char	**env_arr;
-	//t_list	*tokens;
+	char	*exp_str;
 	t_list	**lists;
 }	t_shell;
 
@@ -73,7 +74,7 @@ void	create_tokens(char *input, t_shell *shell);
 void	mal_list(t_shell *shell);
 
 //utils
-t_list	*ft_lstnew(char *content, int *k);
+t_list	*ft_lstnew(char *content, int *k, t_shell *shell);
 void	ft_lstadd_back(t_list *lst, t_list *neu);
 
 // int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -83,8 +84,9 @@ int		check_del(char	chr, int flag);
 char    *skip_argument(char *str);
 char    *skip_gap(char *str);
 char  	*while_del(char *str);
-int 	while_not_del(char *str, int flag);
+int 	while_not_del(char *str, int flag, t_shell *shell);
 void 	set_flag(char *c, int *flag);
+int		expand(t_shell *shell, char *str, int	*flag);
 
 //define_type
 void    define_type(t_shell *shell);
@@ -96,6 +98,6 @@ void	create_tokens(char *input, t_shell *shell);
 void	mal_list(t_shell *shell);
 
 //free
-void    free_all(t_shell *shell);
+void    free_parse(t_shell *shell);
 
 #endif

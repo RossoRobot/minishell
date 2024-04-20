@@ -12,11 +12,13 @@
 
 #include "./../include/minishell.h"
 
-t_list	*ft_lstnew(char *str, int *k)
+t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 {
 	t_list	*start;
 	int		i;
 	int		flag;
+	int		len;
+	int		n;
 
 	start = (t_list *) malloc (sizeof(t_list));
 	if (!start)
@@ -27,15 +29,27 @@ t_list	*ft_lstnew(char *str, int *k)
 	//check if str starts with a "-sign or '-sign
 	set_flag(&str[0], &flag);
 	//while NOT a delimiter, count str length
-	i = while_not_del(str, flag);
+	i = while_not_del(str, flag, shell);
 	start->content = (char *) malloc (sizeof(char) * (i + 1));
 	if (!start->content)
 		return (NULL);
 	*k = i;
 	i = 0;
+	len = 0;
+	n = 0;
 	while (str[i] && (check_del(str[i], flag) == 0) && str[i] != '\n')
 	{
-		start->content[i] = str[i];
+		if (str[i] == '$' && str[i + 1] != '\n' && str[i + 1] != '\0')
+		{
+			expand(shell, &str[i + 1], &len);
+			while (shell->exp_str && shell->exp_str[n] != '\0')
+			{
+				start->content[i + n] = shell->exp_str[n];
+				n++;
+			}
+			free(shell->exp_str);
+		}
+		start->content[i + n] = str[i + len];
 		i++;
 		set_flag(&str[i], &flag);
 	}

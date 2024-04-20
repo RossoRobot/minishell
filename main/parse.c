@@ -38,7 +38,7 @@ void	create_tokens(char *input, t_shell *shell)
 	{
 		//ignore tab/space/newline at beginning of string
 		str = skip_gap(str);
-		shell->lists[i] = ft_lstnew(str, &k);
+		shell->lists[i] = ft_lstnew(str, &k, shell);
 		while(*str)
 		{
 			flag = 0;
@@ -56,7 +56,7 @@ void	create_tokens(char *input, t_shell *shell)
 			}
 			if (flag)
 				break;
-			tmp = ft_lstnew(str, &k);
+			tmp = ft_lstnew(str, &k, shell);
 			ft_lstadd_back(shell->lists[i], tmp);
 		}
 		i++;
@@ -117,6 +117,7 @@ int	init_values(t_shell *shell)
 {
 	shell->env_arr = NULL;
 	shell->env_line = NULL;
+	shell->exp_str = NULL;
 	shell->lists = NULL;
 	shell->n_pipes = 0;
 	return (0);
@@ -130,6 +131,6 @@ int parse(char *cmd, t_shell *shell)
 	create_tokens(cmd, shell);
 	define_type(shell);
 	print_tokens(shell);
-	free_all(shell);
+	free_parse(shell);
     return (0);
 }

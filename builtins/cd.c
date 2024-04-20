@@ -14,26 +14,26 @@
 
 #include "./../include/builtins.h"
 
-char    *my_getenv(t_shell *data, char *str, int mallocflag)
+char	*my_getenv(t_shell *data, char *str, int mallocflag)
 {
-    t_env   *temp;
+	t_env	*temp;
 	char	*env_value;
 
 	if (str == NULL)
 		return (NULL);
-    temp = data->env_line;
+	temp = data->env_line;
 	env_value = NULL;
-    while (temp)
-    {
-        if (ft_strncmp(temp->key_value->key, str, ft_strlen(str)) == 0 && ft_strlen(str) == ft_strlen(temp->key_value->key))
+	while (temp)
+	{
+		if (ft_strncmp(temp->key_value->key, str, ft_strlen(str)) == 0 && ft_strlen(str) == ft_strlen(temp->key_value->key))
 		{
 			env_value = ft_strdup(data, temp->key_value->value);
 			if (mallocflag == 1)
 				free(str);
 			return (env_value);
 		}
-        temp = temp->next; 
-    }
+		temp = temp->next; 
+	}
 	return (NULL);
 }
 int	change_to_home(t_shell *data, char *oldpwd, char *parameter)
@@ -76,34 +76,34 @@ int	change_directory(t_shell *data, char *parameter)
 
 int	ft_cd(t_shell *data, char *parameter)
 {
-	char 	*old_pwd;
+	char	*old_pwd;
 	int		ret;
-    char	*path;
+	char	*path;
 
 	ret = 0;
 	old_pwd = my_getenv(data, "PWD", 0);
 	if (parameter == NULL || parameter[0] == '\0' || parameter[0] == ' ')
 		ret = change_to_home(data, old_pwd, parameter);
-    else
-    {
-        ret = chdir(parameter);
+	else
+	{
+		ret = chdir(parameter);
 		if (ret == -1)
 		{
 			free(old_pwd);
-        	printf("cd: no such file or directory: %s\n", parameter);
+			printf("cd: no such file or directory: %s\n", parameter);
 			free(parameter);
 		}
-        else
-        {
-            replace_var(data, "OLDPWD", old_pwd, 0);
+		else
+		{
+			replace_var(data, "OLDPWD", old_pwd, 0);
 			replace_var(data, "PWD", parameter, 0);
 			free(old_pwd);
 			if (ft_strncmp(parameter, "..", 2) == 0)
 				replace_var(data, "PWD", getcwd(NULL, 0), 0);
-        }
-    }
+		}
+	}
 	return (ret);
-} 
+}
 
 
 

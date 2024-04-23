@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:59:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/04/19 15:40:36 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:30:24 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void print_tokens(t_shell *shell)
 		ptr = shell->lists[i];
 		while (ptr)
 		{
-			printf("%s\n", ptr->content);
-			printf("%d\n", ptr->type);
+			printf("content: %s", ptr->content);
+			printf("type :%d\n", ptr->type);
 			ptr = ptr->next;
 		}
 		i++;
@@ -116,7 +116,6 @@ int	check_input(char *str, t_shell *shell)
 int	init_values(t_shell *shell)
 {
 	shell->env_arr = NULL;
-	shell->env_line = NULL;
 	shell->exp_str = NULL;
 	shell->lists = NULL;
 	shell->n_pipes = 0;
@@ -130,7 +129,7 @@ int parse(char *cmd, t_shell *shell)
 	//integrate extensions
 	create_tokens(cmd, shell);
 	define_type(shell);
-	print_tokens(shell);
-	free_parse(shell);
+	//print_tokens(shell);
+	//free_parse(shell);
     return (0);
 }

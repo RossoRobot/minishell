@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:54:45 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/19 14:49:04 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:54:51 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ int	ft_atoi(const char *nptr)
 	i = 0;
 	n = 1;
 	ret = 0;
+	if (!nptr)
+		return (0);
 	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
 		i++;
 	if (nptr[i] == '-' || nptr[i] == '+')
@@ -148,4 +150,24 @@ int	ft_atoi(const char *nptr)
 	return (ret * n);
 }
 
+void	ft_putstr_fd(char *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
+}
+
+int	ft_isalpha(int c)
+{
+	return ((c >= 65 && c <= 90) || (c >= 97 && c <= 122));
+}
+
+int	ft_isalnum(int c)
+{
+	return (((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		|| (c >= 48 && c <= 57));
+}
+
+int	ft_isnum(int c)
+{
+	return ((c >= 48 && c <= 57));
+}
 

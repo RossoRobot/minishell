@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:08:44 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/04/19 14:28:56 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:43:10 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void    free_parse(t_shell *shell)
                 while (ptr)
                 {
                     ptr = ptr->next;
-                    free(shell->lists[i]->content);
-                    free(shell->lists[i]);
+                    if (shell->lists[i]->content)
+                        free(shell->lists[i]->content);
+                    if (shell->lists[i])
+                        free(shell->lists[i]);
                     shell->lists[i] = ptr;
                 }
                 i++;

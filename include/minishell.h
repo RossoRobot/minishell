@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/04/19 14:52:31 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/22 20:45:27 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/types.h>
 # include "builtins.h"
+# include <sys/wait.h>
 
 //delimiter characters
 # define DEL " "
@@ -99,5 +101,12 @@ void	mal_list(t_shell *shell);
 
 //free
 void    free_parse(t_shell *shell);
+
+//execute
+int	execute(t_shell *shell);
+int	prepare_execution(t_shell *shell, t_list *list);
+void	child_process(t_shell *shell, t_list *list, int *fd);
+int	execute_builtin(t_shell *shell, t_list *list);
+int	execute_no_pipe(t_shell *shell, t_list *list);
 
 #endif

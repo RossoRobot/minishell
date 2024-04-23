@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 08:21:43 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/19 14:52:02 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:58:37 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	free_exit(t_shell *data, int error_flag)
 			free(temp);
 	}
 	free_arr(data->env_arr);
-	free(data);
+	if (data)
+		free(data);
 	if (error_flag == 1)
 		exit(EXIT_FAILURE);
 }

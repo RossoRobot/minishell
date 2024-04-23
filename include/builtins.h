@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:25:27 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/19 14:51:04 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:34:51 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include "minishell.h"
 
+typedef struct s_list t_list;
 typedef struct s_shell t_shell;
 
 typedef struct	s_key_value
@@ -52,12 +53,20 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
+void	ft_putstr_fd(char *s, int fd);
+int		ft_isalpha(int c);
+int		ft_isalnum(int c);
+int		ft_isnum(int c);
 
 int		export(t_shell *data, char *str, char *key, char *value);
 int		replace_var(t_shell *data, char *key, char *value, int key_malloc_flag);
 int		unset(t_shell *data, char *str);
 int		delete_node(t_env *node);
 int		check_for_equal(char *str);
+int		check_export_str(t_shell *data, char *str);
+
+int		ft_exit(t_shell *shell, t_list *list);
+int		exit_code_check(char *str);
 
 void	free_exit(t_shell *data, int error_flag);
 char	*get_key(t_shell *data, char *str);
@@ -73,6 +82,12 @@ void	handle_empty_env(t_shell *data, char *key);
 int		ft_listsize(t_env *myenv);
 char	*join_key_value(t_env *temp, t_shell *data);
 char	**transform_list_to_arr(t_shell *data, t_env *myenv);
+
+int 	execute_export(t_shell *shell, t_list *list);
+int 	execute_env(t_shell *shell, t_list *list);
+int 	execute_unset(t_shell *shell, t_list *list);
+int 	execute_cd(t_shell *shell, t_list *list);
+
 
 
 #endif

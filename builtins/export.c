@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/19 14:51:33 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:50:06 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	replace_var(t_shell *data, char *key, char *value, int key_malloc_flag)
 		{
 			if (key_malloc_flag == 1)
 				free(key);
-			free(temp->key_value->value);
+			if (key_malloc_flag != 3)
+				free(temp->key_value->value);
 			if (value == NULL)
 				temp->key_value->value = NULL;
 			else
@@ -37,29 +38,59 @@ int	replace_var(t_shell *data, char *key, char *value, int key_malloc_flag)
 	return (-1);
 }
 
+int	check_export_str(t_shell *data, char *str)
+{
+	int	flag;
+
+	flag = 0;
+	if (ft_isalpha(*str) == 0)
+	{
+		ft_putstr_fd("export: `", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("'  not a valid identifier\n", 2);
+		flag = 1;
+	}
+	while (*str != '=' && *str == '\0')
+	{
+		if ((ft_isalnum(*str == 1) && (*(str++)) && (*(str++) == ' ')))
+			flag = 1;
+		str++;
+	}
+	if (*str == '=' && *(str++) == ' ')
+		flag = 1;
+	if (flag == -1)
+	{
+		ft_putstr_fd("export: `", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("'  not a valid identifier\n", 2);
+	}
+	return (flag);
+}
+
+
 int	export(t_shell *data, char *str, char *key, char *value)
 {
 	if ((!str && !key) || (str && str[0] == '\0'))
 	{
-		
 		print_myenv(data, 1);
-		free(str);
 		return (0);
 	}
 	if (str)
 	{
+		if (check_export_str(data, str) == -1)
+			return (-1);
 		key = get_key(data, str);
 		value = get_value(data, str);
 		if (!value && check_for_equal(str) == 0)
 		{
-			append_node(data, key, value, str, 1);
+			append_node(data, key, value, str, 0);
 			return (0);
 		}
 	}
 	if (replace_var(data, key, value, 1) == 0)
-		return (free(str), 0);
+		return (0);
 	else
-		append_node(data, key, value, str, 1);
+		append_node(data, key, value, str, 0);
 	return (0);
 }
 
@@ -68,7 +99,7 @@ int	check_for_equal(char *str)
 	int	i;
 
 	i = 0;
-	if (!str)
+	if (!str || str[0] == '\0')
 		return (-1);
 	while (str[i] != '\0')
 		i++;
@@ -118,7 +149,6 @@ int	unset(t_shell *data, char *str)
 		if (ft_strncmp(str, temp->key_value->key, ft_strlen(str)) == 0
 			&& flag == 0 && ft_strlen(str) == ft_strlen(temp->key_value->key))
 		{
-			free(str);
 			if (temp->previous == NULL && temp->next != NULL)
 				data->env_line = data->env_line->next;
 			else if (temp->previous == NULL && temp->next == NULL)
@@ -127,6 +157,5 @@ int	unset(t_shell *data, char *str)
 		}
 		temp = temp->next;
 	}
-	free(str);
 	return (0);
 }

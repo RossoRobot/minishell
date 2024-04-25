@@ -49,6 +49,19 @@ int	set_type(t_list *node)
 		node->type = exit_a;
 	else
 		node->type = command_a;
+	return (set_type2(node));
+}
+
+int	set_type2(t_list *node)
+{
+	if (!strncmp(node->content, ">", 10))
+		node->type = metachar_a;
+	else if (!strncmp(node->content, ">>", 10))
+		node->type = metachar_a;
+	else if (!strncmp(node->content, "<", 10))
+		node->type = metachar_a;
+	else if (!strncmp(node->content, "<<", 10))
+		node->type = metachar_a;
 	return (0);
 }
 

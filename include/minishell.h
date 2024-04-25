@@ -91,6 +91,8 @@ void 	set_flag(char *c, int *flag);
 int		expand(t_shell *shell, char *str, int	*flag);
 
 //define_type
+int		set_type(t_list *node);
+int		set_type2(t_list *node);
 void    define_type(t_shell *shell);
 
 int	check_input(char *str, t_shell *shell);

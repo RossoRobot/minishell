@@ -29,6 +29,8 @@ int	main(int argc, char **argv, char **envp)
 		cmd = readline("minishell$ ");
 		if (!cmd)
 			return (1);
+		if (cmd[0] != 0)
+			add_history(cmd);
 		parse(cmd, shell);
 		execute(shell);
 		free_parse(shell);

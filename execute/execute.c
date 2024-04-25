@@ -17,17 +17,17 @@ int	execute_builtin(t_shell *shell, t_list *list)
 	t_list *temp;
 
 	temp = list;
-	if (temp->type == 13)
+	if (temp->type == export_a)
 		execute_export(shell, temp);
-	if (temp->type == 15)
+	if (temp->type == env_a)
 		execute_env(shell, temp);
-	if (temp->type == 14)
+	if (temp->type == unset_a)
 		execute_unset(shell, temp);
-	if (temp->type == 11)
+	if (temp->type == cd_a)
 		execute_cd(shell, temp);
-	if (temp->type == 12)
+	if (temp->type == pwd_a)
 		pwd(shell);
-	if (temp->type == 16)
+	if (temp->type == exit_a)
 		ft_exit(shell, list);
 	return (0);
 }

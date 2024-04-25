@@ -85,6 +85,7 @@ void    define_type(t_shell *shell)
 		while (ptr)
 		{
 			ptr->type = text_a;
+			set_type2(ptr);
 			ptr = ptr->next;
 		}
 		i++;

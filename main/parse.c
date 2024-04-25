@@ -44,9 +44,8 @@ void	create_tokens(char *input, t_shell *shell)
 			flag = 0;
 			while (k-- != 0)
 				str++;
-			//go over first command
-			//str = skip_argument(str);
-			
+			if (*str == 0)
+				break ;
 			//go over tab/space/newline
 			str = skip_gap(str);
 			while (*str == '|')
@@ -76,8 +75,8 @@ void print_tokens(t_shell *shell)
 		ptr = shell->lists[i];
 		while (ptr)
 		{
-			printf("content: %s", ptr->content);
-			printf("type :%d\n", ptr->type);
+			printf("content: \"%s\"\n", ptr->content);
+			printf("   type:  %d\n", ptr->type);
 			ptr = ptr->next;
 		}
 		i++;
@@ -129,7 +128,7 @@ int parse(char *cmd, t_shell *shell)
 	//integrate extensions
 	create_tokens(cmd, shell);
 	define_type(shell);
-	//print_tokens(shell);
+	print_tokens(shell);
 	//free_parse(shell);
     return (0);
 }

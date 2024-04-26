@@ -18,7 +18,7 @@ int execute_export(t_shell *shell, t_list *list)
     t_list *temp;
 
     temp = list;
-    if (temp->next->next == NULL)
+    if (temp->next == NULL)
 			return(export(shell, NULL, NULL, NULL));
     // correct next line when kevin changes his code
 	while (temp->next->next != NULL)
@@ -32,8 +32,8 @@ int execute_export(t_shell *shell, t_list *list)
 
 int execute_env(t_shell *shell, t_list *list)
 {
-    // change this if statement after kevin changes his code
-    if (list->next->next)
+    // change this if statement after kevin changes his code| update Kevin: DONE
+    if (list->next)
     {
         if (list->next->content[0] == '-')
         {

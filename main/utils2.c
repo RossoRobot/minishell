@@ -35,7 +35,7 @@ char	*while_del(char *str)
 	return (str);
 }
 
-int	while_not_del(char *str, int flag, t_shell *shell)
+int	while_not_del(char *str, int flag, t_shell *shell, int *k)
 {
 	int	i;
 	int	exp;
@@ -50,12 +50,16 @@ int	while_not_del(char *str, int flag, t_shell *shell)
 		{
 			exp = expand(shell, &str[i + 1], &len);
 			free(shell->exp_str);
+			printf("while_not_del: %d\n", i);
 			i = i +  (len - 1);
+			printf("while_not_del: %d\n", i);
+			printf("while_not_del: %d\n", len);
 		}
 		i++;
 		set_flag(&str[i], &flag);
 	}
-	return (i + exp);
+	*k = i;
+	return (i + exp - len);
 }
 
 void	set_flag(char *c, int *flag)
@@ -101,7 +105,7 @@ int	expand(t_shell *shell, char *str, int	*len)
 		i++;
 	}
 	tmp[i] = '\0';
-	*len = i;
+	*len = i + 1;
 	shell->exp_str = my_getenv(shell, tmp, 1);
 	if (!shell->exp_str)
 		return (0);

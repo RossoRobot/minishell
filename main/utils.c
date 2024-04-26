@@ -20,6 +20,8 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 	int		len;
 	int		n;
 
+	if (!str)
+		return (NULL);
 	start = (t_list *) malloc (sizeof(t_list));
 	if (!start)
 		return (NULL);
@@ -29,11 +31,11 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 	//check if str starts with a "-sign or '-sign
 	set_flag(&str[0], &flag);
 	//while NOT a delimiter, count str length
-	i = while_not_del(str, flag, shell);
+	i = while_not_del(str, flag, shell, k);
 	start->content = (char *) malloc (sizeof(char) * (i + 1));
 	if (!start->content)
 		return (NULL);
-	*k = i;
+	//*k = i;
 	i = 0;
 	len = 0;
 	n = 0;
@@ -47,13 +49,17 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 				start->content[i + n] = shell->exp_str[n];
 				n++;
 			}
-			free(shell->exp_str);
+			if (shell->exp_str)
+				free(shell->exp_str);
+			i = i + len;
+			if (str[i] && (check_del(str[i], flag) == 0) && str[i] != '\n')
+				break ;
 		}
-		start->content[i + n] = str[i + len];
+		start->content[i + n] = str[i];
 		i++;
 		set_flag(&str[i], &flag);
 	}
-	start->content[i] = '\0';
+	start->content[i + n] = '\0';
 	start->type = text_a;
 	start->next = NULL;
 	return (start);

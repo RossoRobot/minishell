@@ -75,7 +75,7 @@ void print_tokens(t_shell *shell)
 		ptr = shell->lists[i];
 		while (ptr)
 		{
-			printf("content: \"%s\"\n", ptr->content);
+			printf("content: %s\n", ptr->content);
 			printf("   type:  %d\n", ptr->type);
 			ptr = ptr->next;
 		}

@@ -86,7 +86,7 @@ int		check_del(char	chr, int flag);
 char    *skip_argument(char *str);
 char    *skip_gap(char *str);
 char  	*while_del(char *str);
-int 	while_not_del(char *str, int flag, t_shell *shell, int *k);
+int 	while_not_del(char *str, int *flag, t_shell *shell, int *k);
 void 	set_flag(char *c, int *flag);
 int		expand(t_shell *shell, char *str, int	*flag);
 

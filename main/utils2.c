@@ -35,7 +35,7 @@ char	*while_del(char *str)
 	return (str);
 }
 
-int	while_not_del(char *str, int flag, t_shell *shell, int *k)
+int	while_not_del(char *str, int *flag, t_shell *shell, int *k)
 {
 	int	i;
 	int	exp;
@@ -44,21 +44,20 @@ int	while_not_del(char *str, int flag, t_shell *shell, int *k)
 	i = 0;
 	exp = 0;
 	len = 0;
-	while (str[i] && (check_del(str[i], flag) == 0) && str[i] != '\n')
+	while (str[i] && (check_del(str[i], *flag) == 0) && str[i] != '\n')
 	{
+		//printf("while_not_del str[i]: %c\n", str[i]);
 		if (str[i] == '$' && str[i + 1] != '\n' && str[i + 1] != '\0')
 		{
 			exp = expand(shell, &str[i + 1], &len);
 			free(shell->exp_str);
-			printf("while_not_del: %d\n", i);
 			i = i +  (len - 1);
-			printf("while_not_del: %d\n", i);
-			printf("while_not_del: %d\n", len);
 		}
 		i++;
-		set_flag(&str[i], &flag);
+		set_flag(&str[i], flag);
 	}
 	*k = i;
+	//printf("while_not_del i, exp, len: %d, %d, %d\n", i, exp, len);
 	return (i + exp - len);
 }
 

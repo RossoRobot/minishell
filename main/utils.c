@@ -31,7 +31,8 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 	//check if str starts with a "-sign or '-sign
 	set_flag(&str[0], &flag);
 	//while NOT a delimiter, count str length
-	i = while_not_del(str, flag, shell, k);
+	i = while_not_del(str, &flag, shell, k);
+	//printf("newlist first i: %d\n", i);
 	start->content = (char *) malloc (sizeof(char) * (i + 1));
 	if (!start->content)
 		return (NULL);
@@ -39,6 +40,7 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 	i = 0;
 	len = 0;
 	n = 0;
+	set_flag(&str[0], &flag);
 	while (str[i] && (check_del(str[i], flag) == 0) && str[i] != '\n')
 	{
 		if (str[i] == '$' && str[i + 1] != '\n' && str[i + 1] != '\0')
@@ -51,13 +53,22 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 			}
 			if (shell->exp_str)
 				free(shell->exp_str);
-			i = i + len;
-			if (str[i] && (check_del(str[i], flag) == 0) && str[i] != '\n')
-				break ;
+			//printf("newlist len: %d\n", len);
+			while (len-- != 0)
+				str++;
+			//printf("newlist str: \"%s\"\n", str);
+			//printf("newlist str[i]: %c\n", str[i]);
+			//printf("newlist del?: %d\n", (check_del(str[i], flag)));
+			//printf("newlst flag: %d\n", flag);
+			if (str[i] && (check_del(str[i], flag) == 1) && str[i] != '\n' && flag == 0)
+				continue ;
 		}
+		//printf("newlist i, n, i+n: %d, %d, %d\n", i, n, i+n);
 		start->content[i + n] = str[i];
+		//printf("newlist content: \"%s\"\n", start->content);
 		i++;
 		set_flag(&str[i], &flag);
+		//printf("newlist flag: \"%d\"\n", flag);
 	}
 	start->content[i + n] = '\0';
 	start->type = text_a;

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 14:00:52 by kbrauer           #+#    #+#              #
-#    Updated: 2024/04/22 20:41:55 by mvolgger         ###   ########.fr        #
+#    Updated: 2024/04/29 10:36:46 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FLAGS = -lreadline -g #-Wall -Wextra -Werror 
+FLAGS = -g  #-Wall -Wextra -Werror 
 
 MAIN_DIR = ./main
 
@@ -34,7 +34,7 @@ OBJS = $(SRCS:.c=.o)
 	cc -g -c $< -o $(<:.c=.o)
 
 $(NAME): $(OBJS)
-		cc  $(FLAGS) -o $@ $(OBJS)
+		cc $(FLAGS) -o $@ $(OBJS) -lreadline
 
 $(LIBFT):
 		make -C all

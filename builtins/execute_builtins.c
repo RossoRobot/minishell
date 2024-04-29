@@ -64,12 +64,13 @@ int execute_unset(t_shell *shell, t_list *list)
 }
 int execute_cd(t_shell *shell, t_list *list)
 {
-    //also change this when kevin changes his code
-    if (list->next && list->next->next && list->next->next->next)
+    if (list->next && list->next->next)
     {
         ft_putstr_fd("cd: too many arguments\n", 2);
         return (-1);
     }
+    if (!list->next)
+        return (change_directory(shell, NULL));
     else
         return (change_directory(shell, list->next->content));
 }

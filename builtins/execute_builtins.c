@@ -21,7 +21,7 @@ int execute_export(t_shell *shell, t_list *list)
     if (temp->next == NULL)
 			return(export(shell, NULL, NULL, NULL));
     // correct next line when kevin changes his code
-	while (temp->next->next != NULL)
+	while (temp->next != NULL)
 	{
         //printf("execute export%s\n", temp->next->content);
 		export(shell, temp->next->content, NULL, NULL);
@@ -55,7 +55,7 @@ int execute_env(t_shell *shell, t_list *list)
 
 int execute_unset(t_shell *shell, t_list *list)
 {
-    while (list->next->next != NULL)
+    while (list->next != NULL)
     {
         unset(shell, list->next->content);
         list = list->next;

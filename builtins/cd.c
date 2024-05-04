@@ -29,7 +29,7 @@ char	*my_getenv(t_shell *data, char *str, int mallocflag)
 		{
 			env_value = ft_strdup(data, temp->key_value->value);
 			if (mallocflag == 1)
-				free(str);
+				free_to_null(&str);
 			return (env_value);
 		}
 		temp = temp->next; 

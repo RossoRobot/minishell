@@ -32,8 +32,7 @@ int	start_expansion(t_shell *shell)
 				len_str = mal_dollar(shell, &ptr->content[n]);
 				ptr->content = replace_dollar(shell, ptr->content, len_str);//replace $HOME with expanded str
 			} 
-			else
-				n++;
+			n++;
 		}
 		ptr = ptr->next;
 		if (!ptr)
@@ -65,8 +64,8 @@ int	mal_dollar(t_shell *shell, char *str)
 	if (shell->exp_str)
 		free_to_null(&shell->exp_str);
 	shell->exp_str = my_getenv(shell, tmp, 1);
-	if (!shell->exp_str)
-		return (0);
+	if (tmp)
+		free_to_null(&str);
 	return (i);
 }
 
@@ -110,10 +109,10 @@ int	replace_dollar_str(t_shell *shell, char *tmp)
 
 	i = 0;
 	n = 0;
+	if (!shell->exp_str)
+		return (-1);
 	while (shell->exp_str[n])
 	{
-		//printf("replace_dollar_str tmp[i]: %c\n", tmp[i]);
-		//printf("replace_dollar_str shell->exp_str[n]: %c\n", shell->exp_str[n]);
 		tmp[i] = shell->exp_str[n];
 		i++;
 		n++;

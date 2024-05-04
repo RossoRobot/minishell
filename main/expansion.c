@@ -17,28 +17,31 @@ int	start_expansion(t_shell *shell)
 	int		i;
 	int		n;
 	int		len_str;
-	t_list	**ptr;
+	t_list	*ptr;
 
 	i = 0;
-	n = 0;
 	len_str = 0;
-	ptr = shell->lists;
-	while (ptr[i])
+	ptr = shell->lists[i];
+	while (ptr)
 	{
-		while (ptr[i]->content[n])
+		n = 0;
+		while (ptr->content[n])
 		{
-			if (ptr[i]->content[n] == '$')
+			if (ptr->content[n] == '$')
 			{
-				len_str = mal_dollar(shell, &ptr[i]->content[n]);
-				ptr[i]->content = replace_dollar(shell, ptr[i]->content, len_str, &ptr[i]->content);//replace $HOME with expanded str
-				continue;//n = n + len_str;//increase n by length of $HOME
-			}
-			n++;
+				len_str = mal_dollar(shell, &ptr->content[n]);
+				ptr->content = replace_dollar(shell, ptr->content, len_str);//replace $HOME with expanded str
+			} 
+			else
+				n++;
 		}
-		i++;
+		ptr = ptr->next;
+		if (!ptr)
+			ptr = shell->lists[++i];
 	}
 	return (0);
 }
+
 //create shell->exp_str and return length of dollar str ($HOME = 5)
 int	mal_dollar(t_shell *shell, char *str)
 {
@@ -59,15 +62,15 @@ int	mal_dollar(t_shell *shell, char *str)
 		i++;
 	}
 	tmp[i] = '\0';
-	//if (shell->exp_str)
-	//	free (shell->exp_str);
+	if (shell->exp_str)
+		free_to_null(&shell->exp_str);
 	shell->exp_str = my_getenv(shell, tmp, 1);
 	if (!shell->exp_str)
 		return (0);
 	return (i);
 }
 
-char	*replace_dollar(t_shell *shell, char *str, int len, char **ptr)
+char	*replace_dollar(t_shell *shell, char *str, int len)
 {
 	int		i;
 	int		n;
@@ -93,7 +96,7 @@ char	*replace_dollar(t_shell *shell, char *str, int len, char **ptr)
 		n++;
 	}
 	tmp[n] = '\0';
-	//free (ptr);
+	free (str);
 	//printf("replace_dollar *ptr: %s\n", *ptr);
 	//printf("replace_dollar tmp: %s\n", tmp);
 	// *ptr = tmp;

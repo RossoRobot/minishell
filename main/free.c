@@ -39,4 +39,12 @@ void	free_parse(t_shell *shell)
 		}
 		free(shell->lists);
 	}
+	if (shell->exp_str)
+		free_to_null(&shell->exp_str);
+}
+
+void	free_to_null(char **var)
+{
+	free(*var);
+	*var = NULL;
 }

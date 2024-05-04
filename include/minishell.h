@@ -78,7 +78,7 @@ void	mal_list(t_shell *shell);
 //expansion
 int		start_expansion(t_shell *shell);
 int		mal_dollar(t_shell *shell, char *str);
-char	*replace_dollar(t_shell *shell, char *str, int len, char **ptr);
+char	*replace_dollar(t_shell *shell, char *str, int len);
 int		replace_dollar_str(t_shell *shell, char *tmp);
 
 
@@ -112,6 +112,7 @@ void	mal_list(t_shell *shell);
 
 //free
 void    free_parse(t_shell *shell);
+void	free_to_null(char **var);
 
 //execute
 int	execute(t_shell *shell);

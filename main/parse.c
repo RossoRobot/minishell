@@ -25,16 +25,18 @@ void	create_tokens(char *input, t_shell *shell)
 	int		i;
 	int		k;
 	int		flag;
+	int		pipes;
 	char	*str;
 	t_list	*tmp;
 	
 	i = 0;
 	k = 0;
+	pipes = shell->n_pipes;
 	str = input;
 	//malloc pointers for lists
 	mal_list(shell);
 	//create list, store beginning (address) of first command
-	while (shell->n_pipes + 1)
+	while (pipes + 1)
 	{
 		//ignore tab/space/newline at beginning of string
 		str = skip_gap(str);
@@ -59,7 +61,7 @@ void	create_tokens(char *input, t_shell *shell)
 			ft_lstadd_back(shell->lists[i], tmp);
 		}
 		i++;
-		shell->n_pipes--;
+		pipes--;
 	}
 }
 
@@ -77,6 +79,7 @@ void print_tokens(t_shell *shell)
 		{
 			printf("content: %s\n", ptr->content);
 			printf("   type:  %d\n", ptr->type);
+			//printf("   next:  %d\n", ptr->next);
 			ptr = ptr->next;
 		}
 		i++;
@@ -117,8 +120,8 @@ int	init_values(t_shell *shell)
 	shell->env_arr = NULL;
 	shell->lists = NULL;
 	shell->n_pipes = 0;
-	if (shell->exp_str)
-		free(shell->exp_str);
+	//if (shell->exp_str)
+	//	free(shell->exp_str);
 	return (0);
 }
 

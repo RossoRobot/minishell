@@ -15,24 +15,6 @@
 
 int	set_type(t_list *node)
 {
-	/*
-	if (!strncmp(node->content, "echo", 10) ||
-		!strncmp(node->content, "cd", 10) ||
-		!strncmp(node->content, "pwd", 10) ||
-		!strncmp(node->content, "export", 10) ||
-		!strncmp(node->content, "unset", 10) ||
-		!strncmp(node->content, "env", 10) ||
-		!strncmp(node->content, "exit", 10))
-			node->type = command;
-	else if (!strncmp(node->content, "|", 10) ||
-		!strncmp(node->content, ">", 10) ||
-		!strncmp(node->content, ">>", 10) ||
-		!strncmp(node->content, "<", 10) ||
-		!strncmp(node->content, "<<", 10))
-			node->type = metachar;
-	else
-		node->type = text;
-	*/
 	if (!strncmp(node->content, "echo", 10))
 		node->type = echo_a;
 	else if (!strncmp(node->content, "cd", 10))

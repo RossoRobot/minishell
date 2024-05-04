@@ -12,6 +12,42 @@
 
 #include "./../include/minishell.h"
 
+
+t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
+{
+	t_list	*start;
+	int		i;
+	int		flag;
+
+	if (!str)
+		return (NULL);
+	start = (t_list *) malloc (sizeof(t_list));
+	if (!start)
+		return (NULL);
+	flag = 0;
+	//while a delimiter
+	str = while_del(str);
+	//check if str starts with a "-sign or '-sign
+	set_flag(&str[0], &flag);
+	//while NOT a delimiter, count str length
+	i = while_not_del(str, &flag, shell, k);
+	start->content = (char *) malloc (sizeof(char) * (i + 1));
+	if (!start->content)
+		return (NULL);
+	i = 0;
+	set_flag(&str[0], &flag);
+	while (str[i] && (check_del(str[i], flag) == 0) && str[i] != '\n')
+	{
+		start->content[i] = str[i];
+		i++;
+		set_flag(&str[i], &flag);
+	}
+	start->content[i] = '\0';
+	start->next = NULL;
+	return (start);
+}
+
+/*
 t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 {
 	t_list	*start;
@@ -36,11 +72,13 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 	start->content = (char *) malloc (sizeof(char) * (i + 1));
 	if (!start->content)
 		return (NULL);
-	//*k = i;
+	// *k = i;
 	i = 0;
 	len = 0;
 	n = 0;
 	set_flag(&str[0], &flag);
+	printf("newlist str[i]: %c\n", str[i]);
+	printf("newlist flag: %d\n", flag);
 	while (str[i] && (check_del(str[i], flag) == 0) && str[i] != '\n')
 	{
 		if (str[i] == '$' && str[i + 1] != '\n' && str[i + 1] != '\0')
@@ -66,6 +104,7 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 		//printf("newlist i, n, i+n: %d, %d, %d\n", i, n, i+n);
 		start->content[i + n] = str[i];
 		//printf("newlist content: \"%s\"\n", start->content);
+		printf("newlist str[i]: %c\n", str[i]);
 		i++;
 		set_flag(&str[i], &flag);
 		//printf("newlist flag: \"%d\"\n", flag);
@@ -75,6 +114,7 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 	start->next = NULL;
 	return (start);
 }
+*/
 
 void	ft_lstadd_back(t_list *lst, t_list *new)
 {

@@ -12,32 +12,31 @@
 
 #include "./../include/minishell.h"
 
-void    free_parse(t_shell *shell)
+void	free_parse(t_shell *shell)
 {
-    int     i;
-    t_list  *ptr;
+	int		i;
+	t_list	*ptr;
 
-    i = 0;
-    if (shell->lists)
-    {
-        if (shell->lists[i])
-        {
-
-            while (shell->lists[i])
-            {
-                ptr = shell->lists[i];
-                while (ptr)
-                {
-                    ptr = ptr->next;
-                    if (shell->lists[i]->content)
-                        free(shell->lists[i]->content);
-                    if (shell->lists[i])
-                        free(shell->lists[i]);
-                    shell->lists[i] = ptr;
-                }
-                i++;
-            }
-        }
-        free(shell->lists);
-    }
+	i = 0;
+	if (shell->lists)
+	{
+		if (shell->lists[i])
+		{
+			while (shell->lists[i])
+			{
+				ptr = shell->lists[i];
+				while (ptr)
+				{
+					ptr = ptr->next;
+					if (shell->lists[i]->content)
+						free(shell->lists[i]->content);
+					if (shell->lists[i])
+						free(shell->lists[i]);
+					shell->lists[i] = ptr;
+				}
+				i++;
+			}
+		}
+		free(shell->lists);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 20:38:55 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/23 18:44:27 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/04 15:35:46 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ int execute_unset(t_shell *shell, t_list *list)
 }
 int execute_cd(t_shell *shell, t_list *list)
 {
+    char    *str;
+
+    str = NULL;
     if (list->next && list->next->next)
     {
         ft_putstr_fd("cd: too many arguments\n", 2);
@@ -72,5 +75,8 @@ int execute_cd(t_shell *shell, t_list *list)
     if (!list->next)
         return (change_directory(shell, NULL));
     else
-        return (change_directory(shell, list->next->content));
+    {
+        str = ft_strdup(shell, list->next->content);
+        return (change_directory(shell, str));
+    }
 }

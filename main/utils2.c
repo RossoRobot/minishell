@@ -46,18 +46,16 @@ int	while_not_del(char *str, int *flag, t_shell *shell, int *k)
 	len = 0;
 	while (str[i] && (check_del(str[i], *flag) == 0) && str[i] != '\n')
 	{
-		//printf("while_not_del str[i]: %c\n", str[i]);
-		if (str[i] == '$' && str[i + 1] != '\n' && str[i + 1] != '\0')
-		{
-			exp = expand(shell, &str[i + 1], &len);
-			free(shell->exp_str);
-			i = i +  (len - 1);
-		}
+		// if (str[i] == '$' && str[i + 1] != '\n' && str[i + 1] != '\0')
+		// {
+		// 	exp = expand(shell, &str[i + 1], &len);
+		// 	free(shell->exp_str);
+		// 	i = i +  (len - 1);
+		// }
 		i++;
 		set_flag(&str[i], flag);
 	}
 	*k = i;
-	//printf("while_not_del i, exp, len: %d, %d, %d\n", i, exp, len);
 	return (i + exp - len);
 }
 

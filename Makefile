@@ -26,6 +26,7 @@ SRCS = $(MAIN_DIR)/main.c $(MAIN_DIR)/utils.c $(MAIN_DIR)/utils2.c \
 	$(BI_DIR)/libft_helpers.c $(BI_DIR)/list_init.c \
 	$(BI_DIR)/list_to_arr.c $(BI_DIR)/pwd.c $(MAIN_DIR)/parse.c \
 	$(EXEC_DIR)/execute.c $(BI_DIR)/execute_builtins.c \
+	$(MAIN_DIR)/expansion.c
 	
 	
 OBJS = $(SRCS:.c=.o)

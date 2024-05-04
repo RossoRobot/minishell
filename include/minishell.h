@@ -24,7 +24,7 @@
 # include <sys/wait.h>
 
 //delimiter characters
-# define DEL " "
+# define DEL " |"
 
 typedef	struct s_env t_env;
 typedef struct s_key_value t_key_value;
@@ -75,6 +75,13 @@ void 	print_tokens(t_shell *shell);
 void	create_tokens(char *input, t_shell *shell);
 void	mal_list(t_shell *shell);
 
+//expansion
+int		start_expansion(t_shell *shell);
+int		mal_dollar(t_shell *shell, char *str);
+char	*replace_dollar(t_shell *shell, char *str, int len, char **ptr);
+int		replace_dollar_str(t_shell *shell, char *tmp);
+
+
 //utils
 t_list	*ft_lstnew(char *content, int *k, t_shell *shell);
 void	ft_lstadd_back(t_list *lst, t_list *neu);
@@ -95,11 +102,13 @@ int		set_type(t_list *node);
 int		set_type2(t_list *node);
 void    define_type(t_shell *shell);
 
+/*
 int	check_input(char *str, t_shell *shell);
 int	init_values(t_shell *shell);
 int parse(char *cmd, t_shell *shell);
 void	create_tokens(char *input, t_shell *shell);
 void	mal_list(t_shell *shell);
+*/
 
 //free
 void    free_parse(t_shell *shell);
@@ -111,4 +120,4 @@ void	child_process(t_shell *shell, t_list *list, int *fd);
 int	execute_builtin(t_shell *shell, t_list *list);
 int	execute_no_pipe(t_shell *shell, t_list *list);
 
-#endif
+# endif

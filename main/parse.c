@@ -115,9 +115,10 @@ int	check_input(char *str, t_shell *shell)
 int	init_values(t_shell *shell)
 {
 	shell->env_arr = NULL;
-	shell->exp_str = NULL;
 	shell->lists = NULL;
 	shell->n_pipes = 0;
+	if (shell->exp_str)
+		free(shell->exp_str);
 	return (0);
 }
 
@@ -127,6 +128,7 @@ int parse(char *cmd, t_shell *shell)
     check_input(cmd, shell);
 	//integrate extensions
 	create_tokens(cmd, shell);
+	start_expansion(shell);
 	define_type(shell);
 	print_tokens(shell);
 	//free_parse(shell);

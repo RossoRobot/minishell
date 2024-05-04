@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	shell = (t_shell*) malloc (sizeof(t_shell));
 	if (!shell)
 		return (0);
+	shell->exp_str = NULL;
 	init_values(shell);
 	shell->env_line = NULL;
 	env_duplicate(shell, envp);

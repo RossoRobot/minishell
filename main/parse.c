@@ -131,7 +131,8 @@ int parse(char *cmd, t_shell *shell)
     check_input(cmd, shell);
 	//integrate extensions
 	create_tokens(cmd, shell);
-	start_expansion(shell);
+	expansion(shell);
+	unquote(shell);
 	define_type(shell);
 	print_tokens(shell);
 	//free_parse(shell);

@@ -12,7 +12,7 @@
 
 #include "./../include/minishell.h"
 
-int	start_expansion(t_shell *shell)
+int	expansion(t_shell *shell)
 {
 	int		i;
 	int		n;
@@ -27,7 +27,7 @@ int	start_expansion(t_shell *shell)
 		while (ptr->content[n])
 		{
 			len_str = 0;
-			if (ptr->content[n] == '$')
+			if (ptr->content[n] == '$' && ptr->content[0] != '\'')
 			{
 				len_str = mal_dollar(shell, &ptr->content[n]);
 				ptr->content = replace_dollar(shell, ptr->content, len_str);//replace $HOME with expanded str

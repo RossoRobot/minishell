@@ -83,7 +83,7 @@ void	set_flag(char *c, int *flag)
 		return;
 	}
 }
-
+/*
 int	expand(t_shell *shell, char *str, int	*len)
 {
 	int	i;
@@ -108,3 +108,4 @@ int	expand(t_shell *shell, char *str, int	*len)
 		return (0);
 	return (ft_strlen(shell->exp_str));
 }
+*/

@@ -76,7 +76,7 @@ void	create_tokens(char *input, t_shell *shell);
 void	mal_list(t_shell *shell);
 
 //expansion
-int		start_expansion(t_shell *shell);
+int		expansion(t_shell *shell);
 int		mal_dollar(t_shell *shell, char *str);
 char	*replace_dollar(t_shell *shell, char *str, int len);
 int		replace_dollar_str(t_shell *shell, char *tmp);
@@ -102,6 +102,9 @@ int		set_type(t_list *node);
 int		set_type2(t_list *node);
 void    define_type(t_shell *shell);
 
+//unquote
+void	unquote(t_shell *shell);
+
 /*
 int	check_input(char *str, t_shell *shell);
 int	init_values(t_shell *shell);
@@ -115,10 +118,10 @@ void    free_parse(t_shell *shell);
 void	free_to_null(char **var);
 
 //execute
-int	execute(t_shell *shell);
-int	prepare_execution(t_shell *shell, t_list *list);
+int		execute(t_shell *shell);
+int		prepare_execution(t_shell *shell, t_list *list);
 void	child_process(t_shell *shell, t_list *list, int *fd);
-int	execute_builtin(t_shell *shell, t_list *list);
-int	execute_no_pipe(t_shell *shell, t_list *list);
+int		execute_builtin(t_shell *shell, t_list *list);
+int		execute_no_pipe(t_shell *shell, t_list *list);
 
 # endif

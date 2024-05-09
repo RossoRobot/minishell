@@ -12,7 +12,6 @@
 
 #include "./../include/minishell.h"
 
-
 t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 {
 	t_list	*start;

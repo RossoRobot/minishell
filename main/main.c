@@ -33,7 +33,6 @@ int	main(int argc, char **argv, char **envp)
 		if (cmd[0] != 0)
 			add_history(cmd);
 		parse(cmd, shell);
-		printf("ok: %d\n", shell->n_pipes);
 		//execute(shell);
 		free_parse(shell);
 		

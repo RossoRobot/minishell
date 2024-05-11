@@ -17,9 +17,11 @@ int	expansion(t_shell *shell)
 	int		i;
 	int		n;
 	int		len_str;
+	int		flag;
 	t_list	*ptr;
 
 	i = 0;
+	flag = 0;
 	ptr = shell->lists[i];
 	while (ptr)
 	{
@@ -27,11 +29,13 @@ int	expansion(t_shell *shell)
 		while (ptr->content[n])
 		{
 			len_str = 0;
-			if (ptr->content[n] == '$' && ptr->content[0] != '\'')
+			set_flag(&ptr->content[n], &flag);
+			if (ptr->content[n] == '$' && flag != 1)
 			{
 				len_str = mal_dollar(shell, &ptr->content[n]);
 				ptr->content = replace_dollar(shell, ptr->content, len_str);//replace $HOME with expanded str
 				n = -1;
+				flag = 0;
 			}
 			n++;
 		}
@@ -89,11 +93,12 @@ char	*replace_dollar(t_shell *shell, char *str, int len)
 	while (str[i])
 	{
 		tmp[n] = str[i];
-		if (str[i] == '$' && flag == 0)
+		set_flag(&str[i], &flag);
+		if (str[i] == '$' && (flag == 0 || flag == 2))
 		{
 			n = n + replace_dollar_str(shell, &tmp[n]);
 			i = i + len;
-			flag++;
+			flag = 3;
 		}
 		i++;
 		n++;

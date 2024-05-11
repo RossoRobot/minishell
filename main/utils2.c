@@ -12,15 +12,6 @@
 
 #include "./../include/minishell.h"
 
-/*
-char    *skip_argument(char *str)
-{
-  while ((*str != 9 && *str != 10 && *str != 32) && *str)
-		str++;
-  return (str);
-}
-*/
-
 char	*skip_gap(char *str)
 {
 	while ((*str == 9 || *str == 10 || *str == 32) && *str)

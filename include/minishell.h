@@ -20,8 +20,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
-# include "builtins.h"
 # include <sys/wait.h>
+# include "builtins.h"
 
 //delimiter characters
 # define DEL " |"
@@ -55,7 +55,7 @@ typedef struct s_list
 	char			*content;
 	t_tokentype		type;
 	struct s_list	*next;
-}					t_list;
+}	t_list;
 
 typedef struct s_shell
 {
@@ -81,12 +81,9 @@ int		mal_dollar(t_shell *shell, char *str);
 char	*replace_dollar(t_shell *shell, char *str, int len);
 int		replace_dollar_str(t_shell *shell, char *tmp);
 
-
 //utils
 t_list	*ft_lstnew(char *content, int *k, t_shell *shell);
 void	ft_lstadd_back(t_list *lst, t_list *neu);
-
-// int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		check_del(char	chr, int flag);
 
 //utils2
@@ -95,7 +92,6 @@ char    *skip_gap(char *str);
 char  	*while_del(char *str);
 int 	while_not_del(char *str, int *flag, t_shell *shell, int *k);
 void 	set_flag(char *c, int *flag);
-int		expand(t_shell *shell, char *str, int	*flag);
 
 //define_type
 int		set_type(t_list *node);
@@ -104,14 +100,7 @@ void    define_type(t_shell *shell);
 
 //unquote
 void	unquote(t_shell *shell);
-
-/*
-int	check_input(char *str, t_shell *shell);
-int	init_values(t_shell *shell);
-int parse(char *cmd, t_shell *shell);
-void	create_tokens(char *input, t_shell *shell);
-void	mal_list(t_shell *shell);
-*/
+char	*del_quote(char *str);
 
 //free
 void    free_parse(t_shell *shell);

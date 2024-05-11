@@ -46,12 +46,6 @@ int	while_not_del(char *str, int *flag, t_shell *shell, int *k)
 	len = 0;
 	while (str[i] && (check_del(str[i], *flag) == 0) && str[i] != '\n')
 	{
-		// if (str[i] == '$' && str[i + 1] != '\n' && str[i + 1] != '\0')
-		// {
-		// 	exp = expand(shell, &str[i + 1], &len);
-		// 	free(shell->exp_str);
-		// 	i = i +  (len - 1);
-		// }
 		i++;
 		set_flag(&str[i], flag);
 	}
@@ -83,29 +77,3 @@ void	set_flag(char *c, int *flag)
 		return;
 	}
 }
-/*
-int	expand(t_shell *shell, char *str, int	*len)
-{
-	int	i;
-	char *tmp;
-
-	i = 0;
-	while (str[i] != ' ' && str[i] != '\n' && str[i] != '\'' && str[i] != '\"' && str[i] != '\0')
-		i++;
-	tmp = (char *) malloc (sizeof(char) + (i + 1));
-	if (!tmp)
-		return(-1);
-	i = 0;
-	while (str[i] != ' ' && str[i] != '\n' && str[i] != '\'' && str[i] != '\"' && str[i] != '\0')
-	{
-		tmp[i] = str[i];
-		i++;
-	}
-	tmp[i] = '\0';
-	*len = i + 1;
-	shell->exp_str = my_getenv(shell, tmp, 1);
-	if (!shell->exp_str)
-		return (0);
-	return (ft_strlen(shell->exp_str));
-}
-*/

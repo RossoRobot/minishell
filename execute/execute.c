@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/23 19:33:44 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/15 10:04:57 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,86 @@ int	prepare_execution(t_shell *shell, t_list *list)
 	return (0);
 }
 
+char	**transform_list(t_shell *shell, t_list *list)
+{
+	t_list	*temp;
+	char	**arr;
+	int		i;
+	int		j;
+
+	temp = list;
+	i = 0;
+	j = 0;
+	while (temp)
+	{
+		temp = temp->next;
+		i++;	
+	}
+	temp = list;
+	arr = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!arr)
+		free_exit(shell, 0);
+	arr[i] = NULL;
+	while (j < i)
+	{
+		arr[j] = ft_strdup(shell, temp->content);
+		temp = temp->next;
+		j++;	
+	}
+	return (arr);
+}
+
+char	**trans_argv(t_shell *shell, t_list *list)
+{
+	int		i;
+	int		j;
+	char	**args;
+	t_list	*temp;
+
+	i = 0;
+	j = 0;
+	temp = list;
+	while (temp)
+	{
+		temp = temp->next;
+		i++;	
+	}
+	args = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!args)
+		free_exit(shell, 0);
+	args[i] = NULL;
+	temp = list;
+	while (j < i)
+	{
+		args[j] = ft_strdup(shell, temp->content);
+		temp = temp->next;
+		j++;
+	}
+	return (args);
+}
+
+int	execute_binary(t_shell *shell, t_list *list)
+{
+	char	**exec_arr;
+	char	**argv;
+	char	*path;
+	
+	exec_arr = transform_list(shell, list);
+	if (!exec_arr)
+		free_exit(shell, 0);
+	path = get_path(shell, list);
+	argv = trans_argv(shell, list);
+	execve(path, argv, exec_arr);
+	
+	return (0);
+}
+
 int	execute_no_pipe(t_shell *shell, t_list *list)
 {
 	if (list->type >= 10 && list->type <= 16)
 		execute_builtin(shell, list);
+	else
+		execute_binary(shell, list);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/16 12:16:07 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:13:17 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,9 @@ int	execute_binary(t_shell *shell, t_list *list)
 {
 	char	**argv;
 	char	*path;
+	int i = 0;
 	
-	shell->env_arr = transform_list(shell, list);
+	shell->env_arr = transform_list_to_arr(shell, shell->env_line);
 	if (!(shell->env_arr))
 		free_exit(shell, 0);
 	path = get_path(shell, list);

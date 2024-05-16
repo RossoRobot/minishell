@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/04/22 20:45:27 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/16 11:58:18 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ typedef enum e_tokentype
 	env_a = 15,
 	exit_a = 16,
 }	t_tokentype;
+
+typedef	struct 	s_pids
+{
+	pid_t			*pid;
+	struct t_pids 	*next;
+}				t_pids;
 
 typedef struct s_token
 {
@@ -112,5 +118,14 @@ int		prepare_execution(t_shell *shell, t_list *list);
 void	child_process(t_shell *shell, t_list *list, int *fd);
 int		execute_builtin(t_shell *shell, t_list *list);
 int		execute_no_pipe(t_shell *shell, t_list *list);
+char	**transform_list(t_shell *shell, t_list *list);
+int		execute_binary(t_shell *shell, t_list *list);
+
+char	**ft_split(const char *s1, char c);
+char    *path_access(t_shell *shell, t_list *list, char **arr);
+char    *get_path(t_shell *shell, t_list *list);
+
+int		execute_no_pipe(t_shell *shell, t_list *list);
+void	execute_onechild(t_shell *shell, t_list *list, int *fd);
 
 # endif

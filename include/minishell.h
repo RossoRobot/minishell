@@ -17,10 +17,12 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <string.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include "builtins.h"
 
 //delimiter characters

@@ -37,6 +37,10 @@ typedef enum e_tokentype
 	metachar_a = 1,
 	text_a = 2,
 	flag_a = 3,
+	re_in = 4,
+	re_out = 5,
+	he_doc = 6,
+	out_app = 7,
 	echo_a = 10,
 	cd_a = 11,
 	pwd_a = 12,
@@ -109,6 +113,11 @@ void    define_type(t_shell *shell);
 //unquote
 void	unquote(t_shell *shell);
 char	*del_quote(char *str);
+
+//heredoc
+char	*hedoc(t_shell *shell, t_list *node);
+void	start_heredoc(t_shell *shell);
+void	print_heredoc(t_shell *shell);
 
 //free
 void    free_parse(t_shell *shell);

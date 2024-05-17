@@ -25,6 +25,9 @@ int	main(int argc, char **argv, char **envp)
 	init_values(shell);
 	shell->env_line = NULL;
 	env_duplicate(shell, envp);
+	
+	
+
 
 	while (1)
 	{
@@ -34,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 		if (cmd[0] != 0)
 			add_history(cmd);
 		parse(cmd, shell);
+		start_heredoc(shell);
 		execute(shell);
 		free_parse(shell);
 		free(cmd);

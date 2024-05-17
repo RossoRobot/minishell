@@ -27,7 +27,7 @@ SRCS = $(MAIN_DIR)/main.c $(MAIN_DIR)/utils.c $(MAIN_DIR)/utils2.c \
 	$(BI_DIR)/list_to_arr.c $(BI_DIR)/pwd.c $(MAIN_DIR)/parse.c \
 	$(EXEC_DIR)/execute.c $(BI_DIR)/execute_builtins.c \
 	$(MAIN_DIR)/expansion.c $(MAIN_DIR)/unquote.c $(EXEC_DIR)/ft_split.c \
-	$(EXEC_DIR)/path.c	
+	$(EXEC_DIR)/path.c $(MAIN_DIR)/heredoc.c
 	
 OBJS = $(SRCS:.c=.o)
 

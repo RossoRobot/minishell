@@ -46,10 +46,10 @@ void	create_tokens(char *input, t_shell *shell)
 			flag = 0;
 			while (k-- != 0)
 				str++;
-			if (*str == 0)
-				break ;
 			//go over tab/space/newline
 			str = skip_gap(str);
+			if (*str == 0)
+				break ;
 			while (*str == '|')
 			{
 				flag = 1;

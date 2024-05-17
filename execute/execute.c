@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/16 15:13:17 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:28:34 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,19 +147,16 @@ int	execute_binary(t_shell *shell, t_list *list)
 
 void	execute_onechild(t_shell *shell, t_list *list, int *fd)
 {
-	close(fd[0]);
-	dup2(fd[1], STDOUT_FILENO);
-	close(fd[1]);
-	execute_binary(shell, list);
-	exit (0);
+	// close(fd[0]);
+	// dup2(fd[1], STDOUT_FILENO);
+	// close(fd[1]);
+	
 }
 
 int	execute_no_pipe(t_shell *shell, t_list *list)
 {
 	int		fd[2];
 	pid_t	pid;
-	char	buffer[BUFSIZ];
-	ssize_t	bytes_read;
 
 	if (list->type >= 10 && list->type <= 16)
 		execute_builtin(shell, list);
@@ -171,14 +168,14 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 		if (pid < 0)
 			free_exit(shell, 1);
 		if (pid == 0)
-			execute_onechild(shell, list, fd);
+		{
+			execute_binary(shell, list);
+			exit (0);
+		}
 		else
 		{
-			close(fd[1]);
-			while ((bytes_read = read(fd[0], buffer, sizeof(buffer))) > 0)
-            	write(STDOUT_FILENO, buffer, bytes_read);
-			close(fd[0]);
 			wait(NULL);
+			return (0);
 		}
 	}
 	return (0);

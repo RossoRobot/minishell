@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:55:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/05/16 15:28:56 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:31:49 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	init_values(shell);
 	shell->env_line = NULL;
 	env_duplicate(shell, envp);
+
 	while (1)
 	{
 		cmd = readline("minishell$ ");
@@ -35,7 +36,6 @@ int	main(int argc, char **argv, char **envp)
 		parse(cmd, shell);
 		execute(shell);
 		free_parse(shell);
-		
 		free(cmd);
 	}
 }

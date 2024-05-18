@@ -22,13 +22,9 @@ int	main(int argc, char **argv, char **envp)
 	if (!shell)
 		return (0);
 	shell->exp_str = NULL;
-	init_values(shell);
 	shell->env_line = NULL;
+	init_values(shell);
 	env_duplicate(shell, envp);
-	
-	
-
-
 	while (1)
 	{
 		cmd = readline("minishell$ ");
@@ -36,9 +32,10 @@ int	main(int argc, char **argv, char **envp)
 			return (1);
 		if (cmd[0] != 0)
 			add_history(cmd);
-		parse(cmd, shell);
-		start_heredoc(shell);
+		if (parse(cmd, shell))
+			return (1);
 		execute(shell);
+		unlink(shell->hname->content);
 		free_parse(shell);
 		free(cmd);
 	}

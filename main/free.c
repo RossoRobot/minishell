@@ -48,3 +48,22 @@ void	free_to_null(char **var)
 	free(*var);
 	*var = NULL;
 }
+
+void	free_hname(t_shell *shell)
+{
+	t_hname	*ptr1;
+	t_hname	*ptr2;
+
+	ptr1 = shell->hname;
+	ptr2 = shell->hname;
+	while (ptr1)
+	{
+		ptr1 = ptr1->next;
+		unlink(ptr2->content);
+		if (ptr2->content)
+			free(ptr2->content);
+		if (ptr2)
+			free(ptr2);
+		ptr2 = ptr1;
+	}
+}

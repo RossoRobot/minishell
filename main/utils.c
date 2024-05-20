@@ -88,7 +88,6 @@ t_hname	*ft_lstnew_hdoc(t_shell *shell, void *content)
 		return (NULL);
 	start->content = content;
 	start->next = NULL;
-	shell->hname = start;
 	return (start);
 }
 

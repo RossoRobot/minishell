@@ -23,7 +23,7 @@ char	*add_hname(t_shell *shell)
 	name = ft_strjoin(shell, buf, ".txt");
 	free(buf);
 	if (!shell->hname)
-		ft_lstnew_hdoc(shell, name);
+		shell->hname = ft_lstnew_hdoc(shell, name);
 	else
 		ft_lstadd_back_hdoc(shell->hname, ft_lstnew_hdoc(shell, name));
 	printf("%s\n", name);
@@ -68,7 +68,6 @@ void	del_next_node(t_list *ptr)
 	ptr->next = tmp;
 }
 
-
 int	start_heredoc(t_shell *shell)
 {
 	t_list	*ptr;
@@ -90,11 +89,33 @@ int	start_heredoc(t_shell *shell)
 				ptr->content = tmp;
 				ptr->type = text_a;
 				del_next_node(ptr);
+				if (ptr->next)
+					if (ptr->next->type == he_doc)
+						ptr->type = delete_a;
 			}
 			ptr = ptr->next;
 		}
-		i++;
-		ptr = shell->lists[i];
+		ptr = shell->lists[++i];
 	}
 	return (0);
+}
+
+void	trim_hedoc(t_shell *shell)
+{
+	t_list	*ptr;
+	int		i;
+
+	i = 0;
+	ptr = shell->lists[i];
+	while (ptr)
+	{
+		while (ptr)
+		{
+			if (ptr->next)
+				if (ptr->next->type == delete_a)
+					del_next_node(ptr);
+			ptr = ptr->next;
+		}
+		ptr = shell->lists[++i];
+	}
 }

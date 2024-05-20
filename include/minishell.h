@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/05/17 13:00:05 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:06:19 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ void	execute_onechild(t_shell *shell, t_list *list, int *fd);
 int		execute_command(t_shell *shell, t_list *list);
 
 //child_processes
-void	first_child_process(t_shell *shell, t_list *list, int *pipes);
-void	middle_child_process(t_shell *shell, t_list *list, int *pipes);
-void	last_child_process(t_shell *shell, t_list *list, int *pipes);
-int		forkex(t_shell *shell, int (*pipes)[2]);
+void	first_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd);
+void	middle_child_process(t_shell *shell, t_list *list, int *fd, int *fd2);
+void	last_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd);
+int		forkex(t_shell *shell);
 
 # endif

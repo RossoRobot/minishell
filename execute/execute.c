@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/17 10:28:34 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:31:24 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	execute_builtin(t_shell *shell, t_list *list)
 	return (0);
 }
 
-void	child_process(t_shell *shell, t_list *list, int *fd)
+void	child_process(t_shell *shell, t_list *list)
 {
 	if (list->type >= 10 && list->type <= 15)
 		execute_builtin(shell, list);
@@ -40,32 +40,6 @@ void	child_process(t_shell *shell, t_list *list, int *fd)
 		execute_binary(shell, list);
 }
 
-int	prepare_child_process(t_shell *shell, t_list *list)
-{
-	int	fd[2];
-	int	status;
-
-	pid_t	pid;
-	if (pipe(fd) == -1)
-		exit(EXIT_FAILURE);
-	pid = fork();
-	if (pid == -1)
-		exit(EXIT_FAILURE);
-	if (pid == 0)
-		child_process(shell, list, fd);
-	else
-	{
-		waitpid(pid, &status, 0);
-	}
-	return (0);
-}
-
-int	prepare_execution(t_shell *shell, t_list *list)
-{
-	transform_list_to_arr(shell, shell->env_line);
-	prepare_child_process(shell, list);
-	return (0);
-}
 
 char	**transform_list(t_shell *shell, t_list *list)
 {
@@ -144,13 +118,13 @@ int	execute_binary(t_shell *shell, t_list *list)
 	}
 	return (0);
 }
-
-void	execute_onechild(t_shell *shell, t_list *list, int *fd)
+int	execute_command(t_shell *shell, t_list *list)
 {
-	// close(fd[0]);
-	// dup2(fd[1], STDOUT_FILENO);
-	// close(fd[1]);
-	
+	if (list->type >= 16 && list->type <= 10)
+		execute_builtin(shell, list);
+	else
+		execute_binary(shell, list);
+	return (0);
 }
 
 int	execute_no_pipe(t_shell *shell, t_list *list)
@@ -181,51 +155,25 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 	return (0);
 }
 
-int	forkex(t_shell *shell, int (*pipes)[2])
-{
-	int	i;
-	pid_t	pid;
-	t_list	*list;
-
-	i = 0;
-	list = shell->lists[0];
-	while (i < shell->n_pipes + 1)
-	{
-		pid = fork();
-		if (pid == -1)
-			free_exit(shell, 0);
-		if (pid == 0)
-		{
-			if (i > 0)
-				dup2(pipes[i - 1][0], STDIN_FILENO);
-			if (i < shell->n_pipes)
-				dup2(pipes[i][1], STDOUT_FILENO);
-			child_process(shell, list, pipes[i]);
-		}
-		i++;
-		list = list->next;
-	}
-	return (0);
-}
-
 int	execute(t_shell *shell)
 {
-	int		(*pipes)[2];
+	int		pipe_fd[2];
 	int		i;
 
 	i = 0;
 	if (shell->lists[1] == NULL)
 		return (execute_no_pipe(shell, shell->lists[0]));
-	pipes = malloc(sizeof(int[shell->n_pipes][2]));
-	if (pipes == NULL)
-		free_exit(shell, 1);
-	while (i < shell->n_pipes)
-	{
-		if (pipe(pipes[i]) == -1)
-			free_exit(shell, 0);
-		i++;
-	}
-	forkex(shell, pipes);
+	// pipes = malloc(sizeof(int[shell->n_pipes][2]));
+	// if (pipes == NULL)
+	// 	free_exit(shell, 1);
+	// while (i < shell->n_pipes)
+	// {
+	// 	if (pipe(pipes[i]) == -1)
+	// 		free_exit(shell, 0);
+	// 	i++;
+	// }
+	
+	forkex(shell);
 	return (0);
 }
 

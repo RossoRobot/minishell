@@ -57,7 +57,7 @@ void    define_type(t_shell *shell)
 	{
 		ptr = shell->lists[i];
 		set_type(ptr);
-		if (!strncmp(ptr->content, "echo", 10) &&
+		if (!strncmp(ptr->content, "echo", 10) && ptr->next &&
 			!strncmp(ptr->next->content, "-n", 10))
 		{
 			ptr = ptr->next;

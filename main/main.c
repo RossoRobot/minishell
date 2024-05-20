@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 		if (parse(cmd, shell))
 			return (1);
 		execute(shell);
-		unlink(shell->hname->content);
+		free_hname(shell);
 		free_parse(shell);
 		free(cmd);
 	}

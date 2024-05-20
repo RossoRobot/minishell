@@ -41,6 +41,7 @@ typedef enum e_tokentype
 	re_out = 5,
 	he_doc = 6,
 	out_app = 7,
+	delete_a = 8,
 	echo_a = 10,
 	cd_a = 11,
 	pwd_a = 12,
@@ -128,10 +129,12 @@ int		start_heredoc(t_shell *shell);
 char	*here_doc(t_shell *shell, char *arg);
 void	del_next_node(t_list *ptr);
 char	*add_hname(t_shell *shell);
+void	trim_hedoc(t_shell *shell);
 
 //free
 void    free_parse(t_shell *shell);
 void	free_to_null(char **var);
+void	free_hname(t_shell *shell);
 
 //execute
 int		execute(t_shell *shell);

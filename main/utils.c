@@ -78,3 +78,31 @@ int	check_del(char	chr, int flag)
 	}
 	return (0);
 }
+
+t_hname	*ft_lstnew_hdoc(t_shell *shell, void *content)
+{
+	t_hname	*start;
+
+	start = (t_hname *) malloc (sizeof(t_hname));
+	if (!start)
+		return (NULL);
+	start->content = content;
+	start->next = NULL;
+	return (start);
+}
+
+void	ft_lstadd_back_hdoc(t_hname *lst, t_hname *new)
+{
+	t_hname	*ptr;
+
+	ptr = lst;
+	if (lst)
+	{
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->next = new;
+		ptr = NULL;
+	}
+	else
+		lst = new;
+}

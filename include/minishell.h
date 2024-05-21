@@ -37,6 +37,11 @@ typedef enum e_tokentype
 	metachar_a = 1,
 	text_a = 2,
 	flag_a = 3,
+	re_in = 4,
+	re_out = 5,
+	he_doc = 6,
+	out_app = 7,
+	delete_a = 8,
 	echo_a = 10,
 	cd_a = 11,
 	pwd_a = 12,
@@ -50,13 +55,19 @@ typedef	struct 	s_pids
 {
 	pid_t			*pid;
 	struct t_pids 	*next;
-}				t_pids;
+}	t_pids;
 
 typedef struct s_token
 {
 	char		*str;
 	t_tokentype	type;
 }	t_token;
+
+typedef struct s_herename
+{
+	char				*content;
+	struct s_herename	*next;
+}	t_hname;
 
 typedef struct s_list
 {
@@ -67,12 +78,13 @@ typedef struct s_list
 
 typedef struct s_shell
 {
-	char 	**str;
-	int		n_pipes;
-	t_env	*env_line;
-	char	**env_arr;
-	char	*exp_str;
-	t_list	**lists;
+	char 		**str;
+	int			n_pipes;
+	t_env		*env_line;
+	char		**env_arr;
+	char		*exp_str;
+	t_list		**lists;
+	t_hname		*hname;
 }	t_shell;
 
 //parse
@@ -93,6 +105,8 @@ int		replace_dollar_str(t_shell *shell, char *tmp);
 t_list	*ft_lstnew(char *content, int *k, t_shell *shell);
 void	ft_lstadd_back(t_list *lst, t_list *neu);
 int		check_del(char	chr, int flag);
+t_hname	*ft_lstnew_hdoc(t_shell *shell, void *content);
+void	ft_lstadd_back_hdoc(t_hname *lst, t_hname *new);
 
 //utils2
 char    *skip_argument(char *str);
@@ -110,9 +124,17 @@ void    define_type(t_shell *shell);
 void	unquote(t_shell *shell);
 char	*del_quote(char *str);
 
+//heredoc
+int		start_heredoc(t_shell *shell);
+char	*here_doc(t_shell *shell, char *arg);
+void	del_next_node(t_list *ptr);
+char	*add_hname(t_shell *shell);
+void	trim_hedoc(t_shell *shell);
+
 //free
 void    free_parse(t_shell *shell);
 void	free_to_null(char **var);
+void	free_hname(t_shell *shell);
 
 //execute
 int		execute(t_shell *shell);

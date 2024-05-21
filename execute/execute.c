@@ -29,6 +29,8 @@ int	execute_builtin(t_shell *shell, t_list *list)
 		pwd(shell);
 	if (temp->type == exit_a)
 		ft_exit(shell, list);
+	if (temp->type == echo_a)
+		execute_echo(shell, temp);
 	return (0);
 }
 

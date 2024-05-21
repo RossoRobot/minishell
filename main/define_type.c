@@ -15,19 +15,19 @@
 
 int	set_type(t_list *node)
 {
-	if (!strncmp(node->content, "echo", 10))
+	if (!ft_strncmp(node->content, "echo", 10))
 		node->type = echo_a;
-	else if (!strncmp(node->content, "cd", 10))
+	else if (!ft_strncmp(node->content, "cd", 10))
 		node->type = cd_a;
-	else if (!strncmp(node->content, "pwd", 10))
+	else if (!ft_strncmp(node->content, "pwd", 10))
 		node->type = pwd_a;
-	else if (!strncmp(node->content, "export", 10))
+	else if (!ft_strncmp(node->content, "export", 10))
 		node->type = export_a;
-	else if (!strncmp(node->content, "unset", 10))
+	else if (!ft_strncmp(node->content, "unset", 10))
 		node->type = unset_a;
-	else if (!strncmp(node->content, "env", 10))
+	else if (!ft_strncmp(node->content, "env", 10))
 		node->type = env_a;
-	else if (!strncmp(node->content, "exit", 10))
+	else if (!ft_strncmp(node->content, "exit", 10))
 		node->type = exit_a;
 	else
 		node->type = command_a;
@@ -36,14 +36,14 @@ int	set_type(t_list *node)
 
 int	set_type2(t_list *node)
 {
-	if (!strncmp(node->content, ">", 10))
-		node->type = metachar_a;
-	else if (!strncmp(node->content, ">>", 10))
-		node->type = metachar_a;
-	else if (!strncmp(node->content, "<", 10))
-		node->type = metachar_a;
-	else if (!strncmp(node->content, "<<", 10))
-		node->type = metachar_a;
+	if (!ft_strncmp(node->content, "<", 2))
+		node->type = re_in;
+	else if (!ft_strncmp(node->content, ">", 2))
+		node->type = re_out;
+	else if (!ft_strncmp(node->content, "<<", 3))
+		node->type = he_doc;
+	else if (!ft_strncmp(node->content, ">>", 3))
+		node->type = out_app;
 	return (0);
 }
 
@@ -57,7 +57,7 @@ void    define_type(t_shell *shell)
 	{
 		ptr = shell->lists[i];
 		set_type(ptr);
-		if (!strncmp(ptr->content, "echo", 10) &&
+		if (!strncmp(ptr->content, "echo", 10) && ptr->next &&
 			!strncmp(ptr->next->content, "-n", 10))
 		{
 			ptr = ptr->next;

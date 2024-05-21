@@ -119,6 +119,7 @@ int	init_values(t_shell *shell)
 {
 	shell->env_arr = NULL;
 	shell->lists = NULL;
+	shell->hname = NULL;
 	shell->n_pipes = 0;
 	//if (shell->exp_str)
 	//	free(shell->exp_str);
@@ -129,12 +130,13 @@ int parse(char *cmd, t_shell *shell)
 {
     init_values(shell);
     check_input(cmd, shell);
-	//integrate extensions
 	create_tokens(cmd, shell);
 	expansion(shell);
-	unquote(shell);
 	define_type(shell);
+	unquote(shell);
+	if (start_heredoc(shell))
+		return (free_parse(shell), 1);
+	trim_hedoc(shell);
 	print_tokens(shell);
-	//free_parse(shell);
     return (0);
 }

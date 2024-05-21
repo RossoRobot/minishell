@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/20 16:31:24 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/21 10:30:41 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,16 +163,6 @@ int	execute(t_shell *shell)
 	i = 0;
 	if (shell->lists[1] == NULL)
 		return (execute_no_pipe(shell, shell->lists[0]));
-	// pipes = malloc(sizeof(int[shell->n_pipes][2]));
-	// if (pipes == NULL)
-	// 	free_exit(shell, 1);
-	// while (i < shell->n_pipes)
-	// {
-	// 	if (pipe(pipes[i]) == -1)
-	// 		free_exit(shell, 0);
-	// 	i++;
-	// }
-	
 	forkex(shell);
 	return (0);
 }

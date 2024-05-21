@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/05/16 11:58:18 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:33:57 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	free_hname(t_shell *shell);
 //execute
 int		execute(t_shell *shell);
 int		prepare_execution(t_shell *shell, t_list *list);
-void	child_process(t_shell *shell, t_list *list, int *fd);
+void	child_process(t_shell *shell, t_list *list);
 int		execute_builtin(t_shell *shell, t_list *list);
 int		execute_no_pipe(t_shell *shell, t_list *list);
 char	**transform_list(t_shell *shell, t_list *list);
@@ -151,5 +151,11 @@ char    *get_path(t_shell *shell, t_list *list);
 
 int		execute_no_pipe(t_shell *shell, t_list *list);
 void	execute_onechild(t_shell *shell, t_list *list, int *fd);
+int		execute_command(t_shell *shell, t_list *list);
+
+//child_processes
+void	first_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd);
+void	last_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd);
+int		forkex(t_shell *shell);
 
 # endif

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/05/20 16:33:57 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:26:26 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,13 @@ int		execute_command(t_shell *shell, t_list *list);
 void	first_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd);
 void	last_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd);
 int		forkex(t_shell *shell);
+
+//redirections
+int is_redirection(t_shell *shell, t_list *list);
+void    prep_redir_exec(t_shell *shell, t_list *list);
+void    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list);
+void    redirect_input(t_shell *shell, t_list *list);
+void redirect_output(t_shell *shell, t_list *list);
+int    execute_it(t_shell *shell, char **arr, t_list *list);
 
 # endif

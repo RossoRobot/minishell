@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/21 10:30:41 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:36:52 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int	execute_binary(t_shell *shell, t_list *list)
 {
 	char	**argv;
 	char	*path;
-	int i = 0;
 	
 	shell->env_arr = transform_list_to_arr(shell, shell->env_line);
 	if (!(shell->env_arr))
@@ -134,6 +133,8 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 	int		fd[2];
 	pid_t	pid;
 
+	if (is_redirection(shell, list) != 0)
+		prep_redir_exec(shell, list);
 	if (list->type >= 10 && list->type <= 16)
 		execute_builtin(shell, list);
 	else

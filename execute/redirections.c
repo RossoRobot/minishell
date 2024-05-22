@@ -1,0 +1,121 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirections.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
+/*   Updated: 2024/05/22 18:02:22 by mvolgger         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "./../include/minishell.h"
+
+int is_redirection(t_shell *shell, t_list *list)
+{
+    t_list  *temp;
+    int     ret;
+
+    ret = 0;
+    temp = list;
+    while (temp)
+    {
+        if (temp->type == 4 || temp->type == 5 || temp->type == 7)
+            ret++;
+        temp = temp->next;
+    }
+    return (ret);
+}
+
+void    prep_redir_exec(t_shell *shell, t_list *list)
+{
+    t_list *temp;
+    char    **cmd_arr;
+    int     i;
+    int     j;
+    
+    i = 0;
+    j = 0;
+    temp = list;
+    while (temp != NULL && temp->type != 4 && temp->type != 5 && temp->type != 7)
+    {
+        i++;
+        temp = temp->next;
+    }
+    cmd_arr = (char **)malloc(sizeof(char *) * (i + 1));
+    if (!cmd_arr)
+        free_exit(shell, 1);
+    cmd_arr[i] = NULL;
+    temp = list;
+    while (j < i)
+    {
+        cmd_arr[j] = ft_strdup(shell, temp->content);
+        temp = temp->next;
+        j++;
+    }
+    temp = list;
+    exec_redir(shell, temp, cmd_arr, list);
+}
+
+void    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
+{
+   
+    while (temp != NULL && temp->type != 4 && temp->type != 5 && temp->type != 7)
+        temp = temp->next;
+    if (temp == NULL)
+        execute_it(shell, arr, list);
+    else if (temp->type == 5)
+        redirect_output(shell, temp->next);
+    else if (temp->type == 4)
+        redirect_input(shell, temp->next);
+    temp = temp->next;
+    exec_redir(shell, temp, arr, list);
+}
+int    execute_it(t_shell *shell, char **arr, t_list *list)
+{
+    char    *path;
+
+    path = get_path(shell, list);
+    shell->env_arr = transform_list_to_arr(shell, shell->env_line);
+	if (!(shell->env_arr))
+        free_exit(shell, 1);
+    if (execve(path, arr, shell->env_arr) == -1)
+    {
+        free(path);
+        free_arr(arr);
+        free_arr(shell->env_arr);
+    }
+    return (0);
+}
+
+void    redirect_input(t_shell *shell, t_list *list)
+{
+    int fd;
+
+    fd = open(list->content, O_RDONLY);
+    if (fd == -1)
+    {
+        ft_putstr_fd(": no such file or directory\n", 2);
+        ft_putstr_fd(list->content ,2);
+        ft_putstr_fd("\n", 2);
+        exit(-1);
+    }
+    dup2(fd, STDIN_FILENO);
+    close(fd);
+}
+
+void redirect_output(t_shell *shell, t_list *list)
+{
+    int fd;
+
+    fd = open(list->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd == -1)
+    {
+        ft_putstr_fd(list->content ,2);
+        ft_putstr_fd(": permission denied\n", 2);
+        exit (-1);
+    }
+    dup2(fd, STDOUT_FILENO);
+    close(fd);
+}

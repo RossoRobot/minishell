@@ -34,7 +34,7 @@ char	*del_quote(char *str)
 	return (tmp);
 }
 
-void	unquote(t_shell *shell)
+int	unquote(t_shell *shell)
 {
 	int		i;
 	int		n;
@@ -45,6 +45,8 @@ void	unquote(t_shell *shell)
 	i = 0;
 	tmp = 0;
 	flag = 0;
+	if (!shell->lists)
+		return (1);
 	ptr = shell->lists[i];
 	while (ptr)
 	{
@@ -71,4 +73,5 @@ void	unquote(t_shell *shell)
 		if (!ptr)
 			ptr = shell->lists[++i];
 	}
+	return (0);
 }

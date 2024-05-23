@@ -75,6 +75,8 @@ int	start_heredoc(t_shell *shell)
 	int		i;
 
 	i = 0;
+	if (!shell->lists)
+		return (1);
 	ptr = shell->lists[i];
 	while (ptr)
 	{

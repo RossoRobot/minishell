@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:15:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/14 14:09:46 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:28:34 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ char    *get_path(t_shell *shell, t_list *list)
         free_exit(shell, 0);
     cmd = path_access(shell, list, path_arr);
     free(path_arr);
+    if (cmd == NULL)
+        ft_strdup(shell, list->content);
     return (cmd);
 }

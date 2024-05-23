@@ -141,6 +141,6 @@ int parse(char *cmd, t_shell *shell)
 	if (start_heredoc(shell))
 		return (free_parse(shell), 1);
 	trim_hedoc(shell);
-	print_tokens(shell);
+	//print_tokens(shell);
     return (0);
 }

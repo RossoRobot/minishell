@@ -146,7 +146,7 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 		if (pipe(fd) == -1)
 			free_exit(shell, 1);
 		pid = fork();
-		//store_pid(shell, pid);
+		store_pid(shell, pid);
 		if (pid < 0)
 			free_exit(shell, 1);
 		if (pid == 0)

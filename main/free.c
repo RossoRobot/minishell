@@ -41,6 +41,8 @@ void	free_parse(t_shell *shell)
 	}
 	if (shell->exp_str)
 		free_to_null(&shell->exp_str);
+	if (shell->pids)
+		free(shell->pids);
 }
 
 void	free_to_null(char **var)

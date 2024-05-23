@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/22 17:36:52 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:34:48 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int	execute_binary(t_shell *shell, t_list *list)
 }
 int	execute_command(t_shell *shell, t_list *list)
 {
-	if (list->type >= 16 && list->type <= 10)
+	if (list->type <= 16 && list->type >= 10)
 		execute_builtin(shell, list);
 	else
 		execute_binary(shell, list);

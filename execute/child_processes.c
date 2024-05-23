@@ -56,6 +56,7 @@ int	forkex(t_shell *shell)
 		if (pipe(fd) == -1)
 			free_exit(shell, 0);
 		pid = fork();
+		store_pid(shell, pid);
 		if (pid < 0)
 		{
 			perror("fork");

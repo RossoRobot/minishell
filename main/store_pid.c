@@ -12,6 +12,17 @@
 
 #include "./../include/minishell.h"
 
+void	print_pids(t_shell* shell)
+{
+	int	i;
+
+	i = 0;
+	if (!shell->pids)
+		return;
+	while(shell->pids[i])
+		printf("PIDs: %d\n", shell->pids[i++]);
+}
+
 int	count_pids(pid_t *pid_arr)
 {
 	int	i;
@@ -42,6 +53,8 @@ int	copy_pids(pid_t *old_pids, pid_t *new_pids, pid_t pid)
 int	store_pid(t_shell *shell, pid_t pid)
 {
 	pid_t	*new_pids;
+	if (pid == 0)
+		return (0);
 	if (!shell->pids)
 	{
 		shell->pids = (pid_t*) malloc (sizeof(pid_t) * 2);
@@ -62,5 +75,6 @@ int	store_pid(t_shell *shell, pid_t pid)
 		printf("store_pid 2shell.pids: %d\n", shell->pids[0]);
 		printf("store_pid 2new_pids: %d\n", new_pids[0]);
 	}
+	//print_pids(shell);
 	return (0);
 }

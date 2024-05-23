@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/22 18:02:22 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:54:56 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ void    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
     while (temp != NULL && temp->type != 4 && temp->type != 5 && temp->type != 7)
         temp = temp->next;
     if (temp == NULL)
+    {
         execute_it(shell, arr, list);
+        exit (0);
+    }
     else if (temp->type == 5)
         redirect_output(shell, temp->next);
     else if (temp->type == 4)
@@ -76,6 +79,8 @@ int    execute_it(t_shell *shell, char **arr, t_list *list)
 {
     char    *path;
 
+    if (list->type >= 10 && list->type <= 16)
+        return (execute_builtin(shell, list));
     path = get_path(shell, list);
     shell->env_arr = transform_list_to_arr(shell, shell->env_line);
 	if (!(shell->env_arr))
@@ -96,7 +101,7 @@ void    redirect_input(t_shell *shell, t_list *list)
     fd = open(list->content, O_RDONLY);
     if (fd == -1)
     {
-        ft_putstr_fd(": no such file or directory\n", 2);
+        ft_putstr_fd("no such file or directory: ", 2);
         ft_putstr_fd(list->content ,2);
         ft_putstr_fd("\n", 2);
         exit(-1);

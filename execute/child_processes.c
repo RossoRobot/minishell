@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/22 14:57:01 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:44:03 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd)
 	close(pipes[0]);
 	close(pipes[1]);
     close(temp_fd);
+	if (is_redirection(shell, list) != 0)
+		prep_redir_exec(shell, list);
 	execute_command(shell, list);
 	exit (EXIT_SUCCESS);
 }

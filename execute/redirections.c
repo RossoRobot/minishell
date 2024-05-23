@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/23 14:54:56 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:07:36 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,27 +60,58 @@ void    prep_redir_exec(t_shell *shell, t_list *list)
 
 void    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
 {
+    int stdin_backup;
+    int stdout_backup;
    
-    while (temp != NULL && temp->type != 4 && temp->type != 5 && temp->type != 7)
-        temp = temp->next;
-    if (temp == NULL)
+    stdin_backup = dup(STDIN_FILENO);
+    stdout_backup = dup(STDOUT_FILENO);
+    while (temp != NULL)
     {
-        execute_it(shell, arr, list);
-        exit (0);
+        while (temp != NULL && temp->type != 4 && temp->type != 5 && temp->type != 7)
+            temp = temp->next;
+        if (temp == NULL)
+        {
+            execute_it(shell, arr, list, stdin_backup, stdout_backup);
+            break ;
+        }
+        else if (temp->type == 5)
+            redirect_output(shell, temp->next);
+        else if (temp->type == 4)
+            redirect_input(shell, temp->next);
+        temp = temp->next;
     }
-    else if (temp->type == 5)
-        redirect_output(shell, temp->next);
-    else if (temp->type == 4)
-        redirect_input(shell, temp->next);
-    temp = temp->next;
-    exec_redir(shell, temp, arr, list);
+    // while (temp != NULL && temp->type != 4 && temp->type != 5 && temp->type != 7)
+    //     temp = temp->next;
+    // if (temp == NULL)
+    // {
+    //     execute_it(shell, arr, list, stdin_backup, stdout_backup);
+    //     return ;
+    // }
+    // else if (temp->type == 5)
+    //     redirect_output(shell, temp->next);
+    // else if (temp->type == 4)
+    //     redirect_input(shell, temp->next);
+    // temp = temp->next;
+    // exec_redir(shell, temp, arr, list);
 }
-int    execute_it(t_shell *shell, char **arr, t_list *list)
+
+void    reset_fds(int stdin, int stdout)
+{
+    dup2(stdin, STDIN_FILENO);
+    close(stdin);
+    dup2(stdout, STDOUT_FILENO);
+    close(stdout);
+}
+int    execute_it(t_shell *shell, char **arr, t_list *list, int stdin_backup, int stdout_backup)
 {
     char    *path;
 
     if (list->type >= 10 && list->type <= 16)
-        return (execute_builtin(shell, list));
+    {
+        execute_builtin(shell, list);
+        reset_fds(stdin_backup, stdout_backup);
+        return (0);
+    }
     path = get_path(shell, list);
     shell->env_arr = transform_list_to_arr(shell, shell->env_line);
 	if (!(shell->env_arr))

@@ -33,21 +33,28 @@ static int	press_enter_only(char *cmd)
 
 void	handler(int sig, siginfo_t *info, void *ucontext)
 {
+	
 	if (sig == 2)
 	{
 		printf("CTR-C pressed - sigvalue: %d\n", sig);
-		exit(1);
+		kill(info->si_pid, SIGKILL);
 	}
-	if (sig >= 0 && sig <= 6)
-		printf("CTR-D pressed - sigvalue: %d\n", sig);
+	printf("CTR-D pressed - sigvalue: %d\n", sig);
+	exit(1);
 }
 //VS code denkt etwas passt da nicht (rot), ist aber alles ok
-void	recieve_signal(struct sigaction *action)
+void	recieve_signal(struct sigaction *action_c, struct sigaction *action_d)
 {
-	action->sa_sigaction = &handler;
-	action->sa_flags = SA_SIGINFO;
-	sigemptyset(&action->sa_mask);
-	if (sigaction(SIGINT, action, NULL) == -1)
+	action_c->sa_sigaction = &handler;
+	action_c->sa_flags = SA_SIGINFO;
+	sigemptyset(&action_c->sa_mask);
+	if (sigaction(SIGINT, action_c, NULL) == -1)
+		exit(1);
+	
+	action_d->sa_sigaction = &handler;
+	action_d->sa_flags = SA_SIGINFO;
+	sigemptyset(&action_d->sa_mask);
+	if (sigaction(SIGQUIT, action_d, NULL) == -1)
 		exit(1);
 }
 
@@ -55,14 +62,16 @@ int	main(int argc, char **argv, char **envp)
 {
 	char 				*cmd;
 	t_shell				*shell;
-	struct sigaction	action;
+	struct sigaction	action_c;
+	struct sigaction	action_d;
 
-	recieve_signal(&action);
+	recieve_signal(&action_c, &action_d);
 	shell = (t_shell*) malloc (sizeof(t_shell));
 	if (!shell)
 		return (0);
 	shell->exp_str = NULL;
 	shell->env_line = NULL;
+	shell->hname = NULL;
 	init_values(shell);
 	env_duplicate(shell, envp);
 	while (1)

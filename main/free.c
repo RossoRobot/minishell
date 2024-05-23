@@ -66,4 +66,5 @@ void	free_hname(t_shell *shell)
 			free(ptr2);
 		ptr2 = ptr1;
 	}
+	shell->hname = NULL;
 }

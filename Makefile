@@ -28,7 +28,8 @@ SRCS = $(MAIN_DIR)/main.c $(MAIN_DIR)/utils.c $(MAIN_DIR)/utils2.c \
 	$(EXEC_DIR)/execute.c $(BI_DIR)/execute_builtins.c \
 	$(MAIN_DIR)/expansion.c $(MAIN_DIR)/unquote.c $(EXEC_DIR)/ft_split.c \
 	$(EXEC_DIR)/path.c	$(EXEC_DIR)/child_processes.c \
-	$(MAIN_DIR)/heredoc.c $(BI_DIR)/echo.c $(EXEC_DIR)/redirections.c
+	$(MAIN_DIR)/heredoc.c $(BI_DIR)/echo.c $(EXEC_DIR)/redirections.c \
+  $(MAIN_DIR)/store_pid.c
 	
 OBJS = $(SRCS:.c=.o)
 

@@ -53,6 +53,8 @@ void    define_type(t_shell *shell)
 	int		i;
 
 	i = 0;
+	if (!shell->lists)
+		return ;
 	while (shell->lists[i])
 	{
 		ptr = shell->lists[i];

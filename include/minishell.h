@@ -78,11 +78,12 @@ typedef struct s_list
 
 typedef struct s_shell
 {
-	char 		**str;
 	int			n_pipes;
-	t_env		*env_line;
-	char		**env_arr;
+	char 		**str;
 	char		*exp_str;
+	char		**env_arr;
+	t_env		*env_line;
+	pid_t		*pids;
 	t_list		**lists;
 	t_hname		*hname;
 }	t_shell;
@@ -121,7 +122,7 @@ int		set_type2(t_list *node);
 void    define_type(t_shell *shell);
 
 //unquote
-void	unquote(t_shell *shell);
+int	unquote(t_shell *shell);
 char	*del_quote(char *str);
 
 //heredoc
@@ -130,6 +131,11 @@ char	*here_doc(t_shell *shell, char *arg);
 void	del_next_node(t_list *ptr);
 char	*add_hname(t_shell *shell);
 void	trim_hedoc(t_shell *shell);
+
+//store_pid
+int		count_pids(pid_t *pid_arr);
+int		copy_pids(pid_t *old_pids, pid_t *new_pids, pid_t pid);
+int		store_pid(t_shell *shell, pid_t pid);
 
 //free
 void    free_parse(t_shell *shell);

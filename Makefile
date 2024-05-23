@@ -6,7 +6,7 @@
 #    By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 14:00:52 by kbrauer           #+#    #+#              #
-#    Updated: 2024/05/14 14:01:40 by mvolgger         ###   ########.fr        #
+#    Updated: 2024/05/22 17:19:42 by mvolgger         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,9 @@ SRCS = $(MAIN_DIR)/main.c $(MAIN_DIR)/utils.c $(MAIN_DIR)/utils2.c \
 	$(BI_DIR)/list_to_arr.c $(BI_DIR)/pwd.c $(MAIN_DIR)/parse.c \
 	$(EXEC_DIR)/execute.c $(BI_DIR)/execute_builtins.c \
 	$(MAIN_DIR)/expansion.c $(MAIN_DIR)/unquote.c $(EXEC_DIR)/ft_split.c \
-	$(EXEC_DIR)/path.c $(MAIN_DIR)/heredoc.c $(BI_DIR)/echo.c \
-	$(MAIN_DIR)/store_pid.c
+	$(EXEC_DIR)/path.c	$(EXEC_DIR)/child_processes.c \
+	$(MAIN_DIR)/heredoc.c $(BI_DIR)/echo.c $(EXEC_DIR)/redirections.c \
+  $(MAIN_DIR)/store_pid.c
 	
 OBJS = $(SRCS:.c=.o)
 

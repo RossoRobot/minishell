@@ -62,7 +62,7 @@ int	store_pid(t_shell *shell, pid_t pid)
 			return (1);
 		shell->pids[0] = pid;
 		shell->pids[1] = 0;
-		printf("store_pid 1shell.pids: %d\n", shell->pids[0]);
+		//printf("store_pid 1shell.pids: %d\n", shell->pids[0]);
 	}
 	else
 	{
@@ -72,8 +72,8 @@ int	store_pid(t_shell *shell, pid_t pid)
 		copy_pids(shell->pids, new_pids, pid);
 		free(shell->pids);
 		shell->pids = new_pids;
-		printf("store_pid 2shell.pids: %d\n", shell->pids[0]);
-		printf("store_pid 2new_pids: %d\n", new_pids[0]);
+		//printf("store_pid 2shell.pids: %d\n", shell->pids[0]);
+		//printf("store_pid 2new_pids: %d\n", new_pids[0]);
 	}
 	//print_pids(shell);
 	return (0);

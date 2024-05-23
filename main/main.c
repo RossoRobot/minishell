@@ -36,10 +36,10 @@ void	handler(int sig, siginfo_t *info, void *ucontext)
 	
 	if (sig == 2)
 	{
-		printf("CTR-C pressed - sigvalue: %d\n", sig);
+		printf("handler CTRL-C pressed - sigvalue: %d\n", sig);
 		kill(info->si_pid, SIGKILL);
 	}
-	printf("CTR-D pressed - sigvalue: %d\n", sig);
+	printf("handler CTRL-D pressed - sigvalue: %d\n", sig);
 	exit(1);
 }
 //VS code denkt etwas passt da nicht (rot), ist aber alles ok

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/23 16:39:21 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:37:49 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ int	execute_binary(t_shell *shell, t_list *list)
 	{
 		free(path);
 		free_arr(argv);
-		free_arr(shell->env_arr);
+		free_parse(shell);
+		free_exit(shell, 0);
 	}
 	return (0);
 }

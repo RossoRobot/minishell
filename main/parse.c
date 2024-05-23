@@ -119,8 +119,9 @@ int	init_values(t_shell *shell)
 {
 	shell->env_arr = NULL;
 	shell->lists = NULL;
-	shell->hname = NULL;
+	//shell->hname = NULL;
 	shell->n_pipes = 0;
+	shell->pids = NULL;
 	//if (shell->exp_str)
 	//	free(shell->exp_str);
 	return (0);
@@ -131,7 +132,10 @@ int parse(char *cmd, t_shell *shell)
     init_values(shell);
     check_input(cmd, shell);
 	create_tokens(cmd, shell);
-	expansion(shell);
+	if (!shell->lists)
+		return (1);
+	if (expansion(shell))
+		exit (1);
 	define_type(shell);
 	unquote(shell);
 	if (start_heredoc(shell))

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/23 18:37:49 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/27 12:18:39 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ int	execute_builtin(t_shell *shell, t_list *list)
 void	child_process(t_shell *shell, t_list *list)
 {
 	if (list->type >= 10 && list->type <= 15)
+	{
 		execute_builtin(shell, list);
+	}
 	else
 		execute_binary(shell, list);
 }
@@ -116,7 +118,7 @@ int	execute_binary(t_shell *shell, t_list *list)
 		free(path);
 		free_arr(argv);
 		free_parse(shell);
-		free_exit(shell, 0);
+		free_exit(shell, 1);
 	}
 	return (0);
 }

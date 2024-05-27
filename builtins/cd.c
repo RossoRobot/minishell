@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/04 15:21:17 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:49:09 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	change_directory(t_shell *data, char *parameter)
 	
 	if (parameter && ft_strncmp(".", parameter, ft_strlen(parameter)) == 0)
 	{
+		free(parameter);
 		return (0);
 	}
 	else
@@ -90,6 +91,7 @@ int	ft_cd(t_shell *data, char *parameter)
 		{
 			//free(old_pwd);
 			printf("cd: no such file or directory: %s\n", parameter);
+			free(parameter);
 		}
 		else
 		{
@@ -98,6 +100,7 @@ int	ft_cd(t_shell *data, char *parameter)
 			//free(old_pwd);
 			if (ft_strncmp(parameter, "..", 2) == 0)
 				replace_var(data, "PWD", getcwd(NULL, 0), 3);
+			free(parameter);
 		}
 	}
 	return (ret);

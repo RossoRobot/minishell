@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/27 12:18:39 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/28 11:01:20 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 		return (0);
 	}
 	if (list->type >= 10 && list->type <= 16)
-		execute_builtin(shell, list);
+		shell->last_return_value = execute_builtin(shell, list);
 	else
 	{
 		if (pipe(fd) == -1)

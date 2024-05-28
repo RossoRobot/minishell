@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/05/23 16:36:45 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/28 11:29:53 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_shell
 	char 		**str;
 	char		*exp_str;
 	char		**env_arr;
+	int			last_return_value;
 	t_env		*env_line;
 	pid_t		*pids;
 	t_list		**lists;
@@ -165,11 +166,11 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd);
 int		forkex(t_shell *shell);
 
 //redirections
-int is_redirection(t_shell *shell, t_list *list);
+int 	is_redirection(t_shell *shell, t_list *list);
 void    prep_redir_exec(t_shell *shell, t_list *list);
 void    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list);
 void    redirect_input(t_shell *shell, t_list *list);
-void redirect_output(t_shell *shell, t_list *list);
+void 	redirect_output(t_shell *shell, t_list *list, int append);
 int    execute_it(t_shell *shell, char **arr, t_list *list, int stdin_backup, int stdout_backup);
 void    reset_fds(int stdin, int stdout);
 

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:59:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/04/23 17:30:24 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:54:45 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	init_values(t_shell *shell)
 	shell->env_arr = NULL;
 	shell->lists = NULL;
 	//shell->hname = NULL;
+	shell->last_return_value = 0;
 	shell->n_pipes = 0;
 	shell->pids = NULL;
 	//if (shell->exp_str)

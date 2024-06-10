@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/23 15:44:03 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/27 12:16:35 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	first_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd)
 	if (is_redirection(shell, list) != 0)
 		prep_redir_exec(shell, list);
 	execute_command(shell, list);
+	free_parse(shell);
+	free_exit(shell, 0);
 	exit (EXIT_SUCCESS);
 }
 
@@ -35,6 +37,8 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd)
 	if (is_redirection(shell, list) != 0)
 		prep_redir_exec(shell, list);
 	execute_command(shell, list);
+	free_parse(shell);
+	free_exit(shell, 0);
 	exit (EXIT_SUCCESS);
 }
 
@@ -56,7 +60,7 @@ int	forkex(t_shell *shell)
 		if (pipe(fd) == -1)
 			free_exit(shell, 0);
 		pid = fork();
-		store_pid(shell, pid);
+		//store_pid(shell, pid);
 		if (pid < 0)
 		{
 			perror("fork");
@@ -65,9 +69,13 @@ int	forkex(t_shell *shell)
 		if (pid == 0)
 		{
             if (i < shell->n_pipes)
+			{
                 first_child_process(shell, list[i], fd, temp_fd);
+			}
             else
+			{
                 last_child_process(shell, list[i], fd, temp_fd);
+			}
 			exit(EXIT_SUCCESS);
 		}
         else

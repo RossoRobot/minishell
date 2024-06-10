@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/23 17:09:43 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/28 12:42:53 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ void    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
             break ;
         }
         else if (temp->type == 5)
-            redirect_output(shell, temp->next);
+            redirect_output(shell, temp->next, 0);
+        else if (temp->type == 7)
+            redirect_output(shell, temp->next, 1);
         else if (temp->type == 4)
             redirect_input(shell, temp->next);
         temp = temp->next;
@@ -95,6 +97,7 @@ int    execute_it(t_shell *shell, char **arr, t_list *list, int stdin_backup, in
 
     if (list->type >= 10 && list->type <= 16)
     {
+        free_arr(arr);
         execute_builtin(shell, list);
         reset_fds(stdin_backup, stdout_backup);
         return (0);
@@ -128,11 +131,14 @@ void    redirect_input(t_shell *shell, t_list *list)
     close(fd);
 }
 
-void redirect_output(t_shell *shell, t_list *list)
+void redirect_output(t_shell *shell, t_list *list, int append)
 {
     int fd;
 
-    fd = open(list->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (append == 0)
+        fd = open(list->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    else if (append == 1)
+        fd = open(list->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
     if (fd == -1)
     {
         ft_putstr_fd(list->content ,2);

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/23 19:59:44 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:25:34 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	exit_code_check(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (ft_isnum(str[i] == 0))
+		if (ft_isnum(str[i]) == 0)
 			return(-1);
 		i++;
 	}
@@ -65,18 +65,18 @@ int	ft_exit(t_shell *shell, t_list *list)
 	int	nr;
 
 	nr = 0;
-	if (list->next && list->next->next && list->next->next->next)
+	if (list->next && list->next->next)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
 		return (-1);
 	}
 	if (list->next != NULL)
 	{
-			if (exit_code_check(list->next->content) == -1)
-			{
-				ft_putstr_fd("exit: numeric argument required\n", 2);
-				return (-1);
-			}
+		if (exit_code_check(list->next->content) == -1)
+		{
+			ft_putstr_fd("exit: numeric argument required\n", 2);
+				exit (2);
+		}
 	}
 
 	if (list->next && list->next->content)

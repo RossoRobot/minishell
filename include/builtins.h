@@ -37,6 +37,7 @@ typedef struct	s_env
 
 int		pwd(t_shell *data);
 char    *my_getenv(t_shell *data, char *str, int mallocflag);
+char	*increment_shlvl(t_shell *data, char *str);
 int		change_directory(t_shell *data, char *parameter);
 int		ft_cd(t_shell *data, char *parameter);
 int		change_to_home(t_shell *data, char *oldpwd, char *parameter);
@@ -71,7 +72,7 @@ void	free_exit(t_shell *data, int error_flag);
 char	*get_key(t_shell *data, char *str);
 char	*get_value(t_shell *data, char *str);
 void	first_node_init(t_shell *data, char *key, char *value, char *str);
-void	append_node(t_shell *data, char *key, char *value, char *str, int flag);
+void	append_node(t_shell *data, char *key, char *value, char *str);
 void	env_duplicate(t_shell *data, char **envp);
 int		check_missing_env(t_shell *data);
 void	print_myenv(t_shell *data, int flag);

@@ -33,29 +33,30 @@ static int	press_enter_only(char *cmd)
 
 void	handler(int sig, siginfo_t *info, void *ucontext)
 {
-	
+	printf("\nminishell$ ");
+	/*
 	if (sig == 2)
 	{
 		printf("handler CTRL-C pressed - sigvalue: %d\n", sig);
-		kill(info->si_pid, SIGKILL);
+
 	}
-	printf("handler CTRL-D pressed - sigvalue: %d\n", sig);
-	exit(1);
+	*/
+	//printf("handler CTRL-D pressed - sigvalue: %d\n", sig);
 }
 //VS code denkt etwas passt da nicht (rot), ist aber alles ok
-void	recieve_signal(struct sigaction *action_c, struct sigaction *action_d)
+void	recieve_signal(t_shell *shell, struct sigaction *action_c, struct sigaction *action_d)
 {
 	action_c->sa_sigaction = &handler;
 	action_c->sa_flags = SA_SIGINFO;
 	sigemptyset(&action_c->sa_mask);
 	if (sigaction(SIGINT, action_c, NULL) == -1)
-		exit(1);
+		ft_exit(shell, NULL);
 	
 	action_d->sa_sigaction = &handler;
 	action_d->sa_flags = SA_SIGINFO;
 	sigemptyset(&action_d->sa_mask);
 	if (sigaction(SIGQUIT, action_d, NULL) == -1)
-		exit(1);
+		ft_exit(shell, NULL);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -65,7 +66,6 @@ int	main(int argc, char **argv, char **envp)
 	struct sigaction	action_c;
 	struct sigaction	action_d;
 
-	recieve_signal(&action_c, &action_d);
 	shell = (t_shell*) malloc (sizeof(t_shell));
 	if (!shell)
 		return (0);
@@ -74,11 +74,12 @@ int	main(int argc, char **argv, char **envp)
 	shell->hname = NULL;
 	init_values(shell);
 	env_duplicate(shell, envp);
+	recieve_signal(shell, &action_c, &action_d);
 	while (1)
 	{
 		cmd = readline("minishell$ ");
 		if (!cmd)
-			return (1);
+			ft_exit(shell, *shell->lists);
 		if (press_enter_only(cmd))
 			continue;
 		if (process(shell, cmd))

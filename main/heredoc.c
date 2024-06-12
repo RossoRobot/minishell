@@ -45,7 +45,12 @@ char	*here_doc(t_shell *shell, char *arg)
 	{
 		cmd = readline("> ");
 		if (!cmd)
+		{
+			printf("minishell: warning: here-document at line 4 delimited by end-of-file (wanted `%s')\n", arg);
+			printf("");
+			write(fd, "\n", 1);
 			break ;
+		}
 		if (ft_strncmp(cmd, arg, ft_strlen(cmd) + 1) == 0)
 		{
 			write(fd, "\n", 1);
@@ -57,6 +62,7 @@ char	*here_doc(t_shell *shell, char *arg)
 		write(fd, cmd, ft_strlen(cmd));
 		free(cmd);
 	}
+	close (fd);
 	return (hname);
 }
 
@@ -88,7 +94,7 @@ int	start_heredoc(t_shell *shell)
 			{
 				if (!ptr->next)
 				{
-					ft_putstr_fd("syntax error near unexpected token `newline'\n" ,2);
+					ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n" ,2);
 					return (1);
 				}
 				tmp = ft_strdup(shell, here_doc(shell, ptr->next->content));

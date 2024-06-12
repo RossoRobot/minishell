@@ -63,21 +63,24 @@ int	ft_exit(t_shell *shell, t_list *list)
 	int	nr;
 
 	nr = 0;
-	if (list->next && list->next->next)
+	if (list != NULL)
 	{
-		ft_putstr_fd("exit: too many arguments\n", 2);
-		return (-1);
-	}
-	if (list->next != NULL)
-	{
-		if (exit_code_check(list->next->content) == -1)
+		if (list->next && list->next->next)
 		{
-			ft_putstr_fd("exit: numeric argument required\n", 2);
-			exit(2);
+			ft_putstr_fd("exit: too many arguments\n", 2);
+			return (-1);
 		}
+		if (list->next != NULL)
+		{
+			if (exit_code_check(list->next->content) == -1)
+			{
+				ft_putstr_fd("exit: numeric argument required\n", 2);
+				exit(2);
+			}
+		}
+		if (list->next && list->next->content)
+			nr = ft_atoi(list->next->content);
 	}
-	if (list->next && list->next->content)
-		nr = ft_atoi(list->next->content);
 	free_parse(shell);
 	free_exit(shell, 0);
 	exit(nr);

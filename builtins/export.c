@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 13:51:36 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:33:00 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@ int	replace_var(t_shell *data, char *key, char *value, int key_malloc_flag)
 		{
 			if (key_malloc_flag == 1)
 				free(key);
-			if (key_malloc_flag != 3)
-				free(temp->key_value->value);
+			// if (key_malloc_flag != 3)
+			// 	free(temp->key_value->value);
 			if (value == NULL)
 				temp->key_value->value = NULL;
 			else
-				temp->key_value->value = value;
+			{
+				free(temp->key_value->value);
+				temp->key_value->value = ft_strdup(data, value);
+			}
 			return (0);
 		}
 		temp = temp->next;

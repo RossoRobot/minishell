@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/27 11:25:34 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:27:32 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	count_strings(char **envp)
 	size_t	i;
 
 	i = 0;
-	while(envp[i] != NULL)
+	while (envp[i] != NULL)
 		i++;
 	return (i);
 }
@@ -36,13 +36,11 @@ void	handle_empty_env(t_shell *data, char *key)
 	pwd_str = ft_strjoin(data, "PWD=", pwd);
 	shlvl = ft_strdup(data, "SHLVL=1");
 	lst_cmd = ft_strdup(data, "_=/usr/bin/env");
-	
 	free(key);
 	free(pwd);
 	export(data, pwd_str, NULL, NULL);
 	export(data, shlvl, NULL, NULL);
 	export(data, lst_cmd, NULL, NULL);
-
 }
 
 int	exit_code_check(char *str)
@@ -53,12 +51,12 @@ int	exit_code_check(char *str)
 	while (str[i] != '\0')
 	{
 		if (ft_isnum(str[i]) == 0)
-			return(-1);
+			return (-1);
 		i++;
 	}
 	return (0);
 }
-//dont forget to add in atoi to check until long long max?? or some kind of max
+// dont forget to add in atoi to check until long long max?? or some kind of max
 
 int	ft_exit(t_shell *shell, t_list *list)
 {
@@ -75,14 +73,12 @@ int	ft_exit(t_shell *shell, t_list *list)
 		if (exit_code_check(list->next->content) == -1)
 		{
 			ft_putstr_fd("exit: numeric argument required\n", 2);
-				exit (2);
+			exit(2);
 		}
 	}
-
 	if (list->next && list->next->content)
 		nr = ft_atoi(list->next->content);
 	free_parse(shell);
 	free_exit(shell, 0);
-	exit (nr);
+	exit(nr);
 }
-

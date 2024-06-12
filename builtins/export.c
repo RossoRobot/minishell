@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/16 16:07:26 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:32:57 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	check_export_str(t_shell *data, char *str)
 	return (flag);
 }
 
-
 int	export(t_shell *data, char *str, char *key, char *value)
 {
 	if ((!str && !key) || (str && str[0] == '\0'))
@@ -106,56 +105,5 @@ int	check_for_equal(char *str)
 	i--;
 	if (str[i] == '=')
 		return (1);
-	return (0);
-}
-
-int	delete_node(t_env *node)
-{
-	t_env	*temp;
-	t_env	*temp2;
-
-	if (node == NULL)
-		return (-1);
-	temp = node->previous;
-	temp2 = node->next;
-	if (temp2 == NULL && temp != NULL)
-		temp->next = NULL;
-	else if (temp == NULL && temp2 != NULL)
-		temp2->previous = NULL;
-	else if (temp != NULL && temp2 != NULL)
-	{
-		temp->next = temp2;
-		temp2->previous = temp;
-	}
-	free(node->key_value->key);
-	if (node->key_value->value)
-		free(node->key_value->value);
-	free(node->key_value);
-	free(node);
-	return (0);
-}
-
-int	unset(t_shell *data, char *str)
-{
-	int		flag;
-	t_env	*temp;
-
-	if (str == NULL)
-		return (-1);
-	flag = check_for_equal(str);
-	temp = data->env_line;
-	while (temp != NULL)
-	{
-		if (ft_strncmp(str, temp->key_value->key, ft_strlen(str)) == 0
-			&& flag == 0 && ft_strlen(str) == ft_strlen(temp->key_value->key))
-		{
-			if (temp->previous == NULL && temp->next != NULL)
-				data->env_line = data->env_line->next;
-			else if (temp->previous == NULL && temp->next == NULL)
-				data->env_line = NULL;
-			return (delete_node(temp));
-		}
-		temp = temp->next;
-	}
 	return (0);
 }

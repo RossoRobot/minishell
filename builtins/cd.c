@@ -6,11 +6,9 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/27 11:49:09 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:24:47 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "./../include/builtins.h"
 
@@ -25,21 +23,23 @@ char	*my_getenv(t_shell *data, char *str, int mallocflag)
 	env_value = NULL;
 	while (temp)
 	{
-		if (ft_strncmp(temp->key_value->key, str, ft_strlen(str)) == 0 && ft_strlen(str) == ft_strlen(temp->key_value->key))
+		if (ft_strncmp(temp->key_value->key, str, ft_strlen(str)) == 0
+			&& ft_strlen(str) == ft_strlen(temp->key_value->key))
 		{
 			env_value = ft_strdup(data, temp->key_value->value);
 			if (mallocflag == 1)
 				free_to_null(&str);
 			return (env_value);
 		}
-		temp = temp->next; 
+		temp = temp->next;
 	}
 	return (NULL);
 }
+
 int	change_to_home(t_shell *data, char *oldpwd, char *parameter)
 {
 	char	*home;
-	
+
 	home = my_getenv(data, "HOME", 0);
 	if (home == NULL)
 	{
@@ -60,18 +60,17 @@ int	change_to_home(t_shell *data, char *oldpwd, char *parameter)
 		return (0);
 	}
 }
-//does not work if parameter is not trimmed properly
+// does not work if parameter is not trimmed properly
 
 int	change_directory(t_shell *data, char *parameter)
 {
-	
 	if (parameter && ft_strncmp(".", parameter, ft_strlen(parameter)) == 0)
 	{
 		free(parameter);
 		return (0);
 	}
 	else
-		return(ft_cd(data, parameter));
+		return (ft_cd(data, parameter));
 }
 
 int	ft_cd(t_shell *data, char *parameter)
@@ -89,7 +88,6 @@ int	ft_cd(t_shell *data, char *parameter)
 		ret = chdir(parameter);
 		if (ret == -1)
 		{
-			//free(old_pwd);
 			printf("cd: no such file or directory: %s\n", parameter);
 			free(parameter);
 		}
@@ -97,7 +95,6 @@ int	ft_cd(t_shell *data, char *parameter)
 		{
 			replace_var(data, "OLDPWD", old_pwd, 0);
 			replace_var(data, "PWD", parameter, 0);
-			//free(old_pwd);
 			if (ft_strncmp(parameter, "..", 2) == 0)
 				replace_var(data, "PWD", getcwd(NULL, 0), 3);
 			free(parameter);
@@ -105,6 +102,3 @@ int	ft_cd(t_shell *data, char *parameter)
 	}
 	return (ret);
 }
-
-
-

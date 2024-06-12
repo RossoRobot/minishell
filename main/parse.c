@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:59:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/05/28 10:54:45 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/05/28 17:55:59 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int parse(char *cmd, t_shell *shell)
 	unquote(shell);
 	if (start_heredoc(shell))
 		return (free_parse(shell), 1);
+	print_tokens(shell);
 	trim_hedoc(shell);
 	//print_tokens(shell);
     return (0);

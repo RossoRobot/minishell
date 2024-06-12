@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:54:45 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/04/23 19:54:51 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:37:39 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strdup(t_shell *data, const char *s)
 {
 	size_t	length;
 	char	*dest;
-	
+
 	if (s == NULL)
 		return (NULL);
 	length = ft_strlen(s);
@@ -94,82 +94,3 @@ char	*ft_strjoin(t_shell *data, char const *s1, char const *s2)
 	newstr[i] = '\0';
 	return (newstr);
 }
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	char		*dest_ptr;
-	const char	*src_ptr;
-
-	if (dest == NULL && src == NULL)
-		return (NULL);
-	dest_ptr = (char *)dest;
-	src_ptr = (const char *)src;
-	while (n > 0)
-	{
-		*dest_ptr++ = *src_ptr++;
-		n--;
-	}
-	return (dest);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	while (n > 0 && (*s1 != '\0' || *s2 != '\0'))
-	{
-		if (*s1 != *s2)
-			return ((unsigned char)*s1 - (unsigned char)*s2);
-		s1++;
-		s2++;
-		n--;
-	}
-	return (0);
-}
-
-int	ft_atoi(const char *nptr)
-{
-	int	i;
-	int	n;
-	int	ret;
-
-	i = 0;
-	n = 1;
-	ret = 0;
-	if (!nptr)
-		return (0);
-	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
-		i++;
-	if (nptr[i] == '-' || nptr[i] == '+')
-	{
-		if (nptr[i] == '-')
-			n *= -1;
-		i++;
-	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		ret = (nptr[i] - '0') + (ret * 10);
-		i++;
-	}
-	return (ret * n);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	write(fd, s, ft_strlen(s));
-}
-
-int	ft_isalpha(int c)
-{
-	return ((c >= 65 && c <= 90) || (c >= 97 && c <= 122));
-}
-
-int	ft_isalnum(int c)
-{
-	return (((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
-		|| (c >= 48 && c <= 57));
-}
-
-int	ft_isnum(int c)
-{
-	return ((c >= 48 && c <= 57));
-}
-

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:12:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 13:43:16 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:51:58 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*get_value(t_shell *data, char *str)
 	return (value);
 }
 
-void	append_node(t_shell *data, char *key, char *value, char *str, int flag)
+void	append_node(t_shell *data, char *key, char *value, char *str)
 {
 	t_env	*temp;
 
@@ -78,8 +78,6 @@ void	append_node(t_shell *data, char *key, char *value, char *str, int flag)
 		data->env_line->next->previous = data->env_line;
 		data->env_line = data->env_line->next;
 		data->env_line->key_value = set_keys_n_values(data, key, value, str);
-		if (flag == 1)
-			free(str);
 		if (!(data->env_line->key_value))
 			free_exit(data, 1);
 		data->env_line->next = NULL;

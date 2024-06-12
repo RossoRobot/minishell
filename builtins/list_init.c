@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 08:21:43 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 13:42:12 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:46:49 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,3 @@ char	*get_key(t_shell *data, char *str)
 	}
 	return (key);
 }
-

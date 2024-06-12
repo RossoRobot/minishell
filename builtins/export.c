@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 13:32:57 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:51:36 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ int	export(t_shell *data, char *str, char *key, char *value)
 		value = get_value(data, str);
 		if (!value && check_for_equal(str) == 0)
 		{
-			append_node(data, key, value, str, 0);
+			append_node(data, key, value, str);
 			return (0);
 		}
 	}
 	if (replace_var(data, key, value, 1) == 0)
 		return (0);
 	else
-		append_node(data, key, value, str, 0);
+		append_node(data, key, value, str);
 	return (0);
 }
 

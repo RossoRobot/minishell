@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:12:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 13:51:58 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:47:01 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ int	pwd(t_shell *data)
 	char	*pwd;
 	char	*temp;
 
-	pwd = getcwd(NULL, 0);
+	pwd = getcwd(NULL, 0);		
 	temp = NULL;
 	if (!pwd)
 	{
 		temp = my_getenv(data, "PWD", 0);
 		printf("%s\n", temp);
+		ft_putstr_fd("pwd: cannot access parent directories: No such file or directory\n", 2);
 		free(temp);
 		return (1);
 	}

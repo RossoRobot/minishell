@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 13:24:47 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:35:51 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	change_to_home(t_shell *data, char *oldpwd, char *parameter)
 	{
 		replace_var(data, "OLDPWD", oldpwd, 0);
 		replace_var(data, "PWD", home, 0);
+		free(home);
+		free(oldpwd);
 		return (0);
 	}
 }
@@ -95,8 +97,9 @@ int	ft_cd(t_shell *data, char *parameter)
 		{
 			replace_var(data, "OLDPWD", old_pwd, 0);
 			replace_var(data, "PWD", parameter, 0);
-			if (ft_strncmp(parameter, "..", 2) == 0)
-				replace_var(data, "PWD", getcwd(NULL, 0), 3);
+			// if (ft_strncmp(parameter, "..", 2) == 0)
+			// 	replace_var(data, "PWD", getcwd(NULL, 0), 0);
+			free(old_pwd);
 			free(parameter);
 		}
 	}

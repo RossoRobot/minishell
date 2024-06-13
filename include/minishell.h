@@ -79,6 +79,7 @@ typedef struct s_list
 typedef struct s_shell
 {
 	int			n_pipes;
+	int			h_lines;
 	char 		**str;
 	char		*exp_str;
 	char		**env_arr;

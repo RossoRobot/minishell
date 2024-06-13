@@ -34,6 +34,7 @@ char	*here_doc(t_shell *shell, char *arg)
 {
 	int		fd;
 	int		flag;
+	int		num_lines;
 	char	*cmd;
 	char	*hname;
 
@@ -41,26 +42,30 @@ char	*here_doc(t_shell *shell, char *arg)
 	hname = add_hname(shell);
 	flag = 0;
 	fd = open(hname, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	num_lines = 0;
 	while (1)
 	{
 		cmd = readline("> ");
 		if (!cmd)
 		{
-			printf("minishell: warning: here-document at line 4 delimited by end-of-file (wanted `%s')\n", arg);
+			printf("minishell: warning: here-document at line %d delimited by end-of-file (wanted `%s')\n", shell->h_lines, arg);
 			printf("");
 			write(fd, "\n", 1);
+			shell->h_lines += num_lines;
 			break ;
 		}
 		if (ft_strncmp(cmd, arg, ft_strlen(cmd) + 1) == 0)
 		{
 			write(fd, "\n", 1);
 			free(cmd);
+			shell->h_lines += num_lines;
 			break ;
 		}
 		if (flag++ != 0)
 			write(fd, "\n", 1);
 		write(fd, cmd, ft_strlen(cmd));
 		free(cmd);
+		num_lines++;
 	}
 	close (fd);
 	return (hname);

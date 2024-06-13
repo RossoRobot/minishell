@@ -72,12 +72,14 @@ int	main(int argc, char **argv, char **envp)
 	shell->exp_str = NULL;
 	shell->env_line = NULL;
 	shell->hname = NULL;
+	shell->h_lines = 0;
 	init_values(shell);
 	env_duplicate(shell, envp);
 	recieve_signal(shell, &action_c, &action_d);
 	while (1)
 	{
 		cmd = readline("minishell$ ");
+		shell->h_lines++;
 		if (!cmd)
 			ft_exit(shell, *shell->lists);
 		if (press_enter_only(cmd))

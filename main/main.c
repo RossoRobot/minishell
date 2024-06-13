@@ -81,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 		cmd = readline("minishell$ ");
 		shell->h_lines++;
 		if (!cmd)
-			ft_exit(shell, *shell->lists);
+			free_exit(shell, 1);
 		if (press_enter_only(cmd))
 			continue;
 		if (process(shell, cmd))

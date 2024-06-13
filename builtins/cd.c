@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 16:35:51 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:09:08 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,20 @@ int	ft_cd(t_shell *data, char *parameter)
 			free(parameter);
 		}
 		else
-		{
-			replace_var(data, "OLDPWD", old_pwd, 0);
-			replace_var(data, "PWD", parameter, 0);
-			// if (ft_strncmp(parameter, "..", 2) == 0)
-			// 	replace_var(data, "PWD", getcwd(NULL, 0), 0);
-			free(old_pwd);
-			free(parameter);
-		}
+			export_pwds(data, old_pwd, parameter);
 	}
 	return (ret);
+}
+
+void	export_pwds(t_shell *data, char *old_pwd, char *parameter)
+{
+	char	*old_pwd_key;
+	char	*pwd_key;
+
+	old_pwd_key = ft_strdup(data, "OLDPWD");
+	pwd_key = ft_strdup(data, "PWD");
+	export(data, NULL, old_pwd_key, old_pwd);
+	export(data, NULL, pwd_key, parameter);
+	free(old_pwd);
+	free(parameter);
 }

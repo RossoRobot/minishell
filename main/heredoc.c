@@ -43,6 +43,8 @@ char	*here_doc(t_shell *shell, char *arg)
 	while (1)
 	{
 		cmd = readline("> ");
+		if (g_var == 2)
+			return (check_g_var(shell, fd, hname));
 		if (cmd_is_null_or_del(cmd, fd, arg, shell))
 		{
 			shell->h_lines += num_lines;
@@ -54,8 +56,7 @@ char	*here_doc(t_shell *shell, char *arg)
 		free(cmd);
 		num_lines++;
 	}
-	close (fd);
-	return (hname);
+	return (g_var = 0, close (fd), hname);
 }
 
 void	del_next_node(t_list *ptr)

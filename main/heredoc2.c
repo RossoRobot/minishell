@@ -57,3 +57,17 @@ void	set_flag_and_num_lines(int *flag, int *num_lines)
 	*flag = 0;
 	*num_lines = 0;
 }
+
+char	*check_g_var(t_shell *shell, int fd, char *hname)
+{
+	int		fd_new;
+	char	*hname_new;
+
+	g_var = 0;
+	close(fd);
+	hname_new = add_hname(shell);
+	fd_new = open(hname_new, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	write(fd_new, "\0", 1);
+	close(fd_new);
+	return (hname_new);
+}

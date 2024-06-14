@@ -12,6 +12,8 @@
 
 #include "./../include/minishell.h"
 
+int	g_var;
+
 static int	process(t_shell *shell, char *cmd)
 {
 	add_history(cmd);
@@ -32,7 +34,10 @@ static int	press_enter_only(char *cmd)
 
 static void	handler(int sig, siginfo_t *info, void *ucontext)
 {
-	printf("\nminishell$ ");
+	g_var = 2;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
 }
 
 //VS code denkt etwas passt da nicht (rot), ist aber alles ok

@@ -23,7 +23,10 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
+# include <sys/ioctl.h>
 # include "builtins.h"
+
+extern int g_var;
 
 //delimiter characters
 # define DEL " |"
@@ -154,6 +157,7 @@ int		cmd_is_null_or_del(char *cmd, int fd, char *arg, t_shell *shell);
 int		no_del(t_list *ptr);
 void	handle_node(t_list *ptr, char *tmp);
 void	set_flag_and_num_lines(int *flag, int *num_lines);
+char	*check_g_var(t_shell *shell, int fd, char *hname);
 
 
 //store_pid

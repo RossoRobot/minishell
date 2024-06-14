@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:12:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 16:47:01 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:13:46 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*get_value(t_shell *data, char *str)
 	if (start == 0)
 		return (NULL);
 	start++;
-	while (start[i] != '\0' && start[i] != ' ')
+	while (start[i] != '\0')
 		i++;
 	if (i == 0)
 	{
@@ -61,6 +61,7 @@ char	*get_value(t_shell *data, char *str)
 	ft_strlcpy(value, start, i + 1);
 	return (value);
 }
+
 
 void	append_node(t_shell *data, char *key, char *value, char *str)
 {

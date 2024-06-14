@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 15:30:03 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 13:50:50 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:23:08 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_missing_env(t_shell *data)
 	t_env	*temp;
 	int		counter;
 
-	counter = 3;
+	counter = 4;
 	temp = data->env_line;
 	if (temp == NULL)
 		return (-1);
@@ -80,7 +80,8 @@ int	check_missing_env(t_shell *data)
 	{
 		if (ft_strncmp(temp->key_value->key, "PWD", 3) == 0
 			|| ft_strncmp(temp->key_value->key, "_", 1) == 0
-			|| ft_strncmp(temp->key_value->key, "SHLVL", 5) == 0)
+			|| ft_strncmp(temp->key_value->key, "SHLVL", 5) == 0
+			|| ft_strncmp(temp->key_value->key, "last_return_value", 18) == 0)
 			counter--;
 		temp = temp->next;
 	}
@@ -102,6 +103,7 @@ void	env_duplicate(t_shell *data, char **envp)
 	if (!envp || !envp[i])
 	{
 		handle_empty_env(data, key);
+		free(key);
 		return ;
 	}
 	while (envp[i])
@@ -110,11 +112,15 @@ void	env_duplicate(t_shell *data, char **envp)
 		{
 			shlvl = increment_shlvl(data, envp[i]);
 			append_node(data, key, shlvl, NULL);
+			free(shlvl);
 			i++;
 		}
 		append_node(data, NULL, NULL, envp[i]);
 		i++;
 	}
 	if (check_missing_env(data) == -1)
+	{
 		handle_empty_env(data, key);
+		free(key);
+	}
 }

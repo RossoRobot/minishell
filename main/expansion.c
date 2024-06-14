@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:55:24 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/13 16:53:36 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/14 11:00:14 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ int	mal_dollar(t_shell *shell, char *str)
 	if (shell->exp_str)
 		free_to_null(&shell->exp_str);
 	shell->exp_str = my_getenv(shell, tmp, 1);
-	//if (!shell->exp_str)
-	//	return (-1);
+	// if (!shell->exp_str)
+	// 	return (-1);
 	return (i);
 }
 

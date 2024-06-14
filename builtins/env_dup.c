@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/14 10:46:24 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/14 14:52:23 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,59 @@ void	handle_empty_env(t_shell *data, char *key)
 	free(pwd);
 	shlvl = ft_strdup(data, "SHLVL=1");
 	lst_cmd = ft_strdup(data, "_=/usr/bin/env");
-	last_return_value = ft_strdup(data, "last_return_value=0");
-	free(key);
-	export(data, pwd_str, NULL, NULL);
-	export(data, lst_cmd, NULL, NULL);
-	export(data, shlvl, NULL, NULL);
-	export(data, last_return_value, NULL, NULL);
+	last_return_value = ft_strdup(data, "lrvalue=0");
+	export_malloc(data, pwd_str, NULL, NULL);
+	export_malloc(data, lst_cmd, NULL, NULL);
+	export_malloc(data, shlvl, NULL, NULL);
+	export_malloc(data, last_return_value, NULL, NULL);
+	add_oldpwd(data);
+}
+
+void	add_oldpwd(t_shell *data)
+{
+	char	*pwd;
+	char	*pwd_str;
+
+	pwd = getcwd(NULL, 0);
+	pwd_str = ft_strjoin(data, "OLDPWD=", pwd);
+	free(pwd);
+	export_malloc(data, pwd_str, NULL, NULL);
+}
+
+int	export_malloc(t_shell *data, char *str, char *key, char *value)
+{
+		if ((!str && !key) || (str && str[0] == '\0'))
+	{
+		print_myenv(data, 1);
+		return (0);
+	}
+	if (str)
+	{
+		if (check_export_str(data, str) == -1)
+			return (-1);
+		key = get_key(data, str);
+		value = get_value(data, str);
+		if (!value && check_for_equal(str) == 0)
+		{
+			append_node(data, key, value, str);
+			free(key);
+			free(value);
+			return (0);
+		}
+		free(str);
+	}
+	if (replace_var(data, key, value, 1) == 0)
+	{
+		free(value);
+		return (0);
+	}
+	else
+	{
+		append_node(data, key, value, NULL);
+		free(key);
+		free(value);
+	}
+	return (0);
 }
 
 int	exit_code_check(char *str)

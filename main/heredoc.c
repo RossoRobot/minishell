@@ -16,7 +16,7 @@ char	*add_hname(t_shell *shell)
 {
 	char	*buf;
 	char	*name;
-	
+
 	buf = (char *) malloc (sizeof(char) * 11);
 	read(open("/dev/urandom", O_RDONLY), buf, 10);
 	buf[10] = 0;
@@ -26,7 +26,6 @@ char	*add_hname(t_shell *shell)
 		shell->hname = ft_lstnew_hdoc(shell, name);
 	else
 		ft_lstadd_back_hdoc(shell->hname, ft_lstnew_hdoc(shell, name));
-	//printf("%s\n", name);
 	return (name);
 }
 
@@ -38,26 +37,14 @@ char	*here_doc(t_shell *shell, char *arg)
 	char	*cmd;
 	char	*hname;
 
-	//create random name
 	hname = add_hname(shell);
-	flag = 0;
+	set_flag_and_num_lines(&flag, &num_lines);
 	fd = open(hname, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	num_lines = 0;
 	while (1)
 	{
 		cmd = readline("> ");
-		if (!cmd)
+		if (cmd_is_null_or_del(cmd, fd, arg, shell))
 		{
-			printf("minishell: warning: here-document at line %d delimited by end-of-file (wanted `%s')\n", shell->h_lines, arg);
-			printf("");
-			write(fd, "\n", 1);
-			shell->h_lines += num_lines;
-			break ;
-		}
-		if (ft_strncmp(cmd, arg, ft_strlen(cmd) + 1) == 0)
-		{
-			write(fd, "\n", 1);
-			free(cmd);
 			shell->h_lines += num_lines;
 			break ;
 		}
@@ -84,7 +71,7 @@ void	del_next_node(t_list *ptr)
 int	start_heredoc(t_shell *shell)
 {
 	t_list	*ptr;
-	char 	*tmp;
+	char	*tmp;
 	int		i;
 
 	i = 0;
@@ -97,19 +84,11 @@ int	start_heredoc(t_shell *shell)
 		{
 			if (ptr->type == he_doc)
 			{
-				if (!ptr->next)
-				{
-					ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n" ,2);
+				if (no_del(ptr))
 					return (1);
-				}
 				tmp = ft_strdup(shell, here_doc(shell, ptr->next->content));
 				free(ptr->content);
-				ptr->content = tmp;
-				ptr->type = text_a;
-				del_next_node(ptr);
-				if (ptr->next)
-					if (ptr->next->type == he_doc)
-						ptr->type = delete_a;
+				handle_node(ptr, tmp);
 			}
 			ptr = ptr->next;
 		}
@@ -137,4 +116,3 @@ void	trim_hedoc(t_shell *shell)
 		ptr = shell->lists[++i];
 	}
 }
-

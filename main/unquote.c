@@ -34,6 +34,34 @@ char	*del_quote(char *str)
 	return (tmp);
 }
 
+int	check_for_quote(int flag, char c, int tmp, char *content)
+{
+	if ((flag == 1 && c == '\'')
+		|| (flag == 2 && c == '\"')
+		|| (flag == 0 && c == '\'')
+		|| (flag == 0 && c == '\"'))
+	{
+		while (content[tmp])
+		{
+			content[tmp] = content[tmp + 1];
+			tmp++;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+t_list	**set_data(int *i, int *tmp, int *flag, t_shell *shell)
+{
+	if (i)
+		*i = 0;
+	if (tmp)
+		*tmp = 0;
+	if (flag)
+		*flag = 0;
+	return (shell->lists);
+}
+
 int	unquote(t_shell *shell)
 {
 	int		i;
@@ -42,10 +70,7 @@ int	unquote(t_shell *shell)
 	int		flag;
 	t_list	*ptr;
 
-	i = 0;
-	tmp = 0;
-	flag = 0;
-	if (!shell->lists)
+	if (!set_data(&i, &tmp, &flag, shell))
 		return (1);
 	ptr = shell->lists[i];
 	while (ptr)
@@ -55,18 +80,8 @@ int	unquote(t_shell *shell)
 		{
 			tmp = n;
 			set_flag(&ptr->content[n], &flag);
-			if ((flag == 1 && ptr->content[n] == '\'') ||
-				(flag == 2 && ptr->content[n] == '\"') ||
-				(flag == 0 && ptr->content[n] == '\'') ||
-				(flag == 0 && ptr->content[n] == '\"'))
-			{
-				while (ptr->content[tmp])
-				{
-					ptr->content[tmp] = ptr->content[tmp + 1];
-					tmp++;
-				}
-				continue;
-			}
+			if (check_for_quote(flag, ptr->content[n], tmp, ptr->content))
+				continue ;
 			n++;
 		}
 		ptr = ptr->next;

@@ -49,22 +49,21 @@ void	set_flag(char *c, int *flag)
 	if (*flag == 0 && *c == '\'')
 	{
 		*flag = 1;
-		return;
+		return ;
 	}
 	else if (*flag == 0 && *c == '\"')
 	{
 		*flag = 2;
-		return;
+		return ;
 	}
-
 	if (*flag == 1 && *c == '\'')
 	{
 		*flag = 0;
-		return;
+		return ;
 	}
 	else if (*flag == 2 && *c == '\"')
 	{
 		*flag = 0;
-		return;
+		return ;
 	}
 }

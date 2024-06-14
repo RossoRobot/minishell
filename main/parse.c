@@ -26,47 +26,30 @@ void	create_tokens(char *input, t_shell *shell)
 	int		k;
 	int		flag;
 	int		pipes;
-	char	*str;
-	t_list	*tmp;
-	
-	i = 0;
-	k = 0;
-	pipes = shell->n_pipes;
-	str = input;
-	//malloc pointers for lists
-	mal_list(shell);
-	//create list, store beginning (address) of first command
+
+	mal_list(set_data_return_shell(shell, &i, &k, &pipes));
 	while (pipes + 1)
 	{
-		//ignore tab/space/newline at beginning of string
-		str = skip_gap(str);
-		shell->lists[i] = ft_lstnew(str, &k, shell);
-		while(*str)
+		input = skip_gap(input);
+		shell->lists[i] = ft_lstnew(input, &k, shell);
+		while (*input)
 		{
-			flag = 0;
 			while (k-- != 0)
-				str++;
-			//go over tab/space/newline
-			str = skip_gap(str);
-			if (*str == 0)
+				input++;
+			flag = set_input(&input);
+			if (*input == 0)
 				break ;
-			while (*str == '|')
-			{
-				flag = 1;
-				str++;
-			}
+			if (*input == '|')
+				input += while_pipe(input, &flag);
 			if (flag)
-				break;
-			tmp = ft_lstnew(str, &k, shell);
-			ft_lstadd_back(shell->lists[i], tmp);
+				break ;
+			ft_lstadd_back(shell->lists[i], ft_lstnew(input, &k, shell));
 		}
-		i++;
-		pipes--;
+		increase_i_decrease_pipes(&i, &pipes);
 	}
 }
 
-
-void print_tokens(t_shell *shell)
+void	print_tokens(t_shell *shell)
 {
 	t_list	*ptr;
 	int		i;
@@ -79,7 +62,6 @@ void print_tokens(t_shell *shell)
 		{
 			printf("content: %s\n", ptr->content);
 			printf("   type:  %d\n", ptr->type);
-			//printf("   next:  %d\n", ptr->next);
 			ptr = ptr->next;
 		}
 		i++;
@@ -115,23 +97,10 @@ int	check_input(char *str, t_shell *shell)
 	return (0);
 }
 
-int	init_values(t_shell *shell)
+int	parse(char *cmd, t_shell *shell)
 {
-	shell->env_arr = NULL;
-	shell->lists = NULL;
-	//shell->hname = NULL;
-	shell->last_return_value = 0;
-	shell->n_pipes = 0;
-	shell->pids = NULL;
-	//if (shell->exp_str)
-	//	free(shell->exp_str);
-	return (0);
-}
-
-int parse(char *cmd, t_shell *shell)
-{
-    init_values(shell);
-    check_input(cmd, shell);
+	init_values(shell);
+	check_input(cmd, shell);
 	create_tokens(cmd, shell);
 	if (!shell->lists)
 		return (1);
@@ -141,7 +110,6 @@ int parse(char *cmd, t_shell *shell)
 	unquote(shell);
 	if (start_heredoc(shell))
 		return (free_parse(shell), 1);
-	//print_tokens(shell);
 	trim_hedoc(shell);
-    return (0);
+	return (0);
 }

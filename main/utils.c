@@ -24,11 +24,8 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 	if (!start)
 		return (NULL);
 	flag = 0;
-	//while a delimiter
 	str = while_del(str);
-	//check if str starts with a "-sign or '-sign
 	set_flag(&str[0], &flag);
-	//while NOT a delimiter, count str length
 	i = while_not_del(str, &flag, shell, k);
 	start->content = (char *) malloc (sizeof(char) * (i + 1));
 	if (!start->content)
@@ -41,9 +38,7 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 		i++;
 		set_flag(&str[i], &flag);
 	}
-	start->content[i] = '\0';
-	start->next = NULL;
-	return (start);
+	return (start->content[i] = '\0', start->next = NULL, start);
 }
 
 void	ft_lstadd_back(t_list *lst, t_list *new)
@@ -63,7 +58,7 @@ void	ft_lstadd_back(t_list *lst, t_list *new)
 }
 
 //check if chr equals one of the DEL (delimiters)
-int	check_del(char	chr, int flag)
+int	check_del(char chr, int flag)
 {
 	int	i;
 

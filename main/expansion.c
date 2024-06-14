@@ -20,9 +20,7 @@ int	expansion(t_shell *shell)
 	int		flag;
 	t_list	*ptr;
 
-	i = 0;
-	flag = 0;
-	if (!shell->lists)
+	if (!set_data(&i, NULL, &flag, shell))
 		return (1);
 	ptr = shell->lists[i];
 	while (ptr)
@@ -33,12 +31,7 @@ int	expansion(t_shell *shell)
 			len_str = 0;
 			set_flag(&ptr->content[n], &flag);
 			if (ptr->content[n] == '$' && flag != 1)
-			{
-				len_str = mal_dollar(shell, &ptr->content[n]);
-				ptr->content = replace_dollar(shell, ptr->content, len_str);//replace $HOME with expanded str
-				n = -1;
-				flag = 0;
-			}
+				flag = expand_str(shell, &n, ptr);
 			n++;
 		}
 		ptr = ptr->next;
@@ -52,7 +45,7 @@ int	expansion(t_shell *shell)
 int	mal_dollar(t_shell *shell, char *str)
 {
 	int		i;
-	char *tmp;
+	char	*tmp;
 
 	i = 0;
 	str++;
@@ -60,7 +53,7 @@ int	mal_dollar(t_shell *shell, char *str)
 		i++;
 	tmp = (char *) malloc (sizeof(char) + (i + 1));
 	if (!tmp)
-		return(-1);
+		return (-1);
 	i = 0;
 	while (ft_isalnum(str[i]) || str[i] == '_')
 	{
@@ -71,8 +64,6 @@ int	mal_dollar(t_shell *shell, char *str)
 	if (shell->exp_str)
 		free_to_null(&shell->exp_str);
 	shell->exp_str = my_getenv(shell, tmp, 1);
-	// if (!shell->exp_str)
-	// 	return (-1);
 	return (i);
 }
 
@@ -81,14 +72,12 @@ char	*replace_dollar(t_shell *shell, char *str, int len)
 	int		i;
 	int		n;
 	int		flag;
-	char *tmp;
+	char	*tmp;
 
-	i = 0;
-	n = 0;
-	flag = 0;
+	set_data(&i, &n, &flag, shell);
 	while (str[i])
 		i++;
-	tmp = (char *) malloc (sizeof(char) * (i - len + ft_strlen(shell->exp_str) + 1));
+	tmp = malloc (sizeof(char) * (i - len + ft_strlen(shell->exp_str) + 1));
 	if (!tmp)
 		return (NULL);
 	i = 0;
@@ -97,11 +86,8 @@ char	*replace_dollar(t_shell *shell, char *str, int len)
 		tmp[n] = str[i];
 		set_flag(&str[i], &flag);
 		if (str[i] == '$' && (flag == 0 || flag == 2))
-		{
-			n = n + replace_dollar_str(shell, &tmp[n]);
-			i = i + len;
-			flag = 3;
-		}
+			n = replace_dollar_helper(&n, &i, &flag, len)
+				+ replace_dollar_str(shell, &tmp[n]);
 		i++;
 		n++;
 	}

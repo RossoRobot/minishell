@@ -12,7 +12,6 @@
 
 #include "./../include/minishell.h"
 
-
 int	set_type(t_list *node)
 {
 	if (!ft_strncmp(node->content, "echo", 10))
@@ -47,7 +46,7 @@ int	set_type2(t_list *node)
 	return (0);
 }
 
-void    define_type(t_shell *shell)
+void	define_type(t_shell *shell)
 {
 	t_list	*ptr;
 	int		i;
@@ -59,11 +58,10 @@ void    define_type(t_shell *shell)
 	{
 		ptr = shell->lists[i];
 		set_type(ptr);
-		if (!strncmp(ptr->content, "echo", 10) && ptr->next &&
-			!strncmp(ptr->next->content, "-n", 10))
+		if (!strncmp(ptr->content, "echo", 10) && ptr->next
+			&& !strncmp(ptr->next->content, "-n", 10))
 		{
-			ptr = ptr->next;
-			ptr->type = flag_a;
+			ptr = define_flag(ptr);
 		}
 		ptr = ptr->next;
 		while (ptr)
@@ -75,4 +73,10 @@ void    define_type(t_shell *shell)
 		i++;
 	}
 	ptr = NULL;
+}
+
+t_list	*define_flag(t_list *ptr)
+{
+	ptr->next->type = flag_a;
+	return (ptr->next);
 }

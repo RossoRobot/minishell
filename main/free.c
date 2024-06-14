@@ -12,6 +12,15 @@
 
 #include "./../include/minishell.h"
 
+t_list	*free_parse_helper(t_list *ptr, char *content, t_list *list)
+{
+	if (content)
+		free(content);
+	if (list)
+		free(list);
+	return (ptr);
+}
+
 void	free_parse(t_shell *shell)
 {
 	int		i;
@@ -28,27 +37,26 @@ void	free_parse(t_shell *shell)
 				while (ptr)
 				{
 					ptr = ptr->next;
-					if (shell->lists[i]->content)
-						free(shell->lists[i]->content);
-					if (shell->lists[i])
-						free(shell->lists[i]);
-					shell->lists[i] = ptr;
+					shell->lists[i] = free_parse_helper(ptr,
+							shell->lists[i]->content, shell->lists[i]);
 				}
 				i++;
 			}
 		}
 		free(shell->lists);
 	}
-	if (shell->exp_str)
-		free_to_null(&shell->exp_str);
+	free_to_null(&shell->exp_str);
 	if (shell->pids)
 		free(shell->pids);
 }
 
 void	free_to_null(char **var)
 {
-	free(*var);
-	*var = NULL;
+	if (*var)
+	{
+		free(*var);
+		*var = NULL;
+	}
 }
 
 void	free_hname(t_shell *shell)

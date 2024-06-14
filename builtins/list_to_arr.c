@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 15:30:03 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/14 10:36:04 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:50:18 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_missing_env(t_shell *data)
 	t_env	*temp;
 	int		counter;
 
-	counter = 3;
+	counter = 4;
 	temp = data->env_line;
 	if (temp == NULL)
 		return (-1);
@@ -80,7 +80,8 @@ int	check_missing_env(t_shell *data)
 	{
 		if (ft_strncmp(temp->key_value->key, "PWD", 3) == 0
 			|| ft_strncmp(temp->key_value->key, "_", 1) == 0
-			|| ft_strncmp(temp->key_value->key, "SHLVL", 5) == 0)
+			|| ft_strncmp(temp->key_value->key, "SHLVL", 5) == 0
+			|| ft_strncmp(temp->key_value->key, "last_return_value", 18) == 0)
 			counter--;
 		temp = temp->next;
 	}

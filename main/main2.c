@@ -18,6 +18,7 @@ int	first_init(t_shell *shell)
 	shell->env_line = NULL;
 	shell->hname = NULL;
 	shell->h_lines = 0;
+	return (0);
 }
 
 int	init_values(t_shell *shell)

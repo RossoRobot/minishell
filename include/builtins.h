@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:25:27 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/13 13:09:24 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/13 14:29:46 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*increment_shlvl(t_shell *data, char *str);
 int		change_directory(t_shell *data, char *parameter);
 int		ft_cd(t_shell *data, char *parameter);
 int		change_to_home(t_shell *data, char *oldpwd, char *parameter);
-void	export_pwds(t_shell *data, char *old_pwd, char *parameter);
+void	export_pwds(t_shell *data, char *old_pwd);
 
 void	free_arr(char **arr);
 size_t	count_strings(char **envp);

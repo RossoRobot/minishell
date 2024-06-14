@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:30:33 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 13:41:45 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:26:05 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,35 +74,6 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		n--;
 	}
 	return (0);
-}
-
-void	print_myenv(t_shell *data, int flag)
-{
-	t_env	*temp;
-	int		i;
-
-	i = 0;
-	temp = data->env_line;
-	while (data->env_line != NULL)
-	{
-		i++;
-		if (flag == 1)
-		{
-			printf("declare -x ");
-			printf("%s", data->env_line->key_value->key);
-			if (data->env_line->key_value->value != NULL)
-				printf("=\"%s\"\n", data->env_line->key_value->value);
-			else
-				printf("\n");
-		}
-		else if (flag == 0 && data->env_line->key_value->value)
-		{
-			printf("%s=", data->env_line->key_value->key);
-			printf("%s\n", data->env_line->key_value->value);
-		}
-		data->env_line = data->env_line->next;
-	}
-	data->env_line = temp;
 }
 
 t_key_value	*set_keys_n_values(t_shell *data, char *key, char *value, char *str)

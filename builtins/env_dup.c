@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 13:27:32 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/14 10:46:24 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,19 @@ void	handle_empty_env(t_shell *data, char *key)
 	char	*pwd_str;
 	char	*shlvl;
 	char	*lst_cmd;
+	char	*last_return_value;
 
 	pwd = getcwd(NULL, 0);
 	pwd_str = ft_strjoin(data, "PWD=", pwd);
+	free(pwd);
 	shlvl = ft_strdup(data, "SHLVL=1");
 	lst_cmd = ft_strdup(data, "_=/usr/bin/env");
+	last_return_value = ft_strdup(data, "last_return_value=0");
 	free(key);
-	free(pwd);
 	export(data, pwd_str, NULL, NULL);
-	export(data, shlvl, NULL, NULL);
 	export(data, lst_cmd, NULL, NULL);
+	export(data, shlvl, NULL, NULL);
+	export(data, last_return_value, NULL, NULL);
 }
 
 int	exit_code_check(char *str)

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 16:33:00 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:44:46 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int	replace_var(t_shell *data, char *key, char *value, int key_malloc_flag)
 				ft_strlen(temp->key_value->key)) == 0
 			&& ft_strlen(temp->key_value->key) == ft_strlen(key))
 		{
-			if (key_malloc_flag == 1)
+			if (key_malloc_flag == 1 || key_malloc_flag == 3)
 				free(key);
+			if (key_malloc_flag == 3)
+				free(value);
 			// if (key_malloc_flag != 3)
 			// 	free(temp->key_value->value);
 			if (value == NULL)
@@ -86,13 +88,20 @@ int	export(t_shell *data, char *str, char *key, char *value)
 		if (!value && check_for_equal(str) == 0)
 		{
 			append_node(data, key, value, str);
+			free(key);
+			free(value);
 			return (0);
 		}
+		free(str);
 	}
 	if (replace_var(data, key, value, 1) == 0)
+	{
 		return (0);
+	}
 	else
-		append_node(data, key, value, str);
+	{
+		append_node(data, key, value, NULL);
+	}
 	return (0);
 }
 

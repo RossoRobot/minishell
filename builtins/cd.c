@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/13 13:09:08 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:41:15 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,11 @@ int	change_to_home(t_shell *data, char *oldpwd, char *parameter)
 	home = my_getenv(data, "HOME", 0);
 	if (home == NULL)
 	{
-		free(oldpwd);
 		return (printf("cd: HOME not set\n"), -1);
 	}
 	if (chdir(home) == -1)
 	{
 		printf("cd: HOME not set\n");
-		free(oldpwd);
 		free(home);
 		return (-1);
 	}
@@ -58,7 +56,6 @@ int	change_to_home(t_shell *data, char *oldpwd, char *parameter)
 		replace_var(data, "OLDPWD", oldpwd, 0);
 		replace_var(data, "PWD", home, 0);
 		free(home);
-		free(oldpwd);
 		return (0);
 	}
 }
@@ -84,30 +81,36 @@ int	ft_cd(t_shell *data, char *parameter)
 	ret = 0;
 	old_pwd = my_getenv(data, "PWD", 0);
 	if (parameter == NULL || parameter[0] == '\0' || parameter[0] == ' ')
+	{
 		ret = change_to_home(data, old_pwd, parameter);
+		free(old_pwd);
+	}
 	else
 	{
 		ret = chdir(parameter);
 		if (ret == -1)
 		{
+			free(old_pwd);
 			printf("cd: no such file or directory: %s\n", parameter);
-			free(parameter);
 		}
 		else
-			export_pwds(data, old_pwd, parameter);
+			export_pwds(data, old_pwd);
+		free(parameter);
 	}
 	return (ret);
 }
 
-void	export_pwds(t_shell *data, char *old_pwd, char *parameter)
+void	export_pwds(t_shell *data, char *old_pwd)
 {
 	char	*old_pwd_key;
 	char	*pwd_key;
+	char	*pwd;
 
+	pwd = getcwd(NULL, 0);
 	old_pwd_key = ft_strdup(data, "OLDPWD");
 	pwd_key = ft_strdup(data, "PWD");
 	export(data, NULL, old_pwd_key, old_pwd);
-	export(data, NULL, pwd_key, parameter);
-	free(old_pwd);
-	free(parameter);
+	export(data, NULL, pwd_key, pwd);
+	// free(old_pwd);
+	// free(pwd);
 }

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:25:27 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/14 14:59:00 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/14 17:31:03 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,11 @@ int		delete_node(t_env *node);
 int		check_for_equal(char *str);
 int		check_export_str(t_shell *data, char *str);
 int		export_malloc(t_shell *data, char *str, char *key, char *value);
+int		check_double(t_shell *data, char *str);
 
 int		ft_exit(t_shell *shell, t_list *list);
 int		exit_code_check(char *str);
+char	*quote_value(t_shell *data, char *str);
 
 void	free_exit(t_shell *data, int error_flag);
 char	*get_key(t_shell *data, char *str);

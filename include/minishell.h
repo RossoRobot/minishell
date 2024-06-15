@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/05/28 11:29:53 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:15:08 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,7 @@ int		execute_builtin(t_shell *shell, t_list *list);
 int		execute_no_pipe(t_shell *shell, t_list *list);
 char	**transform_list(t_shell *shell, t_list *list);
 int		execute_binary(t_shell *shell, t_list *list);
+t_list  *find_command(t_list *list);
 
 char	**ft_split(const char *s1, char c);
 char    *path_access(t_shell *shell, t_list *list, char **arr);

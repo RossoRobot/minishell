@@ -19,7 +19,6 @@ static int	process(t_shell *shell, char *cmd)
 	add_history(cmd);
 	if (parse(cmd, shell))
 		return (0);
-	
 	execute(shell);
 	free_hname(shell);
 	free_parse(shell);
@@ -67,6 +66,9 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		cmd = readline("minishell$ ");
+		if (g_var == 2)
+			set_return_value(shell, 2);
+		g_var = 0;
 		shell->h_lines++;
 		if (!cmd)
 			free_exit(shell, 1);

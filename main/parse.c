@@ -75,9 +75,7 @@ int	check_input(char *str, t_shell *shell)
 	int	flag1;
 	int	flag2;
 
-	i = 0;
-	flag1 = 0;
-	flag2 = 0;
+	set_data(&i, &flag1, &flag2, shell);
 	while (str[i])
 	{
 		if (str[i] == '|')
@@ -86,14 +84,17 @@ int	check_input(char *str, t_shell *shell)
 				i++;
 			shell->n_pipes++;
 		}
-		if (str[i] == '\"')
-			flag1++;
-		if (str[i] == '\'')
-			flag2++;
+		flag1 += increase_flag(str[i], '\"');
+		flag2 += increase_flag(str[i], '\'');
 		i++;
 	}
 	if (flag1 % 2 || flag2 % 2)
-		return (printf("Error with quotation!\n"), 1);
+	{
+		printf("minishell: error: invalid number of quotation\n");
+		set_return_value(shell, 0);
+		free_exit(shell, 0);
+		exit(0);
+	}
 	return (0);
 }
 

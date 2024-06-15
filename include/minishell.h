@@ -165,6 +165,9 @@ void	handle_node(t_list *ptr, char *tmp);
 void	set_flag_and_num_lines(int *flag, int *num_lines);
 char	*check_g_var(t_shell *shell, int fd, char *hname);
 
+//set_return_value
+int		set_return_value(t_shell *shell, int retval);
+int		increase_flag(char c, char d);
 
 //store_pid
 int		count_pids(pid_t *pid_arr);

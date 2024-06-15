@@ -120,6 +120,11 @@ int		replace_dollar_str(t_shell *shell, char *tmp);
 int		expand_str(t_shell *shell, int *n, t_list *ptr);
 int		replace_dollar_helper(int *n, int *i, int *flag, int len);
 
+//sep_env_cmd
+int		squeeze_node(t_list *ptr, char *content);
+int		split_token(t_list *ptr, int n);
+int		sep_env_cmd(t_shell *shell);
+
 //utils
 t_list	*ft_lstnew(char *content, int *k, t_shell *shell);
 void	ft_lstadd_back(t_list *lst, t_list *neu);

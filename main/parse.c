@@ -106,6 +106,7 @@ int	parse(char *cmd, t_shell *shell)
 		return (1);
 	if (expansion(shell))
 		exit (1);
+	sep_env_cmd(shell);
 	define_type(shell);
 	unquote(shell);
 	if (start_heredoc(shell))

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:12:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/14 17:13:46 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/15 12:39:06 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	append_node(t_shell *data, char *key, char *value, char *str)
 
 	temp = data->env_line;
 	if (!temp)
-		first_node_init(data, NULL, NULL, str);
+		first_node_init(data, key, value, str);
 	else
 	{
 		while (data->env_line->next != NULL)

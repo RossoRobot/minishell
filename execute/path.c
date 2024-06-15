@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:15:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/23 18:15:21 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/15 12:46:29 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char    *get_path(t_shell *shell, t_list *list)
         return (ft_strdup(shell, list->content));
     path = my_getenv(shell, "PATH", 0);
     if (path == NULL)
-        return (NULL);
+        return (ft_strdup(shell, list->content));
     path_arr = ft_split(path, ':');
     if (!path_arr)
     {

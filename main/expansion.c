@@ -64,6 +64,8 @@ int	mal_dollar(t_shell *shell, char *str)
 	if (shell->exp_str)
 		free_to_null(&shell->exp_str);
 	shell->exp_str = my_getenv(shell, tmp, 1);
+	if (tmp)
+		free(tmp);
 	return (i);
 }
 

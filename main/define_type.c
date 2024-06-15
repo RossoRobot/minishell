@@ -58,8 +58,8 @@ void	define_type(t_shell *shell)
 	{
 		ptr = shell->lists[i];
 		set_type(ptr);
-		if (!strncmp(ptr->content, "echo", 10) && ptr->next
-			&& !strncmp(ptr->next->content, "-n", 10))
+		if (!ft_strncmp(ptr->content, "echo", 10) && ptr->next
+			&& check_n_flag(ptr->next->content))
 		{
 			ptr = define_flag(ptr);
 		}
@@ -79,4 +79,20 @@ t_list	*define_flag(t_list *ptr)
 {
 	ptr->next->type = flag_a;
 	return (ptr->next);
+}
+
+int	check_n_flag(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-')
+		i++;
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
 }

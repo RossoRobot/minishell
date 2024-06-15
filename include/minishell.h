@@ -143,6 +143,7 @@ int		set_type(t_list *node);
 int		set_type2(t_list *node);
 void    define_type(t_shell *shell);
 t_list	*define_flag(t_list *ptr);
+int		check_n_flag(char *str);
 
 //unquote
 int		unquote(t_shell *shell);

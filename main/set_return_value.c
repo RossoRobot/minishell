@@ -21,7 +21,8 @@ int	set_return_value(t_shell *shell, int retval)
 	retval_str = ft_itoa(retval);
 	if (!retval_str)
 		return (-1);
-	replace_var(shell, "?", retval_str, 0);
+	replace_var(shell, "lrvalue", retval_str, 0);
+	free(retval_str);
 	return (retval);
 }
 

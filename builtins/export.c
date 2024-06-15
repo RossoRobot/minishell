@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/14 18:08:24 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/15 13:19:20 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	check_export_str(t_shell *data, char *str)
 	{
 		ft_putstr_fd("export: `", 2);
 		ft_putstr_fd(str, 2);
-		ft_putstr_fd("'  not a valid identifier\n", 2);
-		flag = 1;
+		ft_putstr_fd("' not a valid identifier\n", 2);
+		return (-1);
 	}
 	while (*str != '=' && *str == '\0')
 	{
@@ -63,12 +63,6 @@ int	check_export_str(t_shell *data, char *str)
 	}
 	if (*str == '=' && *(str++) == ' ')
 		flag = 1;
-	if (flag == -1)
-	{
-		ft_putstr_fd("export: `", 2);
-		ft_putstr_fd(str, 2);
-		ft_putstr_fd("'  not a valid identifier\n", 2);
-	}
 	return (flag);
 }
 

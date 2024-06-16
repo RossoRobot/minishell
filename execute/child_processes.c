@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/27 12:16:35 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/16 15:50:54 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	forkex(t_shell *shell)
 		if (pipe(fd) == -1)
 			free_exit(shell, 0);
 		pid = fork();
-		//store_pid(shell, pid);
 		if (pid < 0)
 		{
 			perror("fork");

@@ -67,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		cmd = readline("minishell$ ");
 		if (g_var == 2)
-			set_return_value(shell, 2);
+			set_return_value(shell, 130);
 		g_var = 0;
 		shell->h_lines++;
 		if (!cmd)

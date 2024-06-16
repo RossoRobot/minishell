@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/15 12:37:16 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/15 14:17:45 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*my_getenv(t_shell *data, char *str, int mallocflag)
 		{
 			env_value = ft_strdup(data, temp->key_value->value);
 			if (mallocflag == 1)
-				free_to_null(&str);
+				free(str);
 			return (env_value);
 		}
 		temp = temp->next;

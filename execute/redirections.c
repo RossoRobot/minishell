@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/05/28 12:42:53 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/16 15:42:55 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
         if (temp == NULL)
         {
             execute_it(shell, arr, list, stdin_backup, stdout_backup);
-            break ;
+            return ;
         }
         else if (temp->type == 5)
             redirect_output(shell, temp->next, 0);
@@ -91,26 +91,58 @@ void    reset_fds(int stdin, int stdout)
     dup2(stdout, STDOUT_FILENO);
     close(stdout);
 }
+t_list  *find_command(t_list *list)
+{
+    t_list *temp;
+    t_list *temp2;
+
+    temp = list;
+    while (temp != NULL)
+    {
+        if ((temp->type >= 10 && temp->type <= 16) || temp->type == 0 || temp->type == 2)
+        {
+            temp2 = temp;
+            while(temp2 != NULL)
+            {
+                set_type(temp2);
+                temp2 = temp2->next;
+            }
+            return (temp);
+        }
+        if ((temp->type >= 4 && temp->type <= 7))
+        {
+            temp = temp->next;
+        }
+        temp = temp->next;
+    }
+    return (temp);
+}
+
 int    execute_it(t_shell *shell, char **arr, t_list *list, int stdin_backup, int stdout_backup)
 {
     char    *path;
+    t_list  *temp;
 
-    if (list->type >= 10 && list->type <= 16)
+    temp = find_command(list);
+    if (temp->type >= 10 && temp->type <= 16)
     {
         free_arr(arr);
-        execute_builtin(shell, list);
-        reset_fds(stdin_backup, stdout_backup);
-        return (0);
+        execute_builtin(shell, temp);
+        reset_fds(stdin_backup, stdout_backup);   
+        exit (0);
     }
-    path = get_path(shell, list);
+    path = get_path(shell, temp);
     shell->env_arr = transform_list_to_arr(shell, shell->env_line);
 	if (!(shell->env_arr))
         free_exit(shell, 1);
     if (execve(path, arr, shell->env_arr) == -1)
     {
         free(path);
-        free_arr(arr);
-        free_arr(shell->env_arr);
+        //free_arr(arr);
+        //free_arr(shell->env_arr);
+        ft_putstr_fd(temp->content, 2);
+        ft_putstr_fd(": command not found\n", 2);
+        free_exit(shell, 1);
     }
     return (0);
 }

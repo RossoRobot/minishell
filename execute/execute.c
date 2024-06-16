@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/15 12:05:41 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/15 16:34:02 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,15 @@ int	execute_binary(t_shell *shell, t_list *list)
 int	execute_command(t_shell *shell, t_list *list)
 {
 	if (list->type <= 16 && list->type >= 10)
+	{
 		execute_builtin(shell, list);
+		return (0);
+	}
 	else
+	{
 		execute_binary(shell, list);
-	return (0);
+		return (0);
+	}
 }
 
 int	execute_no_pipe(t_shell *shell, t_list *list)
@@ -155,7 +160,10 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 		if (pid == 0)
 		{
 			if (is_redirection(shell, list) != 0)
+			{
 				prep_redir_exec(shell, list);
+				return (0);
+			}
 			execute_binary(shell, list);
 			exit (0);
 		}
@@ -170,7 +178,6 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 
 int	execute(t_shell *shell)
 {
-	int		pipe_fd[2];
 	int		i;
 
 	i = 0;

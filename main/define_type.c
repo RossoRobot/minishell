@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:12:43 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/04/19 14:36:07 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:40:57 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,13 @@ void	define_type(t_shell *shell)
 		{
 			ptr = define_flag(ptr);
 		}
+		printf("flag:%d\n", ptr->type);
 		ptr = ptr->next;
 		while (ptr)
 		{
 			ptr->type = text_a;
+			if (check_n_flag(ptr->content))
+				ptr->type = flag_a;
 			set_type2(ptr);
 			ptr = ptr->next;
 		}
@@ -88,10 +91,14 @@ int	check_n_flag(char *str)
 	i = 0;
 	if (str[i] == '-')
 		i++;
+	else
+		return (0);
 	while (str[i])
 	{
 		if (str[i] != 'n')
+		{
 			return (0);
+		}
 		i++;
 	}
 	return (1);

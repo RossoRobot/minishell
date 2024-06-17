@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 16:35:21 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/12 13:27:08 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:21:48 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ int	execute_echo(t_shell *shell, t_list *list)
 
 	flag = 0;
 	ptr = list->next;
+	while (ptr && ptr->type == flag_a)
+	{
+		flag = 1;
+		ptr = ptr->next;
+	}
 	while (ptr)
 	{
-		if (ptr->type == flag_a)
-		{
-			flag = 1;
-			ptr = ptr->next;
-			continue ;
-		}
 		if (ptr->type == 4 || ptr->type == 5 || ptr->type == 7)
 			break ;
 		printf("%s", ptr->content);

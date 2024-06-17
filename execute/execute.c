@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/15 16:34:02 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:24:17 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,25 @@ char	**trans_argv(t_shell *shell, t_list *list)
 	return (args);
 }
 
+void	check_some_things(t_shell *shell, t_list *list)
+{
+	printf("%s\n", list->content);
+	if (list->content[0] == '|' || list->content[0] == ';')
+	{
+		ft_putstr_fd( "syntax error near unexpected token `",2);
+		write(2, &list->content[0], 1);
+		ft_putstr_fd("'\n", 2);
+		free_parse(shell);
+		free_exit(shell, 1);
+	}
+}
+
 int	execute_binary(t_shell *shell, t_list *list)
 {
 	char	**argv;
 	char	*path;
 	
+	check_some_things(shell, list);
 	shell->env_arr = transform_list_to_arr(shell, shell->env_line);
 	if (!(shell->env_arr))
 		free_exit(shell, 0);

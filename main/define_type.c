@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:12:43 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/17 16:40:57 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/18 10:25:25 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	define_type(t_shell *shell)
 		{
 			ptr = define_flag(ptr);
 		}
-		printf("flag:%d\n", ptr->type);
 		ptr = ptr->next;
 		while (ptr)
 		{

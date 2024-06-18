@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/15 13:21:05 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/18 11:07:38 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ int	export(t_shell *data, char *str, char *key, char *value)
 	}
 	if (replace_var(data, key, value, 1) == 0)
 	{
-		if (value[0] == '\0')
+		// if (value[0] == '\0')
+		// 	free(value);
+		if (value)
 			free(value);
 		return (0);
 	}
@@ -116,7 +118,7 @@ int	check_double(t_shell *data, char *str)
 		if (ft_strncmp(temp->key_value->key, str, ft_strlen(str)) == 0
 			&& (ft_strlen(str) == ft_strlen(temp->key_value->key)))
 			return (-1);
-			temp = temp->next;
+		temp = temp->next;
 	}
 	return (0);
 }

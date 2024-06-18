@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/17 13:24:17 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:01:15 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ char	**trans_argv(t_shell *shell, t_list *list)
 
 void	check_some_things(t_shell *shell, t_list *list)
 {
-	printf("%s\n", list->content);
 	if (list->content[0] == '|' || list->content[0] == ';')
 	{
 		ft_putstr_fd( "syntax error near unexpected token `",2);

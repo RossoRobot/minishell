@@ -28,7 +28,6 @@
 
 extern int	g_var;
 
-//delimiter characters
 # define DEL " |"
 
 typedef struct s_env		t_env;
@@ -87,6 +86,7 @@ typedef struct s_shell
 	char		*exp_str;
 	char		**env_arr;
 	int			last_return_value;
+	int			flag;
 	t_env		*env_line;
 	pid_t		*pids;
 	t_list		**lists;
@@ -133,7 +133,7 @@ int		split_token(t_list *ptr, int n);
 int		sep_env_cmd(t_shell *shell);
 
 //signal
-void	recieve_signal(t_shell *shell, int flag);
+void	recieve_signal(t_shell *shell, int flag, int shellflag);
 void	handler(int sig);
 void	heredoc_helper(t_shell *shell, char *content, t_list *ptr, char *tmp);
 int		write_free(int fd, char **cmd);

@@ -80,7 +80,7 @@ int	check_input(char *str, t_shell *shell)
 		return (1);
 	while (str[i])
 	{
-		if (str[i] == '|')
+		if (str[i] == '|' && (!(flag1 % 2) && !(flag1 % 2)))
 		{
 			while (str[i] == '|')
 				i++;

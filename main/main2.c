@@ -20,6 +20,7 @@ int	first_init(t_shell *shell, int argc, char **argv)
 	shell->env_line = NULL;
 	shell->hname = NULL;
 	shell->h_lines = 0;
+	shell->flag = 0;
 	return (0);
 }
 

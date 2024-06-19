@@ -86,7 +86,7 @@ int	start_heredoc(t_shell *shell)
 			{
 				if (no_del(ptr))
 					return (1);
-				recieve_signal(shell, 0);
+				recieve_signal(shell, 0, 0);
 				tmp = ft_strdup(shell, here_doc(shell, ptr->next->content));
 				heredoc_helper(shell, ptr->content, ptr, tmp);
 			}

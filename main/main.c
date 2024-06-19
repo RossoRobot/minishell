@@ -25,7 +25,14 @@ static int	process(t_shell *shell, char *cmd)
 
 static int	press_enter_only(char *cmd)
 {
+	int	i;
+
+	i = 0;
 	if (cmd[0] == 0)
+		return (free(cmd), 1);
+	while (cmd[i] == ' ' || cmd[i] == '\t')
+		i++;
+	if (!cmd[i])
 		return (free(cmd), 1);
 	return (0);
 }

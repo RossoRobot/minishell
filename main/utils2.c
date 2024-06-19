@@ -31,7 +31,9 @@ int	while_not_del(char *str, int *flag, t_shell *shell, int *k)
 	int	i;
 	int	exp;
 	int	len;
+	t_shell *ptr;
 
+	ptr = shell;
 	i = 0;
 	exp = 0;
 	len = 0;

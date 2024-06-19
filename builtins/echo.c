@@ -16,7 +16,9 @@ int	execute_echo(t_shell *shell, t_list *list)
 {
 	t_list	*ptr;
 	int		flag;
+	t_shell	*dummy;
 
+	dummy = shell;
 	flag = 0;
 	ptr = list->next;
 	while (ptr && ptr->type == flag_a)

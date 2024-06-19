@@ -38,7 +38,6 @@ char    *get_path(t_shell *shell, t_list *list)
     char    *path;
     char    *cmd;
     char    **path_arr;
-    t_list  *temp;
 
     path = NULL;
     cmd = NULL;

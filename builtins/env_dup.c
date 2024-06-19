@@ -32,7 +32,9 @@ void	handle_empty_env(t_shell *data, char *key)
 	char	*shlvl;
 	char	*lst_cmd;
 	char	*last_return_value;
+	char	*dummy;
 
+	dummy = key;
 	pwd = getcwd(NULL, 0);
 	pwd_str = ft_strjoin(data, "PWD=", pwd);
 	free(pwd);

@@ -40,6 +40,8 @@ int	main(int argc, char **argv, char **envp)
 	shell = (t_shell *) malloc (sizeof(t_shell));
 	if (!shell)
 		return (0);
+	argc = 0;
+	argv = NULL;
 	first_init(shell);
 	init_values(shell);
 	env_duplicate(shell, envp);

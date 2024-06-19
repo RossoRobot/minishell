@@ -39,7 +39,9 @@ char	*my_getenv(t_shell *data, char *str, int mallocflag)
 int	change_to_home(t_shell *data, char *oldpwd, char *parameter)
 {
 	char	*home;
+	char	*dummy;
 
+	dummy = parameter;
 	home = my_getenv(data, "HOME", 0);
 	if (home == NULL)
 	{
@@ -59,8 +61,8 @@ int	change_to_home(t_shell *data, char *oldpwd, char *parameter)
 		return (0);
 	}
 }
-// does not work if parameter is not trimmed properly
 
+// does not work if parameter is not trimmed properly
 int	change_directory(t_shell *data, char *parameter)
 {
 	if (parameter && ft_strncmp(".", parameter, ft_strlen(parameter)) == 0)
@@ -76,7 +78,6 @@ int	ft_cd(t_shell *data, char *parameter)
 {
 	char	*old_pwd;
 	int		ret;
-	char	*path;
 
 	ret = 0;
 	old_pwd = my_getenv(data, "PWD", 0);

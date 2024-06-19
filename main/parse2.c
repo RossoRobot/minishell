@@ -49,7 +49,9 @@ int	set_input(char **input)
 int	start_w_pipe(t_shell *shell, char *str)
 {
 	int	i;
+	t_shell	*dummy;
 
+	dummy = shell;
 	i = 0;
 	while (str[i] == ' ')
 		i++;

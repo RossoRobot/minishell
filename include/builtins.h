@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:25:27 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/14 17:31:03 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:48:56 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "minishell.h"
+# include "limits.h"
 
 typedef struct s_list t_list;
 typedef struct s_shell t_shell;
@@ -45,6 +46,7 @@ void	export_pwds(t_shell *data, char *old_pwd);
 
 void	free_arr(char **arr);
 size_t	count_strings(char **envp);
+long	ft_atol(char *str);
 
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);

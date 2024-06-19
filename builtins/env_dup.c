@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/15 12:39:37 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:54:59 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	add_oldpwd(t_shell *data)
 
 int	export_malloc(t_shell *data, char *str, char *key, char *value)
 {
-		if ((!str && !key) || (str && str[0] == '\0'))
+	if ((!str && !key) || (str && str[0] == '\0'))
 	{
 		print_myenv(data, 1);
 		return (0);
@@ -110,7 +110,7 @@ int	exit_code_check(char *str)
 
 int	ft_exit(t_shell *shell, t_list *list)
 {
-	int	nr;
+	long	nr;
 
 	nr = 0;
 	if (list != NULL)
@@ -122,16 +122,44 @@ int	ft_exit(t_shell *shell, t_list *list)
 		}
 		if (list->next != NULL)
 		{
-			if (exit_code_check(list->next->content) == -1)
+			if (exit_code_check(list->next->content) == -1 || list->next
+				&& (ft_atol(list->next->content) == LONG_MAX))
 			{
+				free_parse(shell);
+				free_exit(shell, 0);
 				ft_putstr_fd("exit: numeric argument required\n", 2);
 				exit(2);
 			}
 		}
 		if (list->next && list->next->content)
-			nr = ft_atoi(list->next->content);
+			nr = ft_atol(list->next->content);
 	}
 	free_parse(shell);
 	free_exit(shell, 0);
 	exit(nr);
+}
+
+long	ft_atol(char *str)
+{
+	long	result;
+	int		sign;
+	int		i;
+
+	result = 0;
+	sign = 1;
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i])
+	{
+		if (result > (LONG_MAX - (str[i] - '0')) / 10)
+			return (LONG_MAX);
+		result = result * 10 + (str[i] + '0');
+		i++;
+	}
+	return (result * sign);
 }

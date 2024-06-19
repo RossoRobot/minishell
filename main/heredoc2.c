@@ -16,9 +16,8 @@ int	cmd_is_null_or_del(char *cmd, int fd, char *arg, t_shell *shell)
 {
 	if (!cmd)
 	{
-		printf("minishell: warning: here-document at line %d delimited \
+		printf("\nminishell: warning: here-document at line %d delimited \
 by end-of-file (wanted `%s')\n", shell->h_lines, arg);
-		printf("");
 		write(fd, "\n", 1);
 		return (1);
 	}

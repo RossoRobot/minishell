@@ -28,10 +28,10 @@ char	*while_del(char *str)
 
 int	while_not_del(char *str, int *flag, t_shell *shell, int *k)
 {
-	int	i;
-	int	exp;
-	int	len;
-	t_shell *ptr;
+	int		i;
+	int		exp;
+	int		len;
+	t_shell	*ptr;
 
 	ptr = shell;
 	i = 0;

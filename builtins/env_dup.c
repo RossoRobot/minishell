@@ -124,8 +124,8 @@ int	ft_exit(t_shell *shell, t_list *list)
 		}
 		if (list->next != NULL)
 		{
-			if (exit_code_check(list->next->content) == -1 || list->next
-				&& (ft_atol(list->next->content) == LONG_MAX))
+			if (exit_code_check(list->next->content) == -1 || (list->next
+				&& (ft_atol(list->next->content) == LONG_MAX)))
 			{
 				free_parse(shell);
 				free_exit(shell, 0);

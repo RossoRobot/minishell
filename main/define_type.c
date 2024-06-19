@@ -64,14 +64,7 @@ void	define_type(t_shell *shell)
 			ptr = define_flag(ptr);
 		}
 		ptr = ptr->next;
-		while (ptr)
-		{
-			ptr->type = text_a;
-			if (check_n_flag(ptr->content))
-				ptr->type = flag_a;
-			set_type2(ptr);
-			ptr = ptr->next;
-		}
+		define_type_helper(ptr);
 		i++;
 	}
 	ptr = NULL;

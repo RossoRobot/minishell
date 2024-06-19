@@ -93,12 +93,7 @@ int	check_input(char *str, t_shell *shell)
 		i++;
 	}
 	if (flag1 % 2 || flag2 % 2)
-	{
-		printf("minishell: error: invalid number of quotation\n");
-		set_return_value(shell, 0);
-		free_exit(shell, 0);
-		exit(0);
-	}
+		return (check_input_helper(shell), 1);
 	return (0);
 }
 

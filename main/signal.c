@@ -12,8 +12,11 @@
 
 #include "./../include/minishell.h"
 
+int	g_var;
+
 void	handler(int sig)
-{	int	dummy;
+{
+	int	dummy;
 
 	dummy = sig;
 	g_var = 2;
@@ -35,4 +38,24 @@ void	recieve_signal(t_shell *shell, int flag)
 		if (signal(SIGINT, SIG_IGN) == SIG_ERR)
 			ft_exit(shell, NULL);
 	}
+}
+
+void	heredoc_helper(t_shell *shell, char *content, t_list *ptr, char *tmp)
+{
+	recieve_signal(shell, 1);
+	free(content);
+	handle_node(ptr, tmp);
+}
+
+int	write_free(int fd, char **cmd)
+{
+	write(fd, *cmd, ft_strlen(*cmd));
+	free(*cmd);
+	return (1);
+}
+
+void	negative_fd(t_shell *shell, int fd)
+{
+	if (fd == -1)
+		free_exit(shell, 1);
 }

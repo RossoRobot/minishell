@@ -77,7 +77,7 @@ int	check_del(char chr, int flag)
 t_hname	*ft_lstnew_hdoc(t_shell *shell, void *content)
 {
 	t_hname	*start;
-	t_shell *ptr;
+	t_shell	*ptr;
 
 	ptr = shell;
 	start = (t_hname *) malloc (sizeof(t_hname));

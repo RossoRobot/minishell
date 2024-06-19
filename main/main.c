@@ -12,8 +12,6 @@
 
 #include "./../include/minishell.h"
 
-int	g_var;
-
 static int	process(t_shell *shell, char *cmd)
 {
 	add_history(cmd);
@@ -38,11 +36,8 @@ int	main(int argc, char **argv, char **envp)
 	t_shell				*shell;
 
 	shell = (t_shell *) malloc (sizeof(t_shell));
-	if (!shell)
-		return (0);
-	argc = 0;
-	argv = NULL;
-	first_init(shell);
+	test_malloc(shell);
+	first_init(shell, argc, argv);
 	init_values(shell);
 	env_duplicate(shell, envp);
 	while (1)

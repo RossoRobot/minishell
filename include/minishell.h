@@ -26,13 +26,13 @@
 # include <sys/ioctl.h>
 # include "builtins.h"
 
-extern int g_var;
+extern int	g_var;
 
 //delimiter characters
 # define DEL " |"
 
-typedef	struct s_env t_env;
-typedef struct s_key_value t_key_value;
+typedef struct s_env		t_env;
+typedef struct s_key_value	t_key_value;
 
 typedef enum e_tokentype
 {
@@ -54,10 +54,10 @@ typedef enum e_tokentype
 	exit_a = 16,
 }	t_tokentype;
 
-typedef	struct 	s_pids
+typedef struct s_pids
 {
 	pid_t			*pid;
-	struct t_pids 	*next;
+	struct t_pids	*next;
 }	t_pids;
 
 typedef struct s_token
@@ -83,7 +83,7 @@ typedef struct s_shell
 {
 	int			n_pipes;
 	int			h_lines;
-	char 		**str;
+	char		**str;
 	char		*exp_str;
 	char		**env_arr;
 	int			last_return_value;
@@ -94,13 +94,16 @@ typedef struct s_shell
 }	t_shell;
 
 //main2
-int		first_init(t_shell *shell);
+int		first_init(t_shell *shell, int argc, char **argv);
 int		init_values(t_shell *shell);
+void	test_malloc(t_shell *shell);
+void	check_input_helper(t_shell *shell);
+void	define_type_helper(t_list *ptr);
 
 //parse
-int 	parse(char *cmd, t_shell *shell);
+int		parse(char *cmd, t_shell *shell);
 int		check_input(char *str, t_shell *shell);
-void 	print_tokens(t_shell *shell);
+void	print_tokens(t_shell *shell);
 void	create_tokens(char *input, t_shell *shell);
 void	mal_list(t_shell *shell);
 
@@ -129,24 +132,27 @@ int		sep_env_cmd(t_shell *shell);
 //signal
 void	recieve_signal(t_shell *shell, int flag);
 void	handler(int sig);
+void	heredoc_helper(t_shell *shell, char *content, t_list *ptr, char *tmp);
+int		write_free(int fd, char **cmd);
+void	negative_fd(t_shell *shell, int fd);
 
 //utils
 t_list	*ft_lstnew(char *content, int *k, t_shell *shell);
 void	ft_lstadd_back(t_list *lst, t_list *neu);
-int		check_del(char	chr, int flag);
+int		check_del(char chr, int flag);
 t_hname	*ft_lstnew_hdoc(t_shell *shell, void *content);
 void	ft_lstadd_back_hdoc(t_hname *lst, t_hname *new);
 
 //utils2
-char    *skip_gap(char *str);
-char  	*while_del(char *str);
-int 	while_not_del(char *str, int *flag, t_shell *shell, int *k);
-void 	set_flag(char *c, int *flag);
+char	*skip_gap(char *str);
+char	*while_del(char *str);
+int		while_not_del(char *str, int *flag, t_shell *shell, int *k);
+void	set_flag(char *c, int *flag);
 
 //define_type
 int		set_type(t_list *node);
 int		set_type2(t_list *node);
-void    define_type(t_shell *shell);
+void	define_type(t_shell *shell);
 t_list	*define_flag(t_list *ptr);
 int		check_n_flag(char *str);
 
@@ -181,7 +187,7 @@ int		store_pid(t_shell *shell, pid_t pid);
 
 //free
 t_list	*free_parse_helper(t_list *ptr, char *content, t_list *list);
-void    free_parse(t_shell *shell);
+void	free_parse(t_shell *shell);
 void	free_to_null(char **var);
 void	free_hname(t_shell *shell);
 
@@ -193,11 +199,11 @@ int		execute_builtin(t_shell *shell, t_list *list);
 int		execute_no_pipe(t_shell *shell, t_list *list);
 char	**transform_list(t_shell *shell, t_list *list);
 int		execute_binary(t_shell *shell, t_list *list);
-t_list  *find_command(t_list *list);
+t_list	*find_command(t_list *list);
 
 char	**ft_split(const char *s1, char c);
-char    *path_access(t_shell *shell, t_list *list, char **arr);
-char    *get_path(t_shell *shell, t_list *list);
+char	*path_access(t_shell *shell, t_list *list, char **arr);
+char	*get_path(t_shell *shell, t_list *list);
 
 int		execute_no_pipe(t_shell *shell, t_list *list);
 void	execute_onechild(t_shell *shell, t_list *list, int *fd);
@@ -209,12 +215,12 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd);
 int		forkex(t_shell *shell);
 
 //redirections
-int 	is_redirection(t_shell *shell, t_list *list);
-void    prep_redir_exec(t_shell *shell, t_list *list);
-void    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list);
-void    redirect_input(t_shell *shell, t_list *list, char **arr);
-void 	redirect_output(t_shell *shell, t_list *list, char **arr, int append);
-int    execute_it(t_shell *shell, char **arr, t_list *list, int stdin_backup, int stdout_backup);
-void    reset_fds(int stdin, int stdout);
+int		is_redirection(t_shell *shell, t_list *list);
+void	prep_redir_exec(t_shell *shell, t_list *list);
+void	exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list);
+void	redirect_input(t_shell *shell, t_list *list, char **arr);
+void	redirect_output(t_shell *shell, t_list *list, char **arr, int append);
+int		execute_it(t_shell *shell, char **arr, t_list *list, int stdin_backup, int stdout_backup);
+void	reset_fds(int stdin, int stdout);
 
-# endif
+#endif

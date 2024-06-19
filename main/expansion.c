@@ -49,13 +49,15 @@ int	mal_dollar(t_shell *shell, char *str)
 
 	i = 0;
 	str++;
-	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?' || str[i] == '!')
+	while (ft_isalnum(str[i]) || str[i] == '_'
+		|| str[i] == '?' || str[i] == '!')
 		i++;
 	tmp = (char *) malloc (sizeof(char) + (i + 1));
 	if (!tmp)
 		return (-1);
 	i = 0;
-	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?' || str[i] == '!')
+	while (ft_isalnum(str[i]) || str[i] == '_'
+		|| str[i] == '?' || str[i] == '!')
 	{
 		tmp[i] = str[i];
 		i++;

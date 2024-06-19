@@ -40,6 +40,8 @@ char	*here_doc(t_shell *shell, char *arg)
 	hname = add_hname(shell);
 	set_flag_and_num_lines(&flag, &num_lines);
 	fd = open(hname, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+		free_exit(shell, 1);
 	while (1)
 	{
 		cmd = readline("> ");
@@ -87,7 +89,9 @@ int	start_heredoc(t_shell *shell)
 			{
 				if (no_del(ptr))
 					return (1);
+				recieve_signal(shell, 0);
 				tmp = ft_strdup(shell, here_doc(shell, ptr->next->content));
+				recieve_signal(shell, 1);
 				free(ptr->content);
 				handle_node(ptr, tmp);
 			}

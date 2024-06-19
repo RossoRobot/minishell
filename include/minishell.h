@@ -126,6 +126,10 @@ int		squeeze_node(t_list *ptr, char *content);
 int		split_token(t_list *ptr, int n);
 int		sep_env_cmd(t_shell *shell);
 
+//signal
+void	recieve_signal(t_shell *shell, int flag);
+void	handler(int sig);
+
 //utils
 t_list	*ft_lstnew(char *content, int *k, t_shell *shell);
 void	ft_lstadd_back(t_list *lst, t_list *neu);

@@ -32,29 +32,10 @@ static int	press_enter_only(char *cmd)
 	return (0);
 }
 
-static void	handler(int sig, siginfo_t *info, void *ucontext)
-{
-	g_var = 2;
-	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-}
-
-//VS code denkt etwas passt da nicht (rot), ist aber alles ok
-static void	recieve_signal(t_shell *shell, struct sigaction *action_c)
-{
-	action_c->sa_sigaction = &handler;
-	action_c->sa_flags = SA_SIGINFO;
-	sigemptyset(&action_c->sa_mask);
-	if (sigaction(SIGINT, action_c, NULL) == -1)
-		ft_exit(shell, NULL);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	char				*cmd;
 	t_shell				*shell;
-	struct sigaction	action_c;
 
 	shell = (t_shell *) malloc (sizeof(t_shell));
 	if (!shell)
@@ -62,10 +43,11 @@ int	main(int argc, char **argv, char **envp)
 	first_init(shell);
 	init_values(shell);
 	env_duplicate(shell, envp);
-	recieve_signal(shell, &action_c);
 	while (1)
 	{
+		recieve_signal(shell, 0);
 		cmd = readline("minishell$ ");
+		recieve_signal(shell, 1);
 		if (g_var == 2)
 			set_return_value(shell, 130);
 		g_var = 0;

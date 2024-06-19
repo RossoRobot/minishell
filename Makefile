@@ -32,7 +32,7 @@ SRCS = $(MAIN_DIR)/main.c $(MAIN_DIR)/utils.c $(MAIN_DIR)/utils2.c \
 	$(BI_DIR)/unset.c $(BI_DIR)/libft_helpers2.c \
 	$(MAIN_DIR)/main2.c $(MAIN_DIR)/heredoc2.c $(MAIN_DIR)/expansion2.c \
 	$(MAIN_DIR)/parse2.c $(BI_DIR)/printenv.c $(MAIN_DIR)/sep_env_cmd.c \
-	$(MAIN_DIR)/set_return_value.c 
+	$(MAIN_DIR)/set_return_value.c $(MAIN_DIR)/signal.c 
 	
 OBJS = $(SRCS:.c=.o)
 

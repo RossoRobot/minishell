@@ -76,7 +76,8 @@ int	check_input(char *str, t_shell *shell)
 	int	flag2;
 
 	set_data(&i, &flag1, &flag2, shell);
-	start_w_pipe(shell, str);
+	if (start_w_pipe(shell, str))
+		return (1);
 	while (str[i])
 	{
 		if (str[i] == '|')
@@ -85,6 +86,8 @@ int	check_input(char *str, t_shell *shell)
 				i++;
 			shell->n_pipes++;
 		}
+		if (!str[i])
+			break ;
 		flag1 += increase_flag(str[i], '\"');
 		flag2 += increase_flag(str[i], '\'');
 		i++;
@@ -102,7 +105,8 @@ int	check_input(char *str, t_shell *shell)
 int	parse(char *cmd, t_shell *shell)
 {
 	init_values(shell);
-	check_input(cmd, shell);
+	if (check_input(cmd, shell))
+		return (1);
 	create_tokens(cmd, shell);
 	if (!shell->lists)
 		return (1);

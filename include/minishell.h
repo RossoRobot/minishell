@@ -109,6 +109,7 @@ t_shell	*set_data_return_shell(t_shell *shell, int *i, int *k, int *pipes);
 int		while_pipe(char *input, int *flag);
 void	increase_i_decrease_pipes(int *i, int *pipes);
 int		set_input(char **input);
+int		start_w_pipe(t_shell *shell, char *str);
 
 //expansion
 int		expansion(t_shell *shell);

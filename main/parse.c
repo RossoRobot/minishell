@@ -76,6 +76,7 @@ int	check_input(char *str, t_shell *shell)
 	int	flag2;
 
 	set_data(&i, &flag1, &flag2, shell);
+	start_w_pipe(shell, str);
 	while (str[i])
 	{
 		if (str[i] == '|')

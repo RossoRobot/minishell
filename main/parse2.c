@@ -45,3 +45,18 @@ int	set_input(char **input)
 	*input = skip_gap(*input);
 	return (0);
 }
+
+int	start_w_pipe(t_shell *shell, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '|')
+	{
+		printf("minishell: syntax error near unexpected token `|'");
+		free_exit(shell, 0);
+	}
+	return (0);
+}

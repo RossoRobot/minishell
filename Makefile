@@ -12,7 +12,7 @@
 
 NAME = minishell
 
-FLAGS = -g  #-Wall -Wextra -Werror 
+FLAGS = -g  -Wall -Wextra -Werror 
 
 MAIN_DIR = ./main
 
@@ -37,7 +37,7 @@ SRCS = $(MAIN_DIR)/main.c $(MAIN_DIR)/utils.c $(MAIN_DIR)/utils2.c \
 OBJS = $(SRCS:.c=.o)
 
 .c.o:
-	cc -g -c $< -o $(<:.c=.o)
+	cc $(FLAGS) -c $< -o $(<:.c=.o)
 
 $(NAME): $(OBJS)
 		cc $(FLAGS) -o $@ $(OBJS) -lreadline

@@ -61,7 +61,9 @@ char	*check_g_var(t_shell *shell, int fd, char *hname)
 {
 	int		fd_new;
 	char	*hname_new;
+	char	*dummy;
 
+	dummy = hname;
 	g_var = 0;
 	close(fd);
 	hname_new = add_hname(shell);

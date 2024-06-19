@@ -13,7 +13,9 @@
 #include "./../include/minishell.h"
 
 void	handler(int sig)
-{
+{	int	dummy;
+
+	dummy = sig;
 	g_var = 2;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	rl_on_new_line();

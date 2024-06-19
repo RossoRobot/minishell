@@ -16,7 +16,9 @@ int is_redirection(t_shell *shell, t_list *list)
 {
     t_list  *temp;
     int     ret;
+	t_shell	*dummy;
 
+	dummy = shell;
     ret = 0;
     temp = list;
     while (temp)
@@ -123,7 +125,6 @@ int    execute_it(t_shell *shell, char **arr, t_list *list, int stdin_backup, in
 {
     char    *path;
     t_list  *temp;
-    int i = 0;
 
     temp = find_command(list);
     if (temp->type >= 10 && temp->type <= 16)
@@ -172,6 +173,7 @@ void redirect_output(t_shell *shell, t_list *list, char **arr, int append)
 {
     int fd;
 
+	fd = 0;
     if (append == 0)
         fd = open(list->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     else if (append == 1)

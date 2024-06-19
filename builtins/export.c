@@ -43,8 +43,10 @@ int	replace_var(t_shell *data, char *key, char *value, int key_malloc_flag)
 
 int	check_export_str(t_shell *data, char *str)
 {
-	int	flag;
+	int		flag;
+	t_shell	*dummy;
 
+	dummy = data;
 	flag = 0;
 	if (ft_isalpha(*str) == 0 && (*str) != '_' && (*str) != '?')
 	{

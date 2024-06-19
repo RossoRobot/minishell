@@ -40,7 +40,7 @@ void	handle_empty_env(t_shell *data, char *key)
 	free(pwd);
 	shlvl = ft_strdup(data, "SHLVL=1");
 	lst_cmd = ft_strdup(data, "_=/usr/bin/env");
-	last_return_value = ft_strdup(data, "lrvalue=0");
+	last_return_value = ft_strdup(data, "lrv=0");
 	export_malloc(data, pwd_str, NULL, NULL);
 	export_malloc(data, lst_cmd, NULL, NULL);
 	export_malloc(data, shlvl, NULL, NULL);

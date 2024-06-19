@@ -19,17 +19,17 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 	int		flag;
 
 	if (!str)
-		return (NULL);
+		free_exit(shell, 1);
 	start = (t_list *) malloc (sizeof(t_list));
 	if (!start)
-		return (NULL);
+		free_exit(shell, 1);
 	flag = 0;
 	str = while_del(str);
 	set_flag(&str[0], &flag);
 	i = while_not_del(str, &flag, shell, k);
 	start->content = (char *) malloc (sizeof(char) * (i + 1));
 	if (!start->content)
-		return (NULL);
+		free_exit(shell, 1);
 	i = 0;
 	set_flag(&str[0], &flag);
 	while (str[i] && (check_del(str[i], flag) == 0) && str[i] != '\n')

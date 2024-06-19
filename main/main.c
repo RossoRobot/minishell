@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **envp)
 		g_var = 0;
 		shell->h_lines++;
 		if (!cmd)
-			free_exit(shell, 1);
+			free_exit(shell, 1408);
 		if (press_enter_only(cmd))
 			continue ;
 		if (process(shell, cmd))

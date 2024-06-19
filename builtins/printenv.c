@@ -20,7 +20,7 @@ void	print_myenv(t_shell *data, int flag)
 	while (data->env_line != NULL)
 	{
 		if (flag == 1 && ft_strncmp(data->env_line->key_value->key,
-				"lrvalue", 8) != 0)
+				"lrv", 8) != 0)
 		{
 			printf("declare -x %s", data->env_line->key_value->key);
 			if (data->env_line->key_value->value != NULL)
@@ -29,7 +29,7 @@ void	print_myenv(t_shell *data, int flag)
 				printf("\n");
 		}
 		else if (flag == 0 && data->env_line->key_value->value
-			&& ft_strncmp(data->env_line->key_value->key, "lrvalue",
+			&& ft_strncmp(data->env_line->key_value->key, "lrv",
 				8) != 0)
 		{
 			printf("%s=", data->env_line->key_value->key);

@@ -49,13 +49,13 @@ int	mal_dollar(t_shell *shell, char *str)
 
 	i = 0;
 	str++;
-	while (ft_isalnum(str[i]) || str[i] == '_')
+	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?' || str[i] == '!')
 		i++;
 	tmp = (char *) malloc (sizeof(char) + (i + 1));
 	if (!tmp)
 		return (-1);
 	i = 0;
-	while (ft_isalnum(str[i]) || str[i] == '_')
+	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?' || str[i] == '!')
 	{
 		tmp[i] = str[i];
 		i++;
@@ -63,7 +63,7 @@ int	mal_dollar(t_shell *shell, char *str)
 	tmp[i] = '\0';
 	if (shell->exp_str)
 		free_to_null(&shell->exp_str);
-	shell->exp_str = my_getenv(shell, tmp, 1);
+	set_exp_str(shell, tmp);
 	if (!shell->exp_str)
 		free(tmp);
 	return (i);

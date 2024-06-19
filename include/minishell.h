@@ -124,6 +124,9 @@ int		replace_dollar_str(t_shell *shell, char *tmp);
 int		expand_str(t_shell *shell, int *n, t_list *ptr);
 int		replace_dollar_helper(int *n, int *i, int *flag, int len);
 
+//helper
+void	set_exp_str(t_shell *shell, char *tmp);
+
 //sep_env_cmd
 int		squeeze_node(t_list *ptr, char *content);
 int		split_token(t_list *ptr, int n);

@@ -12,19 +12,20 @@
 
 #include "./../include/minishell.h"
 
-void	handler(int sig)
-{	int	dummy;
+int	g_var;
 
-	dummy = sig;
-	g_var = 2;
+void	handler(int sig)
+{
+	g_var = sig;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 }
 
 //VS code denkt etwas passt da nicht (rot), ist aber alles ok
-void	recieve_signal(t_shell *shell, int flag)
+void	recieve_signal(t_shell *shell, int flag, int shellflag)
 {
+	shell->flag = shellflag;
 	if (flag == 0)
 	{
 		if (signal(SIGINT, &handler) == SIG_ERR)
@@ -35,4 +36,26 @@ void	recieve_signal(t_shell *shell, int flag)
 		if (signal(SIGINT, SIG_IGN) == SIG_ERR)
 			ft_exit(shell, NULL);
 	}
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+		ft_exit(shell, NULL);
+}
+
+void	heredoc_helper(t_shell *shell, char *content, t_list *ptr, char *tmp)
+{
+	recieve_signal(shell, 1, 0);
+	free(content);
+	handle_node(ptr, tmp);
+}
+
+int	write_free(int fd, char **cmd)
+{
+	write(fd, *cmd, ft_strlen(*cmd));
+	free(*cmd);
+	return (1);
+}
+
+void	negative_fd(t_shell *shell, int fd)
+{
+	if (fd == -1)
+		free_exit(shell, 1);
 }

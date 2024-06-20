@@ -12,12 +12,15 @@
 
 #include "./../include/minishell.h"
 
-int	first_init(t_shell *shell)
+int	first_init(t_shell *shell, int argc, char **argv)
 {
+	argc = 0;
+	argv = NULL;
 	shell->exp_str = NULL;
 	shell->env_line = NULL;
 	shell->hname = NULL;
 	shell->h_lines = 0;
+	shell->flag = 0;
 	return (0);
 }
 
@@ -29,4 +32,28 @@ int	init_values(t_shell *shell)
 	shell->n_pipes = 0;
 	shell->pids = NULL;
 	return (0);
+}
+
+void	test_malloc(t_shell *shell)
+{
+	if (!shell)
+		exit (0);
+}
+
+void	check_input_helper(t_shell *shell)
+{
+	printf("minishell: error: invalid number of quotations\n");
+	set_return_value(shell, 0);
+}
+
+void	define_type_helper(t_list *ptr)
+{
+	while (ptr)
+	{
+		ptr->type = text_a;
+		if (check_n_flag(ptr->content))
+			ptr->type = flag_a;
+		set_type2(ptr);
+		ptr = ptr->next;
+	}
 }

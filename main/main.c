@@ -12,8 +12,6 @@
 
 #include "./../include/minishell.h"
 
-int	g_var;
-
 static int	process(t_shell *shell, char *cmd)
 {
 	add_history(cmd);
@@ -27,7 +25,14 @@ static int	process(t_shell *shell, char *cmd)
 
 static int	press_enter_only(char *cmd)
 {
+	int	i;
+
+	i = 0;
 	if (cmd[0] == 0)
+		return (free(cmd), 1);
+	while (cmd[i] == ' ' || cmd[i] == '\t')
+		i++;
+	if (!cmd[i])
 		return (free(cmd), 1);
 	return (0);
 }
@@ -38,11 +43,8 @@ int	main(int argc, char **argv, char **envp)
 	t_shell				*shell;
 
 	shell = (t_shell *) malloc (sizeof(t_shell));
-	if (!shell)
-		return (0);
-	argc = 0;
-	argv = NULL;
-	first_init(shell);
+	test_malloc(shell);
+	first_init(shell, argc, argv);
 	init_values(shell);
 	env_duplicate(shell, envp);
 	while (1)
@@ -55,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 		g_var = 0;
 		shell->h_lines++;
 		if (!cmd)
-			free_exit(shell, 1);
+			free_exit(shell, 1408);
 		if (press_enter_only(cmd))
 			continue ;
 		if (process(shell, cmd))

@@ -54,6 +54,10 @@ void	free_exit(t_shell *data, int error_flag)
 		free(data);
 	if (error_flag == 1)
 		exit(EXIT_FAILURE);
+	if (error_flag == 1408)
+		exit(0);
+	if (error_flag != 0 )
+		exit(error_flag);
 }
 
 void	first_node_init(t_shell *data, char *key, char *value, char *str)

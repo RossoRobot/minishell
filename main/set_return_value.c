@@ -16,7 +16,6 @@ int	set_return_value(t_shell *shell, int retval)
 {
 	char	*retval_str;
 
-
 	shell->last_return_value = retval;
 	retval_str = ft_itoa(retval);
 	if (!retval_str)

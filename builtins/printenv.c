@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:24:37 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/19 15:29:51 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:14:20 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	print_myenv(t_shell *data, int flag)
 	temp = data->env_line;
 	while (data->env_line != NULL)
 	{
-		if (flag == 1 && ft_strncmp(data->env_line->key_value->key,
-				"lrv", 1) != 0)
+		if (flag == 1 && ft_strncmp(data->env_line->key_value->key, "lrv",
+				3) != 0)
 		{
 			printf("declare -x %s", data->env_line->key_value->key);
 			if (data->env_line->key_value->value != NULL)
@@ -29,8 +29,7 @@ void	print_myenv(t_shell *data, int flag)
 				printf("\n");
 		}
 		else if (flag == 0 && data->env_line->key_value->value
-			&& ft_strncmp(data->env_line->key_value->key, "lrv",
-				1) != 0)
+			&& ft_strncmp(data->env_line->key_value->key, "lrv", 3) != 0)
 		{
 			printf("%s=", data->env_line->key_value->key);
 			printf("%s\n", data->env_line->key_value->value);

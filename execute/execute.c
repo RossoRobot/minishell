@@ -127,6 +127,7 @@ int	execute_binary(t_shell *shell, t_list *list)
 		free_exit(shell, 0);
 	path = get_path(shell, list);
 	argv = trans_argv(shell, list);
+	recieve_signal(shell, 0, 1);
 	if (execve(path, argv, shell->env_arr) == -1)
 	{
 		ft_putstr_fd(path, 2);
@@ -137,6 +138,7 @@ int	execute_binary(t_shell *shell, t_list *list)
 		free_exit(shell, 0);
 		exit (127);
 	}
+	recieve_signal(shell, 1, 0);
 	return (0);
 }
 int	execute_command(t_shell *shell, t_list *list)

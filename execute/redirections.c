@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/16 17:11:06 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:30:09 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int is_redirection(t_shell *shell, t_list *list)
     return (ret);
 }
 
-void    prep_redir_exec(t_shell *shell, t_list *list)
+void    prep_redir_exec(t_shell *shell, t_list *list, int flag)
 {
     t_list *temp;
     char    **cmd_arr;
@@ -59,6 +59,11 @@ void    prep_redir_exec(t_shell *shell, t_list *list)
     }
     temp = list;
     exec_redir(shell, temp, cmd_arr, list);
+    if (flag == 1)
+    {
+        free_parse(shell);
+        free_exit(shell, 1);
+    }
 }
 
 void    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
@@ -132,8 +137,9 @@ int    execute_it(t_shell *shell, char **arr, t_list *list, int stdin_backup, in
         free_arr(arr);
         execute_builtin(shell, temp);
         reset_fds(stdin_backup, stdout_backup);
-        free_parse(shell);
-        free_exit(shell, 1);
+        // free_parse(shell);
+        // free_exit(shell, 0);
+        return (0);
     }
     path = get_path(shell, temp);
     shell->env_arr = transform_list_to_arr(shell, shell->env_line);

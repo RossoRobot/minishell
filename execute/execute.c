@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/19 15:50:42 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:32:24 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 
 	if (is_redirection(shell, list) != 0 && (list->type >= 10 && list->type <= 16))
 	{
-		prep_redir_exec(shell, list);
+		prep_redir_exec(shell, list, 0);
 		return (0);
 	}
 	if (list->type >= 10 && list->type <= 16)
@@ -178,7 +178,7 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 		{
 			if (is_redirection(shell, list) != 0)
 			{
-				prep_redir_exec(shell, list);
+				prep_redir_exec(shell, list, 1);
 				return (0);
 			}
 			execute_binary(shell, list);

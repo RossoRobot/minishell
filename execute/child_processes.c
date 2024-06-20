@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/19 16:28:52 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:41:48 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	first_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd)
 	close(pipes[1]);
     close(temp_fd);
 	if (is_redirection(shell, list) != 0)
-		prep_redir_exec(shell, list);
+		prep_redir_exec(shell, list, 1);
 	execute_command(shell, list);
 	free_parse(shell);
 	free_exit(shell, 0);
@@ -35,7 +35,7 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd)
 	close(pipes[1]);
     close(temp_fd);
 	if (is_redirection(shell, list) != 0)
-		prep_redir_exec(shell, list);
+		prep_redir_exec(shell, list, 1);
 	execute_command(shell, list);
 	free_parse(shell);
 	free_exit(shell, 0);
@@ -94,7 +94,6 @@ int	forkex(t_shell *shell)
 		{
 			int child_exit_status = WEXITSTATUS(status);
 			set_return_value(shell, child_exit_status);
-			printf("child");
 		}
 		else
 			set_return_value(shell, 0);

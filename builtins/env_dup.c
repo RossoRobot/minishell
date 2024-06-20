@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/19 15:31:30 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:49:27 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ long	ft_atol(char *str)
 	{
 		if (result > (LONG_MAX - (str[i] - '0')) / 10)
 			return (LONG_MAX);
-		result = result * 10 + (str[i] + '0');
+		result = result * 10 + (str[i] - '0');
 		i++;
 	}
 	return (result * sign);

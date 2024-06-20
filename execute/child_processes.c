@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/16 15:50:54 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:28:52 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,15 @@ int	forkex(t_shell *shell)
 	
     while (wait(&status) > 0)
     {
-        
+		if (WIFEXITED(status))
+		{
+			int child_exit_status = WEXITSTATUS(status);
+			set_return_value(shell, child_exit_status);
+			printf("child");
+		}
+		else
+			set_return_value(shell, 0);
+		
     }
 	return (0);
 }

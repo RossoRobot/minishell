@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/18 11:09:50 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:23:04 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,7 @@ int	ft_cd(t_shell *data, char *parameter)
 			printf("cd: no such file or directory: %s\n", parameter);
 		}
 		else
-		{
 			export_pwds(data, old_pwd);
-			//free(old_pwd);
-		}
 		free(parameter);
 	}
 	return (ret);
@@ -115,6 +112,5 @@ void	export_pwds(t_shell *data, char *old_pwd)
 	pwd_key = ft_strdup(data, "PWD");
 	export(data, NULL, old_pwd_key, old_pwd);
 	export(data, NULL, pwd_key, pwd);
-	//free(pwd);
 }
 

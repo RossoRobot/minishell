@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 20:38:55 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/15 12:06:12 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:52:40 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ int	execute_env(t_shell *shell, t_list *list)
 			ft_putstr_fd("env: invalid option '", 2);
 			ft_putstr_fd(list->next->content, 2);
 			ft_putstr_fd("'\n", 2);
+			return (125);
 		}
 		else
 		{
 			ft_putstr_fd("env: ", 2);
 			ft_putstr_fd(list->next->content, 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
+			return (127);
 		}
-		return (-1);
 	}
 	print_myenv(shell, 0);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/19 14:54:59 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:31:30 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	handle_empty_env(t_shell *data, char *key)
 	free(pwd);
 	shlvl = ft_strdup(data, "SHLVL=1");
 	lst_cmd = ft_strdup(data, "_=/usr/bin/env");
-	last_return_value = ft_strdup(data, "lrvalue=0");
+	last_return_value = ft_strdup(data, "lrv=0");
 	export_malloc(data, pwd_str, NULL, NULL);
 	export_malloc(data, lst_cmd, NULL, NULL);
 	export_malloc(data, shlvl, NULL, NULL);
@@ -124,8 +124,8 @@ int	ft_exit(t_shell *shell, t_list *list)
 		}
 		if (list->next != NULL)
 		{
-			if (exit_code_check(list->next->content) == -1 || list->next
-				&& (ft_atol(list->next->content) == LONG_MAX))
+			if (exit_code_check(list->next->content) == -1 || (list->next
+				&& (ft_atol(list->next->content) == LONG_MAX)))
 			{
 				free_parse(shell);
 				free_exit(shell, 0);

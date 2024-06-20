@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/18 19:01:15 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:50:42 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ void	check_some_things(t_shell *shell, t_list *list)
 		write(2, &list->content[0], 1);
 		ft_putstr_fd("'\n", 2);
 		free_parse(shell);
-		free_exit(shell, 1);
+		free_exit(shell, 0);
+		exit (2);
 	}
 }
 
@@ -133,7 +134,8 @@ int	execute_binary(t_shell *shell, t_list *list)
 		free(path);
 		free_arr(argv);
 		free_parse(shell);
-		free_exit(shell, 1);
+		free_exit(shell, 0);
+		exit (127);
 	}
 	return (0);
 }

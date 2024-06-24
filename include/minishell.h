@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/20 17:30:34 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:38:33 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void	free_hname(t_shell *shell);
 //execute
 int		execute(t_shell *shell);
 int		prepare_execution(t_shell *shell, t_list *list);
-void	child_process(t_shell *shell, t_list *list);
+int		child_process(t_shell *shell, t_list *list);
 int		execute_builtin(t_shell *shell, t_list *list);
 int		execute_no_pipe(t_shell *shell, t_list *list);
 char	**transform_list(t_shell *shell, t_list *list);

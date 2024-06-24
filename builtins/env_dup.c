@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/20 17:49:27 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:14:32 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,13 @@ int	export_malloc(t_shell *data, char *str, char *key, char *value)
 	if (str)
 	{
 		if (check_export_str(data, str) == -1)
+		{
+			free(str);
 			return (-1);
+		}
 		key = get_key(data, str);
 		value = get_value(data, str);
+		free(str);
 		if (!value && check_for_equal(str) == 0)
 		{
 			append_node(data, key, value, str);
@@ -79,7 +83,6 @@ int	export_malloc(t_shell *data, char *str, char *key, char *value)
 			free(value);
 			return (0);
 		}
-		free(str);
 	}
 	if (replace_var(data, key, value, 1) == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/20 17:32:24 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:50:54 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,40 @@
 int	execute_builtin(t_shell *shell, t_list *list)
 {
 	t_list *temp;
+	int		ret;
 
 	temp = list;
+	ret = 0;
 	if (temp->type == export_a)
-		execute_export(shell, temp);
+		ret = execute_export(shell, temp);
 	if (temp->type == env_a)
-		execute_env(shell, temp);
+		ret = execute_env(shell, temp);
 	if (temp->type == unset_a)
-		execute_unset(shell, temp);
+		ret = execute_unset(shell, temp);
 	if (temp->type == cd_a)
-		execute_cd(shell, temp);
+		ret = execute_cd(shell, temp);
 	if (temp->type == pwd_a)
-		pwd(shell);
+		ret = pwd(shell);
 	if (temp->type == exit_a)
-		ft_exit(shell, list);
+		ret = ft_exit(shell, list);
 	if (temp->type == echo_a)
-		execute_echo(shell, temp);
-	return (0);
+		ret = execute_echo(shell, temp);
+	set_return_value(shell, ret);
+	return (ret);
 }
 
-void	child_process(t_shell *shell, t_list *list)
+int	child_process(t_shell *shell, t_list *list)
 {
+	int	ret;
+
+	ret = 0;
 	if (list->type >= 10 && list->type <= 15)
 	{
-		execute_builtin(shell, list);
+		ret = execute_builtin(shell, list);
 	}
 	else
-		execute_binary(shell, list);
+		ret = execute_binary(shell, list);
+	return (ret);
 }
 
 
@@ -143,21 +150,26 @@ int	execute_binary(t_shell *shell, t_list *list)
 }
 int	execute_command(t_shell *shell, t_list *list)
 {
+	int	ret;
+
+	ret = 0;
 	if (list->type <= 16 && list->type >= 10)
 	{
-		execute_builtin(shell, list);
-		return (0);
+		ret = execute_builtin(shell, list);
+		return (ret);
 	}
 	else
 	{
-		execute_binary(shell, list);
-		return (0);
+		ret = execute_binary(shell, list);
+		return (ret);
 	}
 }
 
 int	execute_no_pipe(t_shell *shell, t_list *list)
 {
 	int		fd[2];
+	int		status;
+	int		child_exit_status;
 	pid_t	pid;
 
 	if (is_redirection(shell, list) != 0 && (list->type >= 10 && list->type <= 16))
@@ -166,7 +178,7 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 		return (0);
 	}
 	if (list->type >= 10 && list->type <= 16)
-		shell->last_return_value = execute_builtin(shell, list);
+		execute_builtin(shell, list);
 	else
 	{
 		if (pipe(fd) == -1)
@@ -186,7 +198,14 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 		}
 		else
 		{
-			wait(NULL);
+			wait(&status);
+			if (WIFEXITED(status))
+			{
+				child_exit_status = WEXITSTATUS(status);
+				set_return_value(shell, child_exit_status);
+			}
+			else
+				set_return_value(shell, 0);
 			return (0);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 20:38:55 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/19 15:52:40 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:08:13 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	execute_cd(t_shell *shell, t_list *list)
 	if (list->next && list->next->next)
 	{
 		ft_putstr_fd("cd: too many arguments\n", 2);
-		return (-1);
+		return (1);
 	}
 	if (!list->next)
 		return (change_directory(shell, NULL));

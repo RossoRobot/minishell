@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/19 15:23:04 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:11:41 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int	change_to_home(t_shell *data, char *oldpwd, char *parameter)
 	home = my_getenv(data, "HOME", 0);
 	if (home == NULL)
 	{
-		return (printf("cd: HOME not set\n"), -1);
+		return (printf("cd: HOME not set\n"), 1);
 	}
 	if (chdir(home) == -1)
 	{
 		printf("cd: HOME not set\n");
 		free(home);
-		return (-1);
+		return (1);
 	}
 	else
 	{
@@ -88,10 +88,10 @@ int	ft_cd(t_shell *data, char *parameter)
 	}
 	else
 	{
-		ret = chdir(parameter);
-		if (ret == -1)
+		if (chdir(parameter) == -1)
 		{
 			free(old_pwd);
+			ret = 1;
 			printf("cd: no such file or directory: %s\n", parameter);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/20 17:41:48 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:46:02 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	first_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd)
 {
-	
+	int	ret;
+
+	ret = 0;
     dup2(temp_fd, STDIN_FILENO);
     dup2(pipes[1], STDOUT_FILENO);
 	close(pipes[0]);
@@ -22,24 +24,27 @@ void	first_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd)
     close(temp_fd);
 	if (is_redirection(shell, list) != 0)
 		prep_redir_exec(shell, list, 1);
-	execute_command(shell, list);
+	ret = execute_command(shell, list);
 	free_parse(shell);
 	free_exit(shell, 0);
-	exit (EXIT_SUCCESS);
+	exit (ret);
 }
 
 void	last_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd)
 {
+	int	ret;
+
+	ret = 0;
     dup2(temp_fd, STDIN_FILENO);
 	close(pipes[0]);
 	close(pipes[1]);
     close(temp_fd);
 	if (is_redirection(shell, list) != 0)
 		prep_redir_exec(shell, list, 1);
-	execute_command(shell, list);
+	ret = execute_command(shell, list);
 	free_parse(shell);
 	free_exit(shell, 0);
-	exit (EXIT_SUCCESS);
+	exit (ret);
 }
 
 
@@ -50,6 +55,7 @@ int	forkex(t_shell *shell)
     int     status;
     int     fd[2];
     int     temp_fd;
+	int 	child_exit_status;
 	t_list	**list;
 
 	i = 0;
@@ -74,6 +80,7 @@ int	forkex(t_shell *shell)
             else
 			{
                 last_child_process(shell, list[i], fd, temp_fd);
+				
 			}
 			exit(EXIT_SUCCESS);
 		}
@@ -92,7 +99,7 @@ int	forkex(t_shell *shell)
     {
 		if (WIFEXITED(status))
 		{
-			int child_exit_status = WEXITSTATUS(status);
+			child_exit_status = WEXITSTATUS(status);
 			set_return_value(shell, child_exit_status);
 		}
 		else

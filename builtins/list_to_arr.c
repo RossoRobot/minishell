@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 15:30:03 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/14 14:23:08 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/20 18:33:06 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ char	*join_key_value(t_env *temp, t_shell *data)
 
 	str = NULL;
 	keytemp = ft_strjoin(data, temp->key_value->key, "=");
-	str = ft_strjoin(data, keytemp, temp->key_value->value);
+	if (temp->key_value->value)
+		str = ft_strjoin(data, keytemp, temp->key_value->value);
+	else
+		return (keytemp);
 	free(keytemp);
 	return (str);
 }

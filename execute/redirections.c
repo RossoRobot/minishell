@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/24 14:57:54 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:41:34 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,14 @@ int    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
    
     ret = 0;
     stdin_backup = dup(STDIN_FILENO);
+    if (stdin_backup == -1)
+        return (-1);   
     stdout_backup = dup(STDOUT_FILENO);
+    if (stdout_backup == -1)
+    {
+        close(stdin_backup);
+        return (-1);
+    }
     while (temp != NULL)
     {
         while (temp != NULL && temp->type != 4 && temp->type != 5 && temp->type != 7)
@@ -94,16 +101,26 @@ int    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
         if (ret == -1)
             return (-1);
     }
-    return (0);
+    return (ret);
 }
 
-void    reset_fds(int stdin, int stdout)
+void    reset_fds(t_shell *shell, int stdin_backup, int stdout_backup)
 {
-    dup2(stdin, STDIN_FILENO);
-    close(stdin);
-    dup2(stdout, STDOUT_FILENO);
-    close(stdout);
+    if (dup2(stdin_backup, STDIN_FILENO) == -1)
+    {
+        free_parse(shell);
+        free_exit(shell, 1);
+    }
+    close(stdin_backup);
+    if (dup2(stdout_backup, STDOUT_FILENO) == -1)
+    {
+        close(stdin_backup);
+        free_parse(shell);
+        free_exit(shell, 1);
+    }
+    close(stdout_backup);
 }
+
 t_list  *find_command(t_list *list)
 {
     t_list *temp;
@@ -141,9 +158,7 @@ int    execute_it(t_shell *shell, char **arr, t_list *list, int stdin_backup, in
     {
         free_arr(arr);
         execute_builtin(shell, temp);
-        reset_fds(stdin_backup, stdout_backup);
-        // free_parse(shell);
-        // free_exit(shell, 0);
+        reset_fds(shell, stdin_backup, stdout_backup);
         return (0);
     }
     path = get_path(shell, temp);
@@ -201,7 +216,13 @@ int redirect_output(t_shell *shell, t_list *list, char **arr, int append)
         free_arr(arr);
         return (-1);
     }
-    dup2(fd, STDOUT_FILENO);
+    if (dup2(fd, STDOUT_FILENO) == -1)
+    {
+        free_arr(arr);
+        close(fd);
+        free_parse(shell);
+        free_exit(shell, 1);
+    }
     close(fd);
     return (0);
 }

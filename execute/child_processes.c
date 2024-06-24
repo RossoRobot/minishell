@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/24 11:46:02 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:45:41 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,14 @@ void	first_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd)
 	int	ret;
 
 	ret = 0;
-    dup2(temp_fd, STDIN_FILENO);
-    dup2(pipes[1], STDOUT_FILENO);
+    if ((dup2(temp_fd, STDIN_FILENO) == -1) || dup2(pipes[1], STDOUT_FILENO) == -1)
+	{
+		close(pipes[0]);
+		close(pipes[1]);
+   		close(temp_fd);
+		free_parse(shell);
+		free_exit(shell, 1);
+	}
 	close(pipes[0]);
 	close(pipes[1]);
     close(temp_fd);
@@ -35,7 +41,14 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd)
 	int	ret;
 
 	ret = 0;
-    dup2(temp_fd, STDIN_FILENO);
+    if (dup2(temp_fd, STDIN_FILENO) == -1)
+	{
+		close(pipes[0]);
+		close(pipes[1]);
+    	close(temp_fd);
+		free_parse(shell);
+		free_exit(shell, 1);
+	}
 	close(pipes[0]);
 	close(pipes[1]);
     close(temp_fd);
@@ -43,8 +56,7 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes, int temp_fd)
 		prep_redir_exec(shell, list, 1);
 	ret = execute_command(shell, list);
 	free_parse(shell);
-	free_exit(shell, 0);
-	exit (ret);
+	free_exit(shell, ret);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:30:33 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/14 12:32:19 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:12:27 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ t_key_value	*set_keys_n_values(t_shell *data, char *key, char *value, char *str)
 	{
 		key_value_pair->key = ft_strdup(data, key);
 		key_value_pair->value = ft_strdup(data, value);
-		// free(key);
-		// free(value);
 		return (key_value_pair);
 	}
 	else if (str)

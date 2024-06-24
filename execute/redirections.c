@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/20 17:30:09 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:57:54 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,13 @@ void    prep_redir_exec(t_shell *shell, t_list *list, int flag)
     }
 }
 
-void    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
+int    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
 {
     int stdin_backup;
     int stdout_backup;
+    int ret;
    
+    ret = 0;
     stdin_backup = dup(STDIN_FILENO);
     stdout_backup = dup(STDOUT_FILENO);
     while (temp != NULL)
@@ -80,16 +82,19 @@ void    exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
         if (temp == NULL)
         {
             execute_it(shell, arr, list, stdin_backup, stdout_backup);
-            return ;
+            return (0);
         }
         else if (temp->type == 5)
-            redirect_output(shell, temp->next, arr, 0);
+            ret = redirect_output(shell, temp->next, arr, 0);
         else if (temp->type == 7)
-            redirect_output(shell, temp->next, arr, 1);
+            ret = redirect_output(shell, temp->next, arr, 1);
         else if (temp->type == 4)
-            redirect_input(shell, temp->next, arr);
+            ret = redirect_input(shell, temp->next, arr);
         temp = temp->next;
+        if (ret == -1)
+            return (-1);
     }
+    return (0);
 }
 
 void    reset_fds(int stdin, int stdout)
@@ -157,7 +162,7 @@ int    execute_it(t_shell *shell, char **arr, t_list *list, int stdin_backup, in
     return (0);
 }
 
-void    redirect_input(t_shell *shell, t_list *list, char ** arr)
+int    redirect_input(t_shell *shell, t_list *list, char ** arr)
 {
     int fd;
 
@@ -173,12 +178,17 @@ void    redirect_input(t_shell *shell, t_list *list, char ** arr)
     }
     dup2(fd, STDIN_FILENO);
     close(fd);
+    return (0);
 }
 
-void redirect_output(t_shell *shell, t_list *list, char **arr, int append)
+int redirect_output(t_shell *shell, t_list *list, char **arr, int append)
 {
     int fd;
+    void *ptr;
+    char **ptr2;
 
+    ptr = shell;
+    ptr2 = arr;
 	fd = 0;
     if (append == 0)
         fd = open(list->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -188,10 +198,10 @@ void redirect_output(t_shell *shell, t_list *list, char **arr, int append)
     {
         ft_putstr_fd(list->content ,2);
         ft_putstr_fd(": permission denied\n", 2);
-        free_parse(shell);
         free_arr(arr);
-        free_exit(shell, 1);
+        return (-1);
     }
     dup2(fd, STDOUT_FILENO);
     close(fd);
+    return (0);
 }

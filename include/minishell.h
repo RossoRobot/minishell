@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/24 11:38:33 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:52:21 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,9 +220,9 @@ int		forkex(t_shell *shell);
 //redirections
 int		is_redirection(t_shell *shell, t_list *list);
 void    prep_redir_exec(t_shell *shell, t_list *list, int flag);
-void	exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list);
-void	redirect_input(t_shell *shell, t_list *list, char **arr);
-void	redirect_output(t_shell *shell, t_list *list, char **arr, int append);
+int		exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list);
+int		redirect_input(t_shell *shell, t_list *list, char **arr);
+int		redirect_output(t_shell *shell, t_list *list, char **arr, int append);
 int		execute_it(t_shell *shell, char **arr, t_list *list, int stdin_backup, int stdout_backup);
 void	reset_fds(int stdin, int stdout);
 

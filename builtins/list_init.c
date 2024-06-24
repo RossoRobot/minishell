@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 08:21:43 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/16 16:05:01 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:35:58 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ void	free_exit(t_shell *data, int error_flag)
 	while (data->env_line != NULL)
 	{
 		temp = data->env_line;
-		if (temp->key_value->key)
-			free(temp->key_value->key);
-		if (temp->key_value->value)
-			free(temp->key_value->value);
 		if (temp->key_value)
+		{
+			if (temp->key_value->key)
+				free(temp->key_value->key);
+			if (temp->key_value->value)
+				free(temp->key_value->value);
 			free(temp->key_value);
+		}
 		data->env_line = data->env_line->next;
 		if (temp)
 			free(temp);
@@ -53,7 +55,7 @@ void	free_exit(t_shell *data, int error_flag)
 	if (data)
 		free(data);
 	if (error_flag == 1)
-		exit(EXIT_FAILURE);
+		exit(138);
 	if (error_flag == 1408)
 		exit(0);
 	if (error_flag != 0 )
@@ -67,6 +69,7 @@ void	first_node_init(t_shell *data, char *key, char *value, char *str)
 		free_exit(data, 1);
 	data->env_line->previous = NULL;
 	data->env_line->next = NULL;
+	data->env_line->key_value = NULL;
 	data->env_line->key_value = set_keys_n_values(data, key, value, str);
 }
 

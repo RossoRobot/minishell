@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 15:30:03 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/20 18:33:06 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/24 14:46:38 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,19 +102,20 @@ void	env_duplicate(t_shell *data, char **envp)
 
 	i = 0;
 	shlvl = NULL;
-	key = ft_strdup(data, "SHLVL");
 	if (!envp || !envp[i])
 	{
+		key = ft_strdup(data, "SHLVL");
 		handle_empty_env(data, key);
-		free(key);
 		return ;
 	}
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "SHLVL=", 6) == 0)
 		{
+			key = ft_strdup(data, "SHLVL");
 			shlvl = increment_shlvl(data, envp[i]);
 			append_node(data, key, shlvl, NULL);
+			free(key);
 			free(shlvl);
 			i++;
 		}
@@ -123,6 +124,7 @@ void	env_duplicate(t_shell *data, char **envp)
 	}
 	if (check_missing_env(data) == -1)
 	{
+		key = ft_strdup(data, "SHLVL");
 		handle_empty_env(data, key);
 		free(key);
 	}

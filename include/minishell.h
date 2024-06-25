@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/25 11:40:16 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:57:22 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,15 @@ void						first_child_process(t_shell *shell, t_list *list,
 								int *pipes, int temp_fd);
 void						last_child_process(t_shell *shell, t_list *list,
 								int *pipes, int temp_fd);
-int							forkex(t_shell *shell);
+int							forkex(t_shell *shell, int temp_fd);
+
+void						pick_child_process(t_shell *shell, int i, int *pipes, int temp_fd);
+
+void 						wait_for_children(t_shell *shell);
+
+void						close_fds(t_shell *shell, int *fd, int temp_fd);
+
+void						wait_for_child(t_shell *shell);
 
 // redirections
 int							is_redirection(t_shell *shell, t_list *list);
@@ -244,5 +252,11 @@ int							redirect_output(t_shell *shell, t_list *list,
 int							execute_it(t_shell *shell, char **arr, t_list *list,
 								int stdin_backup, int stdout_backup);
 void						reset_fds(t_shell *shell, int stdin, int stdout);
+
+void handle_child_process(t_shell *shell, t_list *list, int fd[2], int temp_fd, int is_not_last);
+
+
+
+
 
 #endif

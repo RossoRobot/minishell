@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/24 11:50:54 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/25 13:57:45 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,11 +215,18 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 int	execute(t_shell *shell)
 {
 	int		i;
-
+	int		temp_fd;
+	
 	i = 0;
 	if (shell->lists[1] == NULL)
 		return (execute_no_pipe(shell, shell->lists[0]));
-	forkex(shell);
+	temp_fd = dup(STDIN_FILENO);
+	if (temp_fd == -1)
+	{
+		free_parse(shell);
+		free_exit(shell, 1);
+	}
+	forkex(shell, temp_fd);
 	return (0);
 }
 

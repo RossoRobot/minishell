@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/25 14:57:22 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:53:25 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,7 @@ int							execute_no_pipe(t_shell *shell, t_list *list);
 char						**transform_list(t_shell *shell, t_list *list);
 int							execute_binary(t_shell *shell, t_list *list);
 t_list						*find_command(t_list *list);
+void						check_some_things(t_shell *shell, t_list *list);
 
 char						**ft_split(const char *s1, char c);
 char						*path_access(t_shell *shell, t_list *list,
@@ -233,11 +234,11 @@ int							forkex(t_shell *shell, int temp_fd);
 
 void						pick_child_process(t_shell *shell, int i, int *pipes, int temp_fd);
 
-void 						wait_for_children(t_shell *shell);
-
 void						close_fds(t_shell *shell, int *fd, int temp_fd);
 
-void						wait_for_child(t_shell *shell);
+void						wait_for_child(t_shell *shell, int flag);
+
+void						no_pipe_child(t_shell *shell, t_list *list);
 
 // redirections
 int							is_redirection(t_shell *shell, t_list *list);

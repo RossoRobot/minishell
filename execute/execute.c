@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/25 13:57:45 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:52:27 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	execute_builtin(t_shell *shell, t_list *list)
 {
-	t_list *temp;
+	t_list	*temp;
 	int		ret;
 
 	temp = list;
@@ -51,7 +51,6 @@ int	child_process(t_shell *shell, t_list *list)
 	return (ret);
 }
 
-
 char	**transform_list(t_shell *shell, t_list *list)
 {
 	t_list	*temp;
@@ -65,7 +64,7 @@ char	**transform_list(t_shell *shell, t_list *list)
 	while (temp)
 	{
 		temp = temp->next;
-		i++;	
+		i++;
 	}
 	temp = list;
 	arr = (char **)malloc(sizeof(char *) * (i + 1));
@@ -76,157 +75,20 @@ char	**transform_list(t_shell *shell, t_list *list)
 	{
 		arr[j] = ft_strdup(shell, temp->content);
 		temp = temp->next;
-		j++;	
-	}
-	return (arr);
-}
-
-char	**trans_argv(t_shell *shell, t_list *list)
-{
-	int		i;
-	int		j;
-	char	**args;
-	t_list	*temp;
-
-	i = 0;
-	j = 0;
-	temp = list;
-	while (temp)
-	{
-		temp = temp->next;
-		i++;	
-	}
-	args = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!args)
-		free_exit(shell, 0);
-	args[i] = NULL;
-	temp = list;
-	while (j < i)
-	{
-		args[j] = ft_strdup(shell, temp->content);
-		temp = temp->next;
 		j++;
 	}
-	return (args);
+	return (arr);
 }
 
 void	check_some_things(t_shell *shell, t_list *list)
 {
 	if (list->content[0] == '|' || list->content[0] == ';')
 	{
-		ft_putstr_fd( "syntax error near unexpected token `",2);
+		ft_putstr_fd("syntax error near unexpected token `", 2);
 		write(2, &list->content[0], 1);
 		ft_putstr_fd("'\n", 2);
 		free_parse(shell);
 		free_exit(shell, 0);
-		exit (2);
+		exit(2);
 	}
 }
-
-int	execute_binary(t_shell *shell, t_list *list)
-{
-	char	**argv;
-	char	*path;
-	
-	check_some_things(shell, list);
-	shell->env_arr = transform_list_to_arr(shell, shell->env_line);
-	if (!(shell->env_arr))
-		free_exit(shell, 0);
-	path = get_path(shell, list);
-	argv = trans_argv(shell, list);
-	recieve_signal(shell, 0, 1);
-	if (execve(path, argv, shell->env_arr) == -1)
-	{
-		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		free(path);
-		free_arr(argv);
-		free_parse(shell);
-		free_exit(shell, 0);
-		exit (127);
-	}
-	recieve_signal(shell, 1, 0);
-	return (0);
-}
-int	execute_command(t_shell *shell, t_list *list)
-{
-	int	ret;
-
-	ret = 0;
-	if (list->type <= 16 && list->type >= 10)
-	{
-		ret = execute_builtin(shell, list);
-		return (ret);
-	}
-	else
-	{
-		ret = execute_binary(shell, list);
-		return (ret);
-	}
-}
-
-int	execute_no_pipe(t_shell *shell, t_list *list)
-{
-	int		fd[2];
-	int		status;
-	int		child_exit_status;
-	pid_t	pid;
-
-	if (is_redirection(shell, list) != 0 && (list->type >= 10 && list->type <= 16))
-	{
-		prep_redir_exec(shell, list, 0);
-		return (0);
-	}
-	if (list->type >= 10 && list->type <= 16)
-		execute_builtin(shell, list);
-	else
-	{
-		if (pipe(fd) == -1)
-			free_exit(shell, 1);
-		pid = fork();
-		if (pid < 0)
-			free_exit(shell, 1);
-		if (pid == 0)
-		{
-			if (is_redirection(shell, list) != 0)
-			{
-				prep_redir_exec(shell, list, 1);
-				return (0);
-			}
-			execute_binary(shell, list);
-			exit (0);
-		}
-		else
-		{
-			wait(&status);
-			if (WIFEXITED(status))
-			{
-				child_exit_status = WEXITSTATUS(status);
-				set_return_value(shell, child_exit_status);
-			}
-			else
-				set_return_value(shell, 0);
-			return (0);
-		}
-	}
-	return (0);
-}
-
-int	execute(t_shell *shell)
-{
-	int		i;
-	int		temp_fd;
-	
-	i = 0;
-	if (shell->lists[1] == NULL)
-		return (execute_no_pipe(shell, shell->lists[0]));
-	temp_fd = dup(STDIN_FILENO);
-	if (temp_fd == -1)
-	{
-		free_parse(shell);
-		free_exit(shell, 1);
-	}
-	forkex(shell, temp_fd);
-	return (0);
-}
-

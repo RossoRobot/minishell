@@ -6,7 +6,7 @@
 #    By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 14:00:52 by kbrauer           #+#    #+#              #
-#    Updated: 2024/06/14 10:25:37 by mvolgger         ###   ########.fr        #
+#    Updated: 2024/06/25 11:02:51 by mvolgger         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ EXEC_DIR = ./execute
 
 SRCS = $(MAIN_DIR)/main.c $(MAIN_DIR)/utils.c $(MAIN_DIR)/utils2.c \
 	$(MAIN_DIR)/free.c $(MAIN_DIR)/define_type.c $(BI_DIR)/cd.c \
-	$(BI_DIR)/env_dup.c $(BI_DIR)/export.c $(BI_DIR)/itoa.c \
-	$(BI_DIR)/libft_helpers.c $(BI_DIR)/list_init.c \
+	$(BI_DIR)/more_helpers.c $(BI_DIR)/export.c $(BI_DIR)/itoa.c \
+	$(BI_DIR)/libft_helpers.c $(BI_DIR)/list_init.c  $(BI_DIR)/env_dup.c\
 	$(BI_DIR)/list_to_arr.c $(BI_DIR)/pwd.c $(MAIN_DIR)/parse.c \
 	$(EXEC_DIR)/execute.c $(BI_DIR)/execute_builtins.c \
 	$(MAIN_DIR)/expansion.c $(MAIN_DIR)/unquote.c $(EXEC_DIR)/ft_split.c \
@@ -32,7 +32,7 @@ SRCS = $(MAIN_DIR)/main.c $(MAIN_DIR)/utils.c $(MAIN_DIR)/utils2.c \
 	$(BI_DIR)/unset.c $(BI_DIR)/libft_helpers2.c \
 	$(MAIN_DIR)/main2.c $(MAIN_DIR)/heredoc2.c $(MAIN_DIR)/expansion2.c \
 	$(MAIN_DIR)/parse2.c $(BI_DIR)/printenv.c $(MAIN_DIR)/sep_env_cmd.c \
-	$(MAIN_DIR)/set_return_value.c $(MAIN_DIR)/signal.c $(MAIN_DIR)/helper.c 
+	$(MAIN_DIR)/set_return_value.c $(MAIN_DIR)/signal.c $(MAIN_DIR)/helper.c \
 	
 OBJS = $(SRCS:.c=.o)
 

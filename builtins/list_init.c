@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 08:21:43 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/24 14:35:58 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:24:38 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ void	free_exit(t_shell *data, int error_flag)
 	free_arr(data->env_arr);
 	if (data)
 		free(data);
-	if (error_flag == 1)
-		exit(138);
 	if (error_flag == 1408)
 		exit(0);
-	if (error_flag != 0 )
+	if (error_flag != 0)
 		exit(error_flag);
 }
 
@@ -66,35 +64,9 @@ void	first_node_init(t_shell *data, char *key, char *value, char *str)
 {
 	data->env_line = malloc(sizeof(t_env));
 	if (!(data->env_line))
-		free_exit(data, 1);
+		free_exit(data, 138);
 	data->env_line->previous = NULL;
 	data->env_line->next = NULL;
 	data->env_line->key_value = NULL;
 	data->env_line->key_value = set_keys_n_values(data, key, value, str);
-}
-
-char	*get_key(t_shell *data, char *str)
-{
-	int		i;
-	int		j;
-	char	*key;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == '=')
-			break ;
-		i++;
-	}
-	key = (char *)malloc(sizeof(char) * (i + 1));
-	if (!key)
-		free_exit(data, 1);
-	key[i] = '\0';
-	while (j < i)
-	{
-		key[j] = str[j];
-		j++;
-	}
-	return (key);
 }

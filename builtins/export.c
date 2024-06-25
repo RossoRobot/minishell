@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/20 18:29:36 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:23:27 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,8 @@ int	replace_var(t_shell *data, char *key, char *value, int key_malloc_flag)
 		{
 			if (key_malloc_flag == 1 || key_malloc_flag == 3)
 				free(key);
-			if (key_malloc_flag == 3)
-				free(value);
 			if (value == NULL)
-			{
-				free(temp->key_value->value);
 				temp->key_value->value = NULL;
-
-			}
 			else
 			{
 				free(temp->key_value->value);
@@ -73,35 +67,18 @@ int	check_export_str(t_shell *data, char *str)
 int	export(t_shell *data, char *str, char *key, char *value)
 {
 	if ((!str && !key) || (str && str[0] == '\0'))
-	{
-		print_myenv(data, 1);
-		return (0);
-	}
+		return (print_myenv(data, 1), 0);
 	if (str)
 	{
 		if (check_export_str(data, str) == -1)
 			return (-1);
 		key = get_key(data, str);
 		value = get_value(data, str);
-		if (!value && check_for_equal(str) == 0 )
-		{
-			if (check_double(data, str) == -1)
-			{
-				free(key);
-				free(value);
-				return (0);
-			}
-			
-			append_node(data, key, value, str);
-			free(key);
-			free(value);
+		if (export_clear(data, key, value, str) == 0)
 			return (0);
-		}
 	}
 	if (replace_var(data, key, value, 1) == 0)
 	{
-		// if (value[0] == '\0')
-		// 	free(value);
 		if (value)
 			free(value);
 		return (0);
@@ -114,6 +91,25 @@ int	export(t_shell *data, char *str, char *key, char *value)
 	}
 	return (0);
 }
+
+int	export_clear(t_shell *shell, char *key, char *value, char *str)
+{
+	if (!value && check_for_equal(str) == 0)
+	{
+		if (check_double(shell, str) == -1)
+		{
+			free(key);
+			free(value);
+			return (0);
+		}
+		append_node(shell, key, value, str);
+		free(key);
+		free(value);
+		return (0);
+	}
+	return (1);
+}
+
 int	check_double(t_shell *data, char *str)
 {
 	t_env	*temp;
@@ -126,20 +122,5 @@ int	check_double(t_shell *data, char *str)
 			return (-1);
 		temp = temp->next;
 	}
-	return (0);
-}
-
-int	check_for_equal(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str || str[0] == '\0')
-		return (-1);
-	while (str[i] != '\0')
-		i++;
-	i--;
-	if (str[i] == '=')
-		return (1);
 	return (0);
 }

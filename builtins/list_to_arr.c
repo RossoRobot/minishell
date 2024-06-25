@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 15:30:03 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/24 14:46:38 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:37:07 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,30 +70,6 @@ char	**transform_list_to_arr(t_shell *data, t_env *myenv)
 	return (arr);
 }
 
-int	check_missing_env(t_shell *data)
-{
-	t_env	*temp;
-	int		counter;
-
-	counter = 4;
-	temp = data->env_line;
-	if (temp == NULL)
-		return (-1);
-	while (temp != NULL)
-	{
-		if (ft_strncmp(temp->key_value->key, "PWD", 3) == 0
-			|| ft_strncmp(temp->key_value->key, "_", 1) == 0
-			|| ft_strncmp(temp->key_value->key, "SHLVL", 5) == 0
-			|| ft_strncmp(temp->key_value->key, "last_return_value", 18) == 0)
-			counter--;
-		temp = temp->next;
-	}
-	if (counter == 0)
-		return (0);
-	else
-		return (-1);
-}
-
 void	env_duplicate(t_shell *data, char **envp)
 {
 	int		i;
@@ -103,11 +79,7 @@ void	env_duplicate(t_shell *data, char **envp)
 	i = 0;
 	shlvl = NULL;
 	if (!envp || !envp[i])
-	{
-		key = ft_strdup(data, "SHLVL");
-		handle_empty_env(data, key);
-		return ;
-	}
+		return (handle_empty_env(data));
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "SHLVL=", 6) == 0)
@@ -123,9 +95,31 @@ void	env_duplicate(t_shell *data, char **envp)
 		i++;
 	}
 	if (check_missing_env(data) == -1)
+		handle_empty_env(data);
+}
+
+char	*get_key(t_shell *data, char *str)
+{
+	int		i;
+	int		j;
+	char	*key;
+
+	i = 0;
+	j = 0;
+	while (str[i])
 	{
-		key = ft_strdup(data, "SHLVL");
-		handle_empty_env(data, key);
-		free(key);
+		if (str[i] == '=')
+			break ;
+		i++;
 	}
+	key = (char *)malloc(sizeof(char) * (i + 1));
+	if (!key)
+		free_exit(data, 138);
+	key[i] = '\0';
+	while (j < i)
+	{
+		key[j] = str[j];
+		j++;
+	}
+	return (key);
 }

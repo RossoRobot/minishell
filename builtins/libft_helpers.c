@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:54:45 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/12 13:37:39 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:25:09 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strdup(t_shell *data, const char *s)
 	length = ft_strlen(s);
 	dest = (char *)malloc(length + 1);
 	if (dest == NULL)
-		free_exit(data, 1);
+		free_exit(data, 138);
 	ft_strlcpy(dest, s, length + 1);
 	return (dest);
 }
@@ -85,7 +85,7 @@ char	*ft_strjoin(t_shell *data, char const *s1, char const *s2)
 	length = (ft_strlen(s1) + ft_strlen(s2));
 	newstr = (char *)malloc(sizeof(char) * (length + 1));
 	if (newstr == NULL)
-		free_exit(data, 1);
+		free_exit(data, 138);
 	i = 0;
 	while (*s1)
 		newstr[i++] = *s1++;

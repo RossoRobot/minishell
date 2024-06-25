@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/24 11:11:41 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/25 10:03:38 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,3 @@ void	export_pwds(t_shell *data, char *old_pwd)
 	export(data, NULL, old_pwd_key, old_pwd);
 	export(data, NULL, pwd_key, pwd);
 }
-

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:12:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/15 12:39:06 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:39:03 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@ int	pwd(t_shell *data)
 	char	*pwd;
 	char	*temp;
 
-	pwd = getcwd(NULL, 0);		
+	pwd = getcwd(NULL, 0);
 	temp = NULL;
 	if (!pwd)
 	{
 		temp = my_getenv(data, "PWD", 0);
 		printf("%s\n", temp);
-		ft_putstr_fd("pwd: cannot access parent directories: No such file or directory\n", 2);
+		ft_putstr_fd("pwd: cannot access parent ", 2);
+		ft_putstr_fd("directories: No such file or directory\n", 2);
 		free(temp);
 		return (1);
 	}
@@ -57,11 +58,10 @@ char	*get_value(t_shell *data, char *str)
 	}
 	value = (char *)malloc(sizeof(char) * (i + 1));
 	if (!value)
-		free_exit(data, 1);
+		free_exit(data, 138);
 	ft_strlcpy(value, start, i + 1);
 	return (value);
 }
-
 
 void	append_node(t_shell *data, char *key, char *value, char *str)
 {
@@ -76,7 +76,7 @@ void	append_node(t_shell *data, char *key, char *value, char *str)
 			data->env_line = data->env_line->next;
 		data->env_line->next = malloc(sizeof(t_env));
 		if (!(data->env_line->next))
-			free_exit(data, 1);
+			free_exit(data, 138);
 		data->env_line->next->previous = data->env_line;
 		data->env_line = data->env_line->next;
 		data->env_line->key_value = set_keys_n_values(data, key, value, str);

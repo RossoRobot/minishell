@@ -16,7 +16,7 @@ void	mal_list(t_shell *shell)
 {
 	shell->lists = (t_list **) malloc (sizeof(t_list *) * (shell->n_pipes + 2));
 	if (!shell->lists)
-		return ;
+		free_exit(shell, 1);
 	shell->lists[shell->n_pipes + 1] = NULL;
 }
 

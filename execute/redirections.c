@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/25 16:27:45 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:30:09 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	prep_redir_exec(t_shell *shell, t_list *list, int flag)
 	i = 0;
 	j = 0;
 	temp = find_command(list);
-	while (temp != NULL)
+	while (temp != NULL && temp->type != 4 && temp->type != 5 && temp->type != 7)
 	{
 		i++;
 		temp = temp->next;

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:45:52 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/25 15:53:46 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/26 15:38:12 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 	int		fd[2];
 	pid_t	pid;
 
-	if (is_redirection(shell, list) != 0 && (list->type >= 10
-			&& list->type <= 16))
+	if (is_redirection(shell, list) != 0  && (list->type >= 10 && list->type <= 16))
 		return (prep_redir_exec(shell, list, 0), 0);
 	if (list->type >= 10 && list->type <= 16)
 		execute_builtin(shell, list);

@@ -75,7 +75,6 @@ int	forkex(t_shell *shell, int temp_fd)
 	{
 		if (pipe(fd) == -1)
 			free_exit(shell, 0);
-		//recieve_signal(shell, 1, 0);
 		pid = fork();
 		if (pid < 0)
 			exit(EXIT_FAILURE);

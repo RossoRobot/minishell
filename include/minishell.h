@@ -138,15 +138,15 @@ void						set_exp_str(t_shell *shell, char *tmp);
 int							squeeze_node(t_list *ptr, char *content);
 int							split_token(t_list *ptr, int n);
 int							sep_env_cmd(t_shell *shell);
+void						negative_fd(t_shell *shell, int fd);
 
 // signal
 void						recieve_signal(t_shell *shell, int flag,
 								int shellflag);
-// void						handler(int sig);
+void						handler(int sig);
 void						heredoc_helper(t_shell *shell, char *content,
 								t_list *ptr, char *tmp);
 int							write_free(int fd, char **cmd);
-void						negative_fd(t_shell *shell, int fd);
 
 // utils
 t_list						*ft_lstnew(char *content, int *k, t_shell *shell);

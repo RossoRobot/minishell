@@ -75,3 +75,9 @@ int	sep_env_cmd(t_shell *shell)
 	}
 	return (0);
 }
+
+void	negative_fd(t_shell *shell, int fd)
+{
+	if (fd == -1)
+		free_exit(shell, 1);
+}

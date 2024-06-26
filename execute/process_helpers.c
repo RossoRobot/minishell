@@ -38,33 +38,48 @@ void	close_fds(t_shell *shell, int *fd, int temp_fd)
 	close(fd[0]);
 }
 
-void	wait_for_child(t_shell *shell, int flag)
+void	wait_for_child(t_shell *shell, int flag, int pid)
 {
 	int	status;
 	int	childexitstatus;
 
-	if (flag == 1)
-	{
-		while (wait(&status) > 0)
+	(void)flag;
+	// if (flag == 1)
+	// {
+		if (g_var == 3)
+			kill(pid, SIGQUIT);
+		while (waitpid(pid, &status, WNOHANG) == 0)
 		{
-			if (WIFEXITED(status))
+			//printf("g_var = %d \n", g_var);
+			//sleep(1);
+			if (g_var == 3)
 			{
-				childexitstatus = WEXITSTATUS(status);
-				set_return_value(shell, childexitstatus);
+				kill(pid, SIGINT);
+				set_return_value(shell, 131);
+				//g_var = 0;
 			}
-			else
-				set_return_value(shell, 0);
 		}
+		//printf("g_var = %d \n", g_var);
+		if (WIFEXITED(status))
+		{
+			childexitstatus = WEXITSTATUS(status);
+			set_return_value(shell, childexitstatus);
+
+		}
+		else if (g_var != 3)
+			set_return_value(shell, 0);
+		else
+			g_var = 0;
 		return ;
-	}
-	wait(&status);
-	if (WIFEXITED(status))
-	{
-		childexitstatus = WEXITSTATUS(status);
-		set_return_value(shell, childexitstatus);
-	}
-	else
-		set_return_value(shell, 0);
+	//}
+	// wait(&status);
+	// if (WIFEXITED(status))
+	// {
+	// 	childexitstatus = WEXITSTATUS(status);
+	// 	set_return_value(shell, childexitstatus);
+	// }
+	// else
+	// 	set_return_value(shell, 0);
 }
 
 void	no_pipe_child(t_shell *shell, t_list *list)

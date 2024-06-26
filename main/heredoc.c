@@ -45,7 +45,7 @@ char	*here_doc(t_shell *shell, char *arg)
 	{
 		cmd = readline("> ");
 		if (g_var == 2)
-			return (check_g_var(shell, fd, hname));
+			return (free(cmd), check_g_var(shell, fd, hname));
 		if (cmd_is_null_or_del(cmd, fd, arg, shell))
 		{
 			shell->h_lines += num_lines;

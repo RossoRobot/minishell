@@ -25,6 +25,8 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <signal.h>
+# include <stdbool.h>
 
 extern int					g_var;
 
@@ -87,6 +89,7 @@ typedef struct s_shell
 	char					**env_arr;
 	int						last_return_value;
 	int						flag;
+	bool					sig_flag;
 	t_env					*env_line;
 	pid_t					*pids;
 	t_list					**lists;
@@ -137,7 +140,7 @@ int							sep_env_cmd(t_shell *shell);
 // signal
 void						recieve_signal(t_shell *shell, int flag,
 								int shellflag);
-void						handler(int sig);
+// void						handler(int sig);
 void						heredoc_helper(t_shell *shell, char *content,
 								t_list *ptr, char *tmp);
 int							write_free(int fd, char **cmd);
@@ -236,7 +239,7 @@ void						pick_child_process(t_shell *shell, int i, int *pipes, int temp_fd);
 
 void						close_fds(t_shell *shell, int *fd, int temp_fd);
 
-void						wait_for_child(t_shell *shell, int flag);
+void						wait_for_child(t_shell *shell, int flag, int pid);
 
 void						no_pipe_child(t_shell *shell, t_list *list);
 

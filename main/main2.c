@@ -21,6 +21,7 @@ int	first_init(t_shell *shell, int argc, char **argv)
 	shell->hname = NULL;
 	shell->h_lines = 0;
 	shell->flag = 0;
+	shell->sig_flag = false;
 	return (0);
 }
 

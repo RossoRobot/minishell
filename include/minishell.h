@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/25 15:53:25 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:50:47 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ typedef struct s_shell
 	char					**env_arr;
 	int						last_return_value;
 	int						flag;
+	int						stdin_backup;
+	int						stdout_backup;
 	t_env					*env_line;
 	pid_t					*pids;
 	t_list					**lists;
@@ -232,7 +234,8 @@ void						last_child_process(t_shell *shell, t_list *list,
 								int *pipes, int temp_fd);
 int							forkex(t_shell *shell, int temp_fd);
 
-void						pick_child_process(t_shell *shell, int i, int *pipes, int temp_fd);
+void						pick_child_process(t_shell *shell, int i,
+								int *pipes, int temp_fd);
 
 void						close_fds(t_shell *shell, int *fd, int temp_fd);
 
@@ -250,14 +253,14 @@ int							redirect_input(t_shell *shell, t_list *list,
 								char **arr);
 int							redirect_output(t_shell *shell, t_list *list,
 								char **arr, int append);
-int							execute_it(t_shell *shell, char **arr, t_list *list,
-								int stdin_backup, int stdout_backup);
-void						reset_fds(t_shell *shell, int stdin, int stdout);
+int							execute_it(t_shell *shell, char **arr,
+								t_list *list);
 
-void handle_child_process(t_shell *shell, t_list *list, int fd[2], int temp_fd, int is_not_last);
+void						reset_fds(t_shell *shell, int stdin_backup,
+								int stdout_backup);
 
+int							cmd_position(t_list *list);
 
-
-
+void						dup_stds(t_shell *shell);
 
 #endif

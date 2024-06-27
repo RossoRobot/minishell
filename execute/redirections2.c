@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/26 16:51:25 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:50:12 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ void	reset_fds(t_shell *shell, int stdin_backup, int stdout_backup)
 {
 	if (dup2(stdin_backup, STDIN_FILENO) == -1)
 	{
-		free_parse(shell);
 		free_exit(shell, 1);
 	}
 	close(stdin_backup);
 	if (dup2(stdout_backup, STDOUT_FILENO) == -1)
 	{
 		close(stdin_backup);
-		free_parse(shell);
 		free_exit(shell, 1);
 	}
 	close(stdout_backup);
@@ -80,7 +78,6 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 		ft_putstr_fd(": command not found\n", 2);
 		free(path);
 		free_arr(arr);
-		free_parse(shell);
 		free_exit(shell, 1);
 	}
 	return (0);
@@ -96,7 +93,6 @@ int	redirect_input(t_shell *shell, t_list *list, char **arr)
 		ft_putstr_fd("no such file or directory: ", 2);
 		ft_putstr_fd(list->content, 2);
 		ft_putstr_fd("\n", 2);
-		free_parse(shell);
 		free_arr(arr);
 		free_exit(shell, 1);
 	}
@@ -128,7 +124,6 @@ int	redirect_output(t_shell *shell, t_list *list, char **arr, int append)
 	{
 		free_arr(arr);
 		close(fd);
-		free_parse(shell);
 		free_exit(shell, 1);
 	}
 	return (close(fd), 0);

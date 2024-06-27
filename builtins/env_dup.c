@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/25 10:35:28 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:28:16 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	ft_exit(t_shell *shell, t_list *list)
 			if (exit_code_check(list->next->content) == -1 || (list->next
 					&& (ft_atol(list->next->content) == LONG_MAX)))
 			{
-				free_parse(shell);
 				free_exit(shell, 0);
 				ft_putstr_fd("exit: numeric argument required\n", 2);
 				exit(2);
@@ -109,7 +108,6 @@ int	ft_exit(t_shell *shell, t_list *list)
 		if (list->next && list->next->content)
 			nr = ft_atol(list->next->content);
 	}
-	free_parse(shell);
 	free_exit(shell, 0);
 	exit(nr);
 }

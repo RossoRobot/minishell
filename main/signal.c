@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbrauer <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:56:09 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/19 11:56:10 by kbrauer          ###   ########.fr       */
+/*   Updated: 2024/06/27 11:56:19 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	handler2(int sig)
 	if (sig == 2)
 		write(1, "\n", 1);
 	if (sig == 3)
-		dprintf(2, "Quit (core dumped)\n");
+		ft_putstr_fd("Quit (core dumped)\n", 2);
 }
 
 void	recieve_signal(t_shell *shell, int flag, int shellflag)

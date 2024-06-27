@@ -6,11 +6,18 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:08:44 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/04/22 17:43:10 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:09:18 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../include/minishell.h"
+
+static void	free_parse_helper2(t_shell *shell)
+{
+	free_to_null(&shell->exp_str);
+	if (shell->pids)
+		free(shell->pids);
+}
 
 t_list	*free_parse_helper(t_list *ptr, char *content, t_list *list)
 {
@@ -27,6 +34,8 @@ void	free_parse(t_shell *shell)
 	t_list	*ptr;
 
 	i = 0;
+	if (!shell)
+		return ;
 	if (shell->lists)
 	{
 		if (shell->lists[i])
@@ -45,9 +54,7 @@ void	free_parse(t_shell *shell)
 		}
 		free(shell->lists);
 	}
-	free_to_null(&shell->exp_str);
-	if (shell->pids)
-		free(shell->pids);
+	free_parse_helper2(shell);
 }
 
 void	free_to_null(char **var)

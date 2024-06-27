@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/25 15:52:27 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:27:08 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	check_some_things(t_shell *shell, t_list *list)
 		ft_putstr_fd("syntax error near unexpected token `", 2);
 		write(2, &list->content[0], 1);
 		ft_putstr_fd("'\n", 2);
-		free_parse(shell);
 		free_exit(shell, 0);
 		exit(2);
 	}

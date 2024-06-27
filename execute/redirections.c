@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/26 16:47:13 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:26:19 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	prep_redir_exec(t_shell *shell, t_list *list, int flag)
 	exec_redir(shell, temp, cmd_arr, list);
 	if (flag == 1)
 	{
-		free_parse(shell);
 		free_exit(shell, 1);
 	}
 }
@@ -80,14 +79,12 @@ void	dup_stds(t_shell *shell)
 	shell->stdin_backup = dup(STDIN_FILENO);
 	if (shell->stdin_backup == -1)
 	{
-		free_parse(shell);
 		free_exit(shell, 1);
 	}
 	shell->stdout_backup = dup(STDOUT_FILENO);
 	if (shell->stdout_backup == -1)
 	{
 		close(shell->stdin_backup);
-		free_parse(shell);
 		free_exit(shell, 1);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/25 15:32:52 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:51:46 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	first_child_process(t_shell *shell, t_list *list, int *pipes,
 		close(pipes[0]);
 		close(pipes[1]);
 		close(temp_fd);
-		free_parse(shell);
 		free_exit(shell, 1);
 	}
 	close(pipes[0]);
@@ -33,7 +32,6 @@ void	first_child_process(t_shell *shell, t_list *list, int *pipes,
 	if (is_redirection(shell, list) != 0)
 		prep_redir_exec(shell, list, 1);
 	ret = execute_command(shell, list);
-	free_parse(shell);
 	free_exit(shell, 0);
 	exit(ret);
 }
@@ -49,7 +47,6 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes,
 		close(pipes[0]);
 		close(pipes[1]);
 		close(temp_fd);
-		free_parse(shell);
 		free_exit(shell, 1);
 	}
 	close(pipes[0]);
@@ -58,7 +55,6 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes,
 	if (is_redirection(shell, list) != 0)
 		prep_redir_exec(shell, list, 1);
 	ret = execute_command(shell, list);
-	free_parse(shell);
 	free_exit(shell, ret);
 }
 
@@ -77,7 +73,7 @@ int	forkex(t_shell *shell, int temp_fd)
 			free_exit(shell, 0);
 		pid = fork();
 		if (pid < 0)
-			exit(EXIT_FAILURE);
+			free_exit(shell, 1);
 		if (pid == 0)
 		{
 			recieve_signal(shell, 3, 1);

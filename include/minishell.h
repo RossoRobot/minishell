@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/26 16:50:47 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:44:40 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -25,8 +27,6 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <signal.h>
-# include <stdbool.h>
 
 extern int					g_var;
 
@@ -265,5 +265,7 @@ void						reset_fds(t_shell *shell, int stdin_backup,
 int							cmd_position(t_list *list);
 
 void						dup_stds(t_shell *shell);
+
+void						freeparse_or_not(t_shell *shell, int flag);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 08:21:43 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/25 11:24:38 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/06/27 18:09:42 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,20 @@ void	free_exit(t_shell *data, int error_flag)
 			free(temp);
 	}
 	free_arr(data->env_arr);
-	if (data)
-		free(data);
 	if (error_flag == 1408)
 		exit(0);
-	if (error_flag != 0)
-		exit(error_flag);
+	freeparse_or_not(data, error_flag);
+}
+
+void	freeparse_or_not(t_shell *shell, int flag)
+{
+	if (flag != 0)
+	{
+		free_parse(shell);
+		exit(flag);
+	}
+	else
+		return ;
 }
 
 void	first_node_init(t_shell *data, char *key, char *value, char *str)

@@ -53,7 +53,11 @@ void	free_exit(t_shell *data, int error_flag)
 	}
 	free_arr(data->env_arr);
 	if (error_flag == 1408)
+	{
+		free(data);
+		printf("exit\n");
 		exit(0);
+	}
 	freeparse_or_not(data, error_flag);
 }
 
@@ -62,6 +66,7 @@ void	freeparse_or_not(t_shell *shell, int flag)
 	if (flag != 0)
 	{
 		free_parse(shell);
+		free(shell);
 		exit(flag);
 	}
 	else

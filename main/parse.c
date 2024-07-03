@@ -74,24 +74,23 @@ int	check_input(char *str, t_shell *shell)
 	int	i;
 	int	flag1;
 	int	flag2;
+	int	flagflag;
 
 	set_data(&i, &flag1, &flag2, shell);
+	flagflag = 0;
 	if (start_w_pipe(shell, str))
 		return (1);
 	while (str[i])
 	{
-		if (str[i] == '|' && (!(flag1 % 2) && !(flag1 % 2)))
-		{
-			while (str[i] == '|')
-				i++;
-			shell->n_pipes++;
-		}
+		pipe_counter(shell, str[i], flag1, flag2);
+		while (str[i] == '|')
+			i++;
 		if (!str[i])
 			break ;
-		flag1 += increase_flag(str[i], '\"');
-		flag2 += increase_flag(str[i], '\'');
+		increase_flag(str[i], &flag1, &flag2, &flagflag);
 		i++;
 	}
+	printf("f1: %d\nf2: %d\n", flag1, flag2);
 	if (flag1 % 2 || flag2 % 2)
 		return (check_input_helper(shell), 1);
 	return (0);

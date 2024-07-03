@@ -109,5 +109,8 @@ int	ft_exit(t_shell *shell, t_list *list)
 			nr = ft_atol(list->next->content);
 	}
 	free_exit(shell, 0);
+	free_parse(shell);
+	free(shell);
+	printf("exit\n");
 	exit(nr);
 }

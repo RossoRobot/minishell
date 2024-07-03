@@ -25,9 +25,29 @@ int	set_return_value(t_shell *shell, int retval)
 	return (retval);
 }
 
-int	increase_flag(char c, char d)
+int	increase_flag(char c, int *f1, int *f2, int *ff)
 {
-	if (c == d)
-		return (1);
+	if (c == '\'' && *ff != 2)
+	{
+		*f1 += 1;
+		if (*ff == 0)
+			*ff = 1;
+		else if (*ff == 1)
+			*ff = 0;
+	}
+	if (c == '\"' && *ff != 1)
+	{
+		*f2 += 1;
+		if (*ff == 0)
+			*ff = 2;
+		else if (*ff == 2)
+			*ff = 0;
+	}
 	return (0);
+}
+
+void	pipe_counter(t_shell *s, char c, int f1, int f2)
+{
+	if (c == '|' && (!(f1 % 2) && !(f2 % 2)))
+		s->n_pipes++;
 }

@@ -194,7 +194,8 @@ char						*check_g_var(t_shell *shell, int fd, char *hname);
 
 // set_return_value
 int							set_return_value(t_shell *shell, int retval);
-int							increase_flag(char c, char d);
+int							increase_flag(char c, int *f1, int *f2, int *ff);
+void						pipe_counter(t_shell *s, char c, int f1, int f2);
 
 // store_pid
 int							count_pids(pid_t *pid_arr);

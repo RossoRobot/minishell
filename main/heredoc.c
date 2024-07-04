@@ -16,9 +16,11 @@ char	*add_hname(t_shell *shell)
 {
 	char	*buf;
 	char	*name;
+	int		fd;
 
 	buf = (char *) malloc (sizeof(char) * 11);
-	read(open("/dev/urandom", O_RDONLY), buf, 10);
+	fd = open("/dev/urandom", O_RDONLY);
+	read(fd, buf, 10);
 	buf[10] = 0;
 	name = ft_strjoin(shell, buf, ".txt");
 	free(buf);
@@ -26,6 +28,7 @@ char	*add_hname(t_shell *shell)
 		shell->hname = ft_lstnew_hdoc(shell, name);
 	else
 		ft_lstadd_back_hdoc(shell->hname, ft_lstnew_hdoc(shell, name));
+	close(fd);
 	return (name);
 }
 
@@ -41,6 +44,8 @@ char	*here_doc(t_shell *shell, char *arg)
 	set_flag_and_num_lines(&flag, &num_lines);
 	fd = open(hname, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	negative_fd(shell, fd);
+	if (shell->heredoc_flag == 1)
+		return (check_g_var(shell, fd, hname));
 	while (1)
 	{
 		cmd = readline("> ");
@@ -51,9 +56,7 @@ char	*here_doc(t_shell *shell, char *arg)
 			shell->h_lines += num_lines;
 			break ;
 		}
-		if (flag++ != 0)
-			write(fd, "\n", 1);
-		num_lines += write_free(fd, &cmd);
+		newl_numl(&flag, fd, &num_lines, cmd);
 	}
 	return (g_var = 0, close (fd), hname);
 }

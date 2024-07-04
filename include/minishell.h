@@ -90,6 +90,7 @@ typedef struct s_shell
 	int						last_return_value;
 	int						flag;
 	bool					sig_flag;
+	int						heredoc_flag;
 	int						stdin_backup;
 	int						stdout_backup;
 	t_env					*env_line;
@@ -139,6 +140,8 @@ int							squeeze_node(t_list *ptr, char *content);
 int							split_token(t_list *ptr, int n);
 int							sep_env_cmd(t_shell *shell);
 void						negative_fd(t_shell *shell, int fd);
+void						newl_numl(int *flag, int fd, int *num_lines,
+								char *cmd);
 
 // signal
 void						recieve_signal(t_shell *shell, int flag,
@@ -146,7 +149,6 @@ void						recieve_signal(t_shell *shell, int flag,
 void						handler(int sig);
 void						heredoc_helper(t_shell *shell, char *content,
 								t_list *ptr, char *tmp);
-int							write_free(int fd, char **cmd);
 
 // utils
 t_list						*ft_lstnew(char *content, int *k, t_shell *shell);
@@ -196,6 +198,7 @@ char						*check_g_var(t_shell *shell, int fd, char *hname);
 int							set_return_value(t_shell *shell, int retval);
 int							increase_flag(char c, int *f1, int *f2, int *ff);
 void						pipe_counter(t_shell *s, char c, int f1, int f2);
+int							write_free(int fd, char **cmd);
 
 // store_pid
 int							count_pids(pid_t *pid_arr);

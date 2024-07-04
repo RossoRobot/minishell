@@ -32,6 +32,7 @@ int	init_values(t_shell *shell)
 	shell->last_return_value = 0;
 	shell->n_pipes = 0;
 	shell->pids = NULL;
+	shell->heredoc_flag = 0;
 	return (0);
 }
 

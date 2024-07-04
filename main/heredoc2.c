@@ -64,6 +64,7 @@ char	*check_g_var(t_shell *shell, int fd, char *hname)
 	char	*dummy;
 
 	dummy = hname;
+	shell->heredoc_flag = 1;
 	g_var = 0;
 	close(fd);
 	hname_new = add_hname(shell);

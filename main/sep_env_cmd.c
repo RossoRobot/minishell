@@ -81,3 +81,11 @@ void	negative_fd(t_shell *shell, int fd)
 	if (fd == -1)
 		free_exit(shell, 1);
 }
+
+void	newl_numl(int *flag, int fd, int *num_lines, char *cmd)
+{
+	if (*flag != 0)
+		write(fd, "\n", 1);
+	*flag = 1;
+	*num_lines += write_free(fd, &cmd);
+}

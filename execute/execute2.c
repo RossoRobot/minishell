@@ -53,7 +53,7 @@ int	execute_binary(t_shell *shell, t_list *list)
 	path = get_path(shell, list);
 	argv = trans_argv(shell, list);
 	shell->sig_flag = true;
-	recieve_signal(shell, 0, 1);
+	recieve_signal(shell, 0, 0);
 	if (execve(path, argv, shell->env_arr) == -1)
 	{
 		ft_putstr_fd(path, 2);
@@ -63,7 +63,7 @@ int	execute_binary(t_shell *shell, t_list *list)
 		free_exit(shell, 0);
 		exit(127);
 	}
-	recieve_signal(shell, 2, 1);
+	recieve_signal(shell, 2, 0);
 	return (0);
 }
 
@@ -103,7 +103,7 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 			free_exit(shell, 1);
 		if (pid == 0)
 		{
-			recieve_signal(shell, 3, 1);
+			recieve_signal(shell, 3, 0);
 			no_pipe_child(shell, list);
 		}
 		else

@@ -34,6 +34,11 @@ void	handler2(int sig)
 		ft_putstr_fd("Quit (core dumped)\n", 2);
 }
 
+void	handler3(int sig)
+{
+	g_var = sig;
+}
+
 void	recieve_signal(t_shell *shell, int flag, int shellflag)
 {
 	shell->flag = shellflag;
@@ -50,6 +55,8 @@ void	recieve_signal(t_shell *shell, int flag, int shellflag)
 			ft_exit(shell, NULL);
 		if (signal(SIGQUIT, &handler2) == SIG_ERR)
 			ft_exit(shell, NULL);
+		if (shellflag == 1)
+			signal(SIGINT, &handler3);
 	}
 	else if (flag == 3)
 	{
@@ -65,11 +72,4 @@ void	heredoc_helper(t_shell *shell, char *content, t_list *ptr, char *tmp)
 	recieve_signal(shell, 2, 0);
 	free(content);
 	handle_node(ptr, tmp);
-}
-
-int	write_free(int fd, char **cmd)
-{
-	write(fd, *cmd, ft_strlen(*cmd));
-	free(*cmd);
-	return (1);
 }

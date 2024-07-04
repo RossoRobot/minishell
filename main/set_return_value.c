@@ -51,3 +51,10 @@ void	pipe_counter(t_shell *s, char c, int f1, int f2)
 	if (c == '|' && (!(f1 % 2) && !(f2 % 2)))
 		s->n_pipes++;
 }
+
+int	write_free(int fd, char **cmd)
+{
+	write(fd, *cmd, ft_strlen(*cmd));
+	free(*cmd);
+	return (1);
+}

@@ -51,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		recieve_signal(shell, 0, 0);
 		cmd = readline("minishell$ ");
-		recieve_signal(shell, 2, 0);
+		recieve_signal(shell, 2, 1);
 		if (g_var == 2)
 			set_return_value(shell, 130);
 		g_var = 0;

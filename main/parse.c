@@ -90,7 +90,6 @@ int	check_input(char *str, t_shell *shell)
 		increase_flag(str[i], &flag1, &flag2, &flagflag);
 		i++;
 	}
-	printf("f1: %d\nf2: %d\n", flag1, flag2);
 	if (flag1 % 2 || flag2 % 2)
 		return (check_input_helper(shell), 1);
 	return (0);

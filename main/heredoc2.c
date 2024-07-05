@@ -23,7 +23,6 @@ by end-of-file (wanted `%s')\n", shell->h_lines, arg);
 	}
 	if (ft_strncmp(cmd, arg, ft_strlen(cmd) + 1) == 0)
 	{
-		write(fd, "\n", 1);
 		free(cmd);
 		return (1);
 	}

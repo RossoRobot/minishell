@@ -58,3 +58,10 @@ int	write_free(int fd, char **cmd)
 	free(*cmd);
 	return (1);
 }
+
+void	count_lines_newl(t_shell *s, int l, int f, int fd)
+{
+	s->h_lines += l;
+	if (f)
+		write(fd, "\n", 1);
+}

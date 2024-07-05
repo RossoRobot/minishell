@@ -48,6 +48,7 @@ static void	check_hdocs(t_shell *shell, char *str)
 
 	i = 0;
 	temp = shell->hname;
+	return ;
 	while (temp)
 	{
 		if (!ft_strncmp(str, temp->content, ft_strlen(str)))

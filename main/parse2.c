@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbrauer <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 17:58:25 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/14 17:58:27 by kbrauer          ###   ########.fr       */
+/*   Updated: 2024/07/05 17:03:35 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,6 @@ int	start_w_pipe(t_shell *shell, char *str)
 		printf("minishell: syntax error near unexpected token `|'\n");
 		return (1);
 	}
-	if (str[i] == ';')
-	{
-		printf("minishell: syntax error near unexpected token `;'\n");
-		return (1);
-	}
+
 	return (0);
 }

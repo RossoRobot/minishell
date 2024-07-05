@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/27 17:50:12 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:23:22 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	redirect_input(t_shell *shell, t_list *list, char **arr)
 	fd = open(list->content, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd("no such file or directory: ", 2);
+		ft_putstr_fd("HERE:no such file or directory: ", 2);
 		ft_putstr_fd(list->content, 2);
 		ft_putstr_fd("\n", 2);
 		free_arr(arr);

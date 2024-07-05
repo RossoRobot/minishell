@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:45:52 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/27 17:26:58 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:21:49 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,24 @@ static char	**trans_argv(t_shell *shell, t_list *list)
 	return (args);
 }
 
+static void	check_hdocs(t_shell *shell, char *str)
+{
+	int	i;
+	t_hname *temp;
+
+	i = 0;
+	temp = shell->hname;
+	while (temp)
+	{
+		if (!ft_strncmp(str, temp->content, ft_strlen(str)))
+		{
+			free(str);
+			free_exit(shell, 1);
+		}
+		temp = temp->next;
+	}
+}
+
 int	execute_binary(t_shell *shell, t_list *list)
 {
 	char	**argv;
@@ -51,9 +69,15 @@ int	execute_binary(t_shell *shell, t_list *list)
 	if (!(shell->env_arr))
 		free_exit(shell, 0);
 	path = get_path(shell, list);
+	check_hdocs(shell, path);
 	argv = trans_argv(shell, list);
 	shell->sig_flag = true;
 	recieve_signal(shell, 0, 0);
+	// if (!ft_strncmp(path, shell->hname->content, ft_strlen(path)))
+	// {
+	// 	recieve_signal(shell, 2, 0);
+	// 	return (0);
+	// }
 	if (execve(path, argv, shell->env_arr) == -1)
 	{
 		ft_putstr_fd(path, 2);
@@ -103,11 +127,17 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 			free_exit(shell, 1);
 		if (pid == 0)
 		{
+			close(fd[0]);
 			recieve_signal(shell, 3, 0);
 			no_pipe_child(shell, list);
+			close(fd[1]);
 		}
 		else
+		{
+			close(fd[1]);
 			wait_for_child(shell, 0, pid);
+			close(fd[0]);
+		}
 	}
 	return (0);
 }

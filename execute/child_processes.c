@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/27 17:51:46 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/05 17:22:00 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ int	forkex(t_shell *shell, int temp_fd)
 		i++;
 	}
 	wait_for_child(shell, 1, pid);
+	close(temp_fd);
 	return (0);
 }

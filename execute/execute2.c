@@ -73,11 +73,6 @@ int	execute_binary(t_shell *shell, t_list *list)
 	argv = trans_argv(shell, list);
 	shell->sig_flag = true;
 	recieve_signal(shell, 0, 0);
-	// if (!ft_strncmp(path, shell->hname->content, ft_strlen(path)))
-	// {
-	// 	recieve_signal(shell, 2, 0);
-	// 	return (0);
-	// }
 	if (execve(path, argv, shell->env_arr) == -1)
 	{
 		ft_putstr_fd(path, 2);

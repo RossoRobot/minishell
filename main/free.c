@@ -12,7 +12,7 @@
 
 #include "./../include/minishell.h"
 
-static void	free_parse_helper2(t_shell *shell)
+void	free_parse_helper2(t_shell *shell)
 {
 	free_to_null(&shell->exp_str);
 	if (shell->pids)

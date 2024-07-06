@@ -45,12 +45,12 @@ char	*here_doc(t_shell *shell, char *arg)
 	fd = open(hname, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	negative_fd(shell, fd);
 	if (shell->heredoc_flag == 1)
-		return (check_g_var(shell, fd, hname));
+		return (check_g_var(shell, fd));
 	while (1)
 	{
 		cmd = readline("> ");
 		if (g_var == 2)
-			return (free(cmd), check_g_var(shell, fd, hname));
+			return (free(cmd), check_g_var(shell, fd));
 		if (cmd_is_null_or_del(cmd, fd, arg, shell))
 		{
 			count_lines_newl(shell, num_lines, flag, fd);

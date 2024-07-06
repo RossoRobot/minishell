@@ -192,7 +192,7 @@ int							cmd_is_null_or_del(char *cmd, int fd, char *arg,
 int							no_del(t_list *ptr);
 void						handle_node(t_list *ptr, char *tmp);
 void						set_flag_and_num_lines(int *flag, int *num_lines);
-char						*check_g_var(t_shell *shell, int fd, char *hname);
+char						*check_g_var(t_shell *shell, int fd);
 
 // set_return_value
 int							set_return_value(t_shell *shell, int retval);
@@ -201,15 +201,10 @@ void						pipe_counter(t_shell *s, char c, int f1, int f2);
 int							write_free(int fd, char **cmd);
 void						count_lines_newl(t_shell *s, int l, int f, int fd);
 
-// store_pid
-int							count_pids(pid_t *pid_arr);
-int							copy_pids(pid_t *old_pids, pid_t *new_pids,
-								pid_t pid);
-int							store_pid(t_shell *shell, pid_t pid);
-
 // free
 t_list						*free_parse_helper(t_list *ptr, char *content,
 								t_list *list);
+void						free_parse_helper2(t_shell *shell);
 void						free_parse(t_shell *shell);
 void						free_to_null(char **var);
 void						free_hname(t_shell *shell);

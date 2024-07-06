@@ -93,22 +93,22 @@ int	ft_exit(t_shell *shell, t_list *list)
 	nr = 0;
 	if (list != NULL)
 	{
-		if (list->next && list->next->next)
-			return (ft_putstr_fd("exit: too many arguments\n", 2), -1);
 		if (list->next != NULL)
 		{
 			if (exit_code_check(list->next->content) == -1 || (list->next
 					&& (ft_atol(list->next->content) == LONG_MAX)))
 			{
-				free_exit(shell, 0);
-				ft_putstr_fd("exit: numeric argument required\n", 2);
+				exit_helper(shell, list->next->content, 1);
+				free_exit(shell, 2);
 				exit(2);
 			}
 		}
+		if (list->next && list->next->next)
+			return (exit_helper(shell, NULL, 0));
 		if (list->next && list->next->content)
 			nr = ft_atol(list->next->content);
 	}
-	free_exit(shell, 0);
+	free_exit(shell, nr);
 	free_parse(shell);
 	free(shell);
 	printf("exit\n");

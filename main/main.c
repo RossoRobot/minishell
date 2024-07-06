@@ -12,25 +12,11 @@
 
 #include "./../include/minishell.h"
 
-// static void	print_hnames(t_shell *shell)
-// {
-// 	t_hname	*ptr;
-
-// 	ptr = shell->hname;
-// 	printf("HNAMES:\n");
-// 	while (ptr)
-// 	{
-// 		printf("%s\n", ptr->content);
-// 		ptr = ptr->next;
-// 	}
-// }
-
 static int	process(t_shell *shell, char *cmd)
 {
 	add_history(cmd);
 	if (parse(cmd, shell))
 		return (0);
-//	print_hnames(shell);
 	execute(shell);
 	free_hname(shell);
 	free_parse(shell);

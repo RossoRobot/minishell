@@ -199,6 +199,7 @@ int							set_return_value(t_shell *shell, int retval);
 int							increase_flag(char c, int *f1, int *f2, int *ff);
 void						pipe_counter(t_shell *s, char c, int f1, int f2);
 int							write_free(int fd, char **cmd);
+void						count_lines_newl(t_shell *s, int l, int f, int fd);
 
 // store_pid
 int							count_pids(pid_t *pid_arr);

@@ -53,7 +53,7 @@ char	*here_doc(t_shell *shell, char *arg)
 			return (free(cmd), check_g_var(shell, fd, hname));
 		if (cmd_is_null_or_del(cmd, fd, arg, shell))
 		{
-			shell->h_lines += num_lines;
+			count_lines_newl(shell, num_lines, flag, fd);
 			break ;
 		}
 		newl_numl(&flag, fd, &num_lines, cmd);

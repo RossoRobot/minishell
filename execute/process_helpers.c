@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:14:44 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/05 17:21:51 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:02:35 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,39 @@ void	wait_for_child(t_shell *shell, int flag, int pid)
 	return ;
 }
 
+static int	check_for_bad_things(t_shell *shell, t_list *list)
+{
+	t_list	*temp;
+	void	*dummy;
+
+	dummy = shell;
+	temp = list;
+	if (!ft_strncmp(temp->content, "<<", ft_strlen(temp->content))
+		|| ft_strncmp(temp->content, "<", ft_strlen(temp->content))
+		|| ft_strncmp(temp->content, ">", ft_strlen(temp->content))
+		|| ft_strncmp(temp->content, ">>", ft_strlen(temp->content)))
+	{
+		if (!temp->next)
+		{
+			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+			return (1);
+		}
+	}
+	return (0);
+}
+
 void	no_pipe_child(t_shell *shell, t_list *list)
 {
 	if (is_redirection(shell, list) != 0)
 	{
+		if (check_for_bad_things(shell, list))
+		{
+			exit (2) ;
+		}
 		prep_redir_exec(shell, list, 1);
-		return ;
 	}
 	execute_binary(shell, list);
 	exit(0);
 }
+
+

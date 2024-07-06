@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 08:21:43 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/27 18:09:42 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:53:20 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ void	freeparse_or_not(t_shell *shell, int flag)
 		exit(flag);
 	}
 	else
+	{
+		free_parse(shell);
+		free(shell);
+		exit(flag);
+	}
 		return ;
 }
 

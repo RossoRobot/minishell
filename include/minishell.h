@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/27 17:44:40 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:01:51 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,7 +249,7 @@ void						close_fds(t_shell *shell, int *fd, int temp_fd);
 
 void						wait_for_child(t_shell *shell, int flag, int pid);
 
-void						no_pipe_child(t_shell *shell, t_list *list);
+void						no_pipe_child(t_shell *shell, t_list *list, int fd);
 
 // redirections
 int							is_redirection(t_shell *shell, t_list *list);

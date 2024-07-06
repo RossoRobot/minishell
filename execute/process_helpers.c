@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:14:44 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/06 12:02:35 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:02:05 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	pick_child_process(t_shell *shell, int i, int *pipes, int temp_fd)
 		first_child_process(shell, list[i], pipes, temp_fd);
 	else
 		last_child_process(shell, list[i], pipes, temp_fd);
+	free_parse(shell);
+	free(shell);
 	exit(EXIT_SUCCESS);
 }
 
@@ -86,13 +88,14 @@ static int	check_for_bad_things(t_shell *shell, t_list *list)
 	return (0);
 }
 
-void	no_pipe_child(t_shell *shell, t_list *list)
+void	no_pipe_child(t_shell *shell, t_list *list, int fd)
 {
 	if (is_redirection(shell, list) != 0)
 	{
 		if (check_for_bad_things(shell, list))
 		{
-			exit (2) ;
+			close(fd);
+			free_exit(shell, 2) ;
 		}
 		prep_redir_exec(shell, list, 1);
 	}

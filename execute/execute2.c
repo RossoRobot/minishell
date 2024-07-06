@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:45:52 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/05 18:21:49 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/06 13:31:26 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	check_hdocs(t_shell *shell, char *str)
 
 	i = 0;
 	temp = shell->hname;
-	return ;
 	while (temp)
 	{
 		if (!ft_strncmp(str, temp->content, ft_strlen(str)))
@@ -130,7 +129,7 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 		{
 			close(fd[0]);
 			recieve_signal(shell, 3, 0);
-			no_pipe_child(shell, list);
+			no_pipe_child(shell, list, fd[1]);
 			close(fd[1]);
 		}
 		else

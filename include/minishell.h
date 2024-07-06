@@ -131,6 +131,7 @@ int							replace_dollar_str(t_shell *shell, char *tmp);
 int							expand_str(t_shell *shell, int *n, t_list *ptr);
 int							replace_dollar_helper(int *n, int *i, int *flag,
 								int len);
+int							check_shlvl(char *str);
 
 // helper
 void						set_exp_str(t_shell *shell, char *tmp);
@@ -145,7 +146,7 @@ void						newl_numl(int *flag, int fd, int *num_lines,
 
 // signal
 void						recieve_signal(t_shell *shell, int flag,
-								int shellflag);
+								int shellflag, char *str);
 void						handler(int sig);
 void						heredoc_helper(t_shell *shell, char *content,
 								t_list *ptr, char *tmp);

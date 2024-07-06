@@ -28,3 +28,8 @@ int	replace_dollar_helper(int *n, int *i, int *flag, int len)
 	*flag = 3;
 	return (*n);
 }
+
+int	check_shlvl(char *str)
+{
+	return (ft_strncmp(str, "./minishell", 11));
+}

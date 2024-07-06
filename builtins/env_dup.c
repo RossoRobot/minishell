@@ -16,19 +16,19 @@ void	handle_empty_env(t_shell *data)
 {
 	char	*pwd;
 	char	*pwd_str;
-	char	*shlvl;
+	//char	*shlvl;
 	char	*lst_cmd;
 	char	*last_return_value;
 
 	pwd = getcwd(NULL, 0);
 	pwd_str = ft_strjoin(data, "PWD=", pwd);
 	free(pwd);
-	shlvl = ft_strdup(data, "SHLVL=1");
+	//shlvl = ft_strdup(data, "SHLVL=1");
 	lst_cmd = ft_strdup(data, "_=/usr/bin/env");
 	last_return_value = ft_strdup(data, "lrv=0");
 	export_malloc(data, pwd_str, NULL, NULL);
 	export_malloc(data, lst_cmd, NULL, NULL);
-	export_malloc(data, shlvl, NULL, NULL);
+	//export_malloc(data, shlvl, NULL, NULL);
 	export_malloc(data, last_return_value, NULL, NULL);
 	add_oldpwd(data);
 }

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/05 17:01:13 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/05 23:45:22 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	child_process(t_shell *shell, t_list *list)
 	if (list->type >= 10 && list->type <= 15)
 	{
 		ret = execute_builtin(shell, list);
+		exit (0);
 	}
 	else
 		ret = execute_binary(shell, list);

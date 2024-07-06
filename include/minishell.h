@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/06 13:01:51 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/06 18:02:03 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,5 +272,7 @@ int							cmd_position(t_list *list);
 void						dup_stds(t_shell *shell);
 
 void						freeparse_or_not(t_shell *shell, int flag);
+
+int							check_last_node(t_list *list, int flag);
 
 #endif

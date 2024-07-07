@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/07 13:15:51 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/07 13:24:40 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,6 @@ void						freeparse_or_not(t_shell *shell, int flag);
 
 int							check_last_node(t_list *list, int flag);
 
-void						close_all_fds();	
+void						close_all_fds(void);	
 
 #endif

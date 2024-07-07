@@ -14,6 +14,11 @@
 
 int	first_init(t_shell *shell, int argc, char **argv)
 {
+	if (argc != 1)
+	{
+		free(shell);
+		exit (1);
+	}
 	argc = 0;
 	argv = NULL;
 	shell->exp_str = NULL;

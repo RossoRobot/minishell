@@ -16,9 +16,8 @@ int	cmd_is_null_or_del(char *cmd, int fd, char *arg, t_shell *shell)
 {
 	if (!cmd)
 	{
-		printf("minishell: warning: here-document at line %d delimited \
-by end-of-file (wanted `%s')\n", shell->h_lines, arg);
-		write(fd, "\n", 1);
+		exit_helper(shell, arg, 2);
+		write(fd, "", 1);
 		return (1);
 	}
 	if (ft_strncmp(cmd, arg, ft_strlen(cmd) + 1) == 0)
@@ -56,13 +55,11 @@ void	set_flag_and_num_lines(int *flag, int *num_lines)
 	*num_lines = 0;
 }
 
-char	*check_g_var(t_shell *shell, int fd, char *hname)
+char	*check_g_var(t_shell *shell, int fd)
 {
 	int		fd_new;
 	char	*hname_new;
-	char	*dummy;
 
-	dummy = hname;
 	shell->heredoc_flag = 1;
 	g_var = 0;
 	close(fd);

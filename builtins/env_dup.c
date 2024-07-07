@@ -16,19 +16,19 @@ void	handle_empty_env(t_shell *data)
 {
 	char	*pwd;
 	char	*pwd_str;
-	char	*shlvl;
+	//char	*shlvl;
 	char	*lst_cmd;
 	char	*last_return_value;
 
 	pwd = getcwd(NULL, 0);
 	pwd_str = ft_strjoin(data, "PWD=", pwd);
 	free(pwd);
-	shlvl = ft_strdup(data, "SHLVL=1");
+	//shlvl = ft_strdup(data, "SHLVL=1");
 	lst_cmd = ft_strdup(data, "_=/usr/bin/env");
 	last_return_value = ft_strdup(data, "lrv=0");
 	export_malloc(data, pwd_str, NULL, NULL);
 	export_malloc(data, lst_cmd, NULL, NULL);
-	export_malloc(data, shlvl, NULL, NULL);
+	//export_malloc(data, shlvl, NULL, NULL);
 	export_malloc(data, last_return_value, NULL, NULL);
 	add_oldpwd(data);
 }
@@ -93,18 +93,18 @@ int	ft_exit(t_shell *shell, t_list *list)
 	nr = 0;
 	if (list != NULL)
 	{
-		if (list->next && list->next->next)
-			return (ft_putstr_fd("exit: too many arguments\n", 2), -1);
 		if (list->next != NULL)
 		{
 			if (exit_code_check(list->next->content) == -1 || (list->next
 					&& (ft_atol(list->next->content) == LONG_MAX)))
 			{
-				free_exit(shell, 0);
-				ft_putstr_fd("exit: numeric argument required\n", 2);
+				exit_helper(shell, list->next->content, 1);
+				free_exit(shell, 2);
 				exit(2);
 			}
 		}
+		if (list->next && list->next->next)
+			return (exit_helper(shell, NULL, 0));
 		if (list->next && list->next->content)
 			nr = ft_atol(list->next->content);
 	}

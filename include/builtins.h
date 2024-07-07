@@ -94,6 +94,7 @@ void					print_myenv(t_shell *data, int flag);
 t_key_value				*set_keys_n_values(t_shell *data, char *key,
 							char *value, char *str);
 void					handle_empty_env(t_shell *data);
+int						exit_helper(t_shell *shell, char *str, int flag);
 
 int						ft_listsize(t_env *myenv);
 char					*join_key_value(t_env *temp, t_shell *data);

@@ -76,7 +76,7 @@ int	forkex(t_shell *shell, int temp_fd)
 			free_exit(shell, 1);
 		if (pid == 0)
 		{
-			recieve_signal(shell, 3, 1);
+			recieve_signal(shell, 3, 1, "0");
 			pick_child_process(shell, i, fd, temp_fd);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:45:52 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/06 18:51:34 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/07 11:43:57 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	execute_binary(t_shell *shell, t_list *list)
 	check_hdocs(shell, path);
 	argv = trans_argv(shell, list);
 	shell->sig_flag = true;
-	recieve_signal(shell, 0, 0);
+	recieve_signal(shell, 0, 0, "0");
 	if (execve(path, argv, shell->env_arr) == -1)
 	{
 		ft_putstr_fd(path, 2);
@@ -82,7 +82,47 @@ int	execute_binary(t_shell *shell, t_list *list)
 		free_exit(shell, 0);
 		exit(127);
 	}
-	recieve_signal(shell, 2, 0);
+	recieve_signal(shell, 2, 0, "0");
+	return (0);
+}
+
+int	execute_command(t_shell *shell, t_list *list)
+{
+	int	ret;
+
+	ret = 0;
+	if (list->type <= 16 && list->type >= 10)
+	{
+		ret = execute_builtin(shell, list);
+		return (ret);
+	}
+	else
+	{
+		ret = execute_binary(shell, list);
+		return (ret);
+	}
+}
+
+static int	check_for_builtin(t_shell *shell, t_list *list)
+{
+	t_list	*temp;
+	void	*dummy;
+
+	dummy = shell;
+	temp = list;
+	while (temp)
+	{
+		if (temp->type >= 4 && temp->type <= 7)
+			temp = temp->next;
+		if (temp)
+			temp = temp->next;
+		if (temp)
+		{
+			set_type(temp);
+			if (temp->type >= 10 && temp->type <= 16)
+				return (1);
+		}
+	}
 	return (0);
 }
 
@@ -99,16 +139,65 @@ int	check_last_node(t_list *list, int flag)
 		|| !ft_strncmp(temp->content, ">", ft_strlen(temp->content)))
 	{
 		if (flag == 1)
+			ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+		else
+			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		return (1);
+	}
+	return (0);
+}
+
+int	execute_no_pipe(t_shell *shell, t_list *list)
+{
+	int		fd[2];
+	pid_t	pid;
+
+	if (check_last_node(list, 1))
+	{
+		return (1);
+	}
+	if (is_redirection(shell, list) != 0 && ((list->type >= 10
+				&& list->type <= 16) || check_for_builtin(shell, list)))
+		return (prep_redir_exec(shell, list, 0), 0);
+	if (list->type >= 10 && list->type <= 16)
+		execute_builtin(shell, list);
+	else
+	{
+		if (pipe(fd) == -1)
+			free_exit(shell, 1);
+		pid = fork();
+		if (pid < 0)
+			free_exit(shell, 1);
+		if (pid == 0)
 		{
-			ft_putstr_fd("minishell: syntax error near ", 2);
-			ft_putstr_fd("unexpected token `newline'\n", 2);
+			close(fd[0]);
+			recieve_signal(shell, 3, 0, "0");
+			no_pipe_child(shell, list, fd[1]);
+			close(fd[1]);
 		}
 		else
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
-				2);
+			close(fd[1]);
+			wait_for_child(shell, 0, pid);
+			close(fd[0]);
 		}
-		return (1);
 	}
+	return (0);
+}
+
+int	execute(t_shell *shell)
+{
+	int	i;
+	int	temp_fd;
+
+	i = 0;
+	if (shell->lists[1] == NULL)
+		return (execute_no_pipe(shell, shell->lists[0]));
+	temp_fd = dup(STDIN_FILENO);
+	if (temp_fd == -1)
+	{
+		free_exit(shell, 1);
+	}
+	forkex(shell, temp_fd);
 	return (0);
 }

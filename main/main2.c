@@ -44,7 +44,7 @@ void	test_malloc(t_shell *shell)
 
 void	check_input_helper(t_shell *shell)
 {
-	printf("minishell: error: invalid number of quotations\n");
+	ft_putstr_fd("minishell: error: invalid number of quotations\n", 2);
 	set_return_value(shell, 0);
 }
 

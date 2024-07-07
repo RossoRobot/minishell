@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:45:52 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 12:01:48 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/07 12:52:38 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	execute_binary(t_shell *shell, t_list *list)
 	recieve_signal(shell, 0, 0, "0");
 	if (execve(path, argv, shell->env_arr) == -1)
 	{
+		close(shell->fd[1]);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": command not found\n", 2);
 		free(path);

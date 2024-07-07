@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:14:44 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 11:46:34 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/07 12:52:55 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ static int	check_for_bad_things(t_shell *shell, t_list *list)
 	return (0);
 }
 
-void	no_pipe_child(t_shell *shell, t_list *list, int fd)
+void	no_pipe_child(t_shell *shell, t_list *list)
 {
 	if (is_redirection(shell, list) != 0)
 	{
 		if (check_for_bad_things(shell, list))
 		{
-			close(fd);
+			close(shell->fd[1]);
 			free_exit(shell, 2);
 		}
 		prep_redir_exec(shell, list, 1);

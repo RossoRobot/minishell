@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/06 17:07:38 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/07 13:19:09 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 		free_exit(shell, 1);
 	if (execve(path, arr, shell->env_arr) == -1)
 	{
+		close(shell->stdout_backup);
+		close(shell->fd[0]);
+		close(shell->fd[1]);
 		ft_putstr_fd(temp->content, 2);
 		ft_putstr_fd(": command not found\n", 2);
 		free(path);
@@ -90,9 +93,11 @@ int	redirect_input(t_shell *shell, t_list *list, char **arr)
 	fd = open(list->content, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd("HERE:no such file or directory: ", 2);
+		
+		ft_putstr_fd("no such file or directory: ", 2);
 		ft_putstr_fd(list->content, 2);
 		ft_putstr_fd("\n", 2);
+		close_all_fds();
 		free_arr(arr);
 		free_exit(shell, 1);
 	}
@@ -116,6 +121,7 @@ int	redirect_output(t_shell *shell, t_list *list, char **arr, int append)
 		fd = open(list->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
+		
 		ft_putstr_fd(list->content, 2);
 		ft_putstr_fd(": permission denied\n", 2);
 		return (free_arr(arr), -1);
@@ -127,4 +133,16 @@ int	redirect_output(t_shell *shell, t_list *list, char **arr, int append)
 		free_exit(shell, 1);
 	}
 	return (close(fd), 0);
+}
+
+void	close_all_fds()
+{
+	int	fd;
+
+	fd = 0;
+	while (fd < 1024)
+	{
+		close(fd);
+		fd++;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbrauer <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:38:38 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/14 10:38:39 by kbrauer          ###   ########.fr       */
+/*   Updated: 2024/07/07 13:11:40 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	init_values(t_shell *shell)
 	shell->lists = NULL;
 	shell->last_return_value = 0;
 	shell->n_pipes = 0;
-	shell->pids = NULL;
 	shell->heredoc_flag = 0;
 	return (0);
 }

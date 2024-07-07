@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:47:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 12:11:43 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/07 12:52:20 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,24 @@ static int	check_for_builtin(t_shell *shell, t_list *list)
 static void	fork_no_pipe(t_shell *shell, t_list *list)
 {
 	pid_t	pid;
-	int		fd[2];
 
-	if (pipe(fd) == -1)
+	if (pipe(shell->fd) == -1)
 		free_exit(shell, 1);
 	pid = fork();
 	if (pid < 0)
 		free_exit(shell, 1);
 	if (pid == 0)
 	{
-		close(fd[0]);
+		close(shell->fd[0]);
 		recieve_signal(shell, 3, 0, "0");
-		no_pipe_child(shell, list, fd[1]);
-		close(fd[1]);
+		no_pipe_child(shell, list);
+		close(shell->fd[1]);
 	}
 	else
 	{
-		close(fd[1]);
+		close(shell->fd[1]);
 		wait_for_child(shell, 0, pid);
-		close(fd[0]);
+		close(shell->fd[0]);
 	}
 }
 

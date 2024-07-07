@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/06 18:02:03 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/07 13:24:40 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ typedef struct s_shell
 	int						heredoc_flag;
 	int						stdin_backup;
 	int						stdout_backup;
+	int						fd[2];
 	t_env					*env_line;
-	pid_t					*pids;
 	t_list					**lists;
 	t_hname					*hname;
 }							t_shell;
@@ -245,7 +245,7 @@ void						close_fds(t_shell *shell, int *fd, int temp_fd);
 
 void						wait_for_child(t_shell *shell, int flag, int pid);
 
-void						no_pipe_child(t_shell *shell, t_list *list, int fd);
+void						no_pipe_child(t_shell *shell, t_list *list);
 
 // redirections
 int							is_redirection(t_shell *shell, t_list *list);
@@ -270,5 +270,7 @@ void						dup_stds(t_shell *shell);
 void						freeparse_or_not(t_shell *shell, int flag);
 
 int							check_last_node(t_list *list, int flag);
+
+void						close_all_fds(void);	
 
 #endif

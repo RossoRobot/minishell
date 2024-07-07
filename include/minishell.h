@@ -205,10 +205,10 @@ void						count_lines_newl(t_shell *s, int l, int f, int fd);
 // free
 t_list						*free_parse_helper(t_list *ptr, char *content,
 								t_list *list);
-void						free_parse_helper2(t_shell *shell);
 void						free_parse(t_shell *shell);
 void						free_to_null(char **var);
 void						free_hname(t_shell *shell);
+void						free_hname2(t_shell *shell);
 
 // execute
 int							execute(t_shell *shell);

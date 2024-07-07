@@ -66,14 +66,14 @@ void	freeparse_or_not(t_shell *shell, int flag)
 	if (flag != 0)
 	{
 		free_parse(shell);
-		free_hname(shell);
+		free_hname2(shell);
 		free(shell);
 		exit(flag);
 	}
 	else
 	{
 		free_parse(shell);
-		free_hname(shell);
+		free_hname2(shell);
 		free(shell);
 		exit(flag);
 	}

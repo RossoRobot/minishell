@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/27 17:28:16 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/06 18:21:13 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	ft_exit(t_shell *shell, t_list *list)
 		if (list->next && list->next->content)
 			nr = ft_atol(list->next->content);
 	}
-	free_exit(shell, 0);
+	free_exit(shell, nr);
 	free_parse(shell);
 	free(shell);
 	printf("exit\n");

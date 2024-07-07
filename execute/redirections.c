@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/06 11:00:42 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/07 11:58:15 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,41 +30,27 @@ int	is_redirection(t_shell *shell, t_list *list)
 	return (ret);
 }
 
-int	cmd_position(t_list *list)
-{
-	t_list	*temp;
-	int		i;
-
-	i = 0;
-	temp = find_command(list);
-	while (temp != NULL && temp->type != 4 && temp->type != 5
-		&& temp->type != 7)
-	{
-		i++;
-		temp = temp->next;
-	}
-	return (i);
-}
-
 static int	check_for_bad_rds(t_shell *shell, t_list *list)
 {
-	t_list *temp;
+	t_list	*temp;
 
 	temp = list;
 	if (!ft_strncmp(temp->content, ">>", ft_strlen(temp->content)))
 	{
 		temp = temp->next;
-		if ((temp && temp->content[0] == '<') || (temp && temp->content[0] == '>'))
+		if ((temp && temp->content[0] == '<') || (temp
+				&& temp->content[0] == '>'))
 		{
 			ft_putstr_fd("syntax error near unexpected token `", 2);
-			write(2, temp->content ,1);
+			write(2, temp->content, 1);
 			ft_putstr_fd("'\n", 2);
 			return (set_return_value(shell, 2));
 		}
-		else if (!ft_strncmp(temp->content, "<<", 2) || !ft_strncmp(temp->content, ">>", 2))
+		else if (!ft_strncmp(temp->content, "<<", 2)
+			|| !ft_strncmp(temp->content, ">>", 2))
 		{
 			ft_putstr_fd("syntax error near unexpected token `", 2);
-			write(2, temp->content ,2);
+			write(2, temp->content, 2);
 			ft_putstr_fd("'\n", 2);
 			return (set_return_value(shell, 2));
 		}

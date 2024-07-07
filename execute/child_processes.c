@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/06 18:02:19 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/07 11:58:51 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,21 @@ int	forkex(t_shell *shell, int temp_fd)
 		i++;
 	}
 	wait_for_child(shell, 1, pid);
-	close(temp_fd);
-	return (0);
+	return (close(temp_fd), 0);
+}
+
+int	cmd_position(t_list *list)
+{
+	t_list	*temp;
+	int		i;
+
+	i = 0;
+	temp = find_command(list);
+	while (temp != NULL && temp->type != 4 && temp->type != 5
+		&& temp->type != 7)
+	{
+		i++;
+		temp = temp->next;
+	}
+	return (i);
 }

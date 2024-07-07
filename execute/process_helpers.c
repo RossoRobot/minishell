@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:14:44 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 12:52:55 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:25:31 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	pick_child_process(t_shell *shell, int i, int *pipes, int temp_fd)
 		first_child_process(shell, list[i], pipes, temp_fd);
 	else
 		last_child_process(shell, list[i], pipes, temp_fd);
+	close_all_fds();
+	close(shell->stdin_backup);
+	close(shell->stdout_backup);
 	free_parse(shell);
 	free(shell);
 	exit(EXIT_SUCCESS);

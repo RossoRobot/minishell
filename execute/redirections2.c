@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 13:23:40 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:25:49 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 	{
 		ft_putstr_fd(temp->content, 2);
 		ft_putstr_fd(": command not found\n", 2);
+		close_all_fds();
 		free(path);
 		free_arr(arr);
 		free_exit(shell, 1);
@@ -83,18 +84,24 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 	return (0);
 }
 
-int	redirect_input(t_shell *shell, t_list *list, char **arr)
+int	redirect_input(t_shell *shell, t_list *list, char **arr, t_list *list_begin)
 {
-	int	fd;
+	int		fd;
+	t_list	*cmd;
 
-	fd = open(list->content, O_RDONLY);
+	cmd = find_command(list_begin);
+	fd = open(list->next->content, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd("no such file or directory: ", 2);
-		ft_putstr_fd(list->content, 2);
+		ft_putstr_fd("minishell: no such file or directory: ", 2);
+		ft_putstr_fd(list->next->content, 2);
 		ft_putstr_fd("\n", 2);
-		close_all_fds();
+		if (cmd->type >= 10 && cmd->type <= 16)
+		{
+			return (1);
+		}
 		free_arr(arr);
+		close_all_fds();
 		free_exit(shell, 1);
 	}
 	dup2(fd, STDIN_FILENO);

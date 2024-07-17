@@ -79,7 +79,10 @@ int	sep_env_cmd(t_shell *shell)
 void	negative_fd(t_shell *shell, int fd)
 {
 	if (fd == -1)
+	{
+		ft_putstr_fd("open() failed\n", 2);
 		free_exit(shell, 1);
+	}
 }
 
 void	newl_numl(int *flag, int fd, int *num_lines, char *cmd)

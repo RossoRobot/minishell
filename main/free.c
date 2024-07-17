@@ -47,6 +47,7 @@ void	free_parse(t_shell *shell)
 		}
 		free(shell->lists);
 	}
+	free(shell->exp_str);
 }
 
 void	free_to_null(char **var)

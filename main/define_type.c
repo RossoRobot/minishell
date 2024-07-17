@@ -78,16 +78,18 @@ t_list	*define_flag(t_list *ptr)
 
 int	check_n_flag(char *str)
 {
-	int	i;
+	int		i;
+	char	c;
 
 	i = 0;
 	if (str[i] == '-')
 		i++;
 	else
 		return (0);
+	c = str[i];
 	while (str[i])
 	{
-		if (str[i] != 'n')
+		if (str[i] != c)
 		{
 			return (0);
 		}

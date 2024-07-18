@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_dup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 11:45:50 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:59:36 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,24 @@ int	exit_code_check(char *str)
 	return (0);
 }
 
+static int	get_last_return_value(t_shell *shell)
+{
+	char	*str;
+	int		res;
+	
+	res = 0;
+	str = my_getenv(shell, "lrv", 0);
+	res = ft_atoi(str);
+	free(str);
+	return (res);
+}
+
 int	ft_exit(t_shell *shell, t_list *list)
 {
 	long	nr;
 
-	nr = 0;
+	nr = get_last_return_value(shell);
+	printf("exitvalue: %ld\n", nr);
 	if (list != NULL)
 	{
 		if (list->next != NULL)
@@ -105,9 +118,7 @@ int	ft_exit(t_shell *shell, t_list *list)
 		if (list->next && list->next->content)
 			nr = ft_atol(list->next->content);
 	}
-	free_exit(shell, nr);
-	free_parse(shell);
-	free(shell);
 	printf("exit\n");
+	free_exit(shell, nr);
 	exit(nr);
 }

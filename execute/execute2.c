@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:45:52 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 14:48:14 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:36:34 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ int	execute_binary(t_shell *shell, t_list *list)
 		close_all_fds();
 		free(path);
 		free_arr(argv);
-		free_exit(shell, 0);
-		exit(127);
+		free_exit(shell, 127);
 	}
 	recieve_signal(shell, 2, 0, "0");
 	return (0);

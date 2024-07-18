@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+         #
+#    By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 14:00:52 by kbrauer           #+#    #+#              #
-#    Updated: 2024/07/07 12:00:01 by mvolgger         ###   ########.fr        #
+#    Updated: 2024/07/18 19:36:56 by vboxuser         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FLAGS = -g  -Wall -Wextra -Werror 
+FLAGS = -g  #-Wall -Wextra -Werror 
 
 MAIN_DIR = ./main
 

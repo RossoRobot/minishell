@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/18 19:59:36 by vboxuser         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:03:34 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	ft_exit(t_shell *shell, t_list *list)
 	long	nr;
 
 	nr = get_last_return_value(shell);
-	printf("exitvalue: %ld\n", nr);
 	if (list != NULL)
 	{
 		if (list->next != NULL)

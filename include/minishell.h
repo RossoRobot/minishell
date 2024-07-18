@@ -90,6 +90,7 @@ typedef struct s_shell
 	int						last_return_value;
 	int						flag;
 	bool					sig_flag;
+	int						del_flag;
 	int						heredoc_flag;
 	int						stdin_backup;
 	int						stdout_backup;
@@ -154,13 +155,14 @@ void						heredoc_helper(t_shell *shell, char *content,
 // utils
 t_list						*ft_lstnew(char *content, int *k, t_shell *shell);
 void						ft_lstadd_back(t_list *lst, t_list *neu);
-int							check_del(char chr, int flag);
+int							check_del(t_shell *shell, char *chr, int *flag,
+								int pos);
 t_hname						*ft_lstnew_hdoc(t_shell *shell, void *content);
 void						ft_lstadd_back_hdoc(t_hname *lst, t_hname *new);
 
 // utils2
 char						*skip_gap(char *str);
-char						*while_del(char *str);
+char						*while_del(t_shell *shell, char *str);
 int							while_not_del(char *str, int *flag, t_shell *shell,
 								int *k);
 void						set_flag(char *c, int *flag);

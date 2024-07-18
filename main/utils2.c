@@ -19,9 +19,12 @@ char	*skip_gap(char *str)
 	return (str);
 }
 
-char	*while_del(char *str)
+char	*while_del(t_shell *shell, char *str)
 {
-	while (*str && (check_del(*str, 0) == 1))
+	int	zero;
+
+	zero = 0;
+	while (*str && (check_del(shell, str, &zero, -1) == 1))
 		str++;
 	return (str);
 }
@@ -37,7 +40,7 @@ int	while_not_del(char *str, int *flag, t_shell *shell, int *k)
 	i = 0;
 	exp = 0;
 	len = 0;
-	while (str[i] && (check_del(str[i], *flag) == 0) && str[i] != '\n')
+	while (str[i] && (check_del(shell, &str[i], flag, i) == 0) && str[i] != '\n')
 	{
 		i++;
 		set_flag(&str[i], flag);

@@ -24,7 +24,7 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 	if (!start)
 		free_exit(shell, 1);
 	flag = 0;
-	str = while_del(str);
+	str = while_del(shell, str);
 	set_flag(&str[0], &flag);
 	i = while_not_del(str, &flag, shell, k);
 	start->content = (char *) malloc (sizeof(char) * (i + 1));
@@ -32,13 +32,43 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 		free_exit(shell, 1);
 	i = 0;
 	set_flag(&str[0], &flag);
-	while (str[i] && (check_del(str[i], flag) == 0) && str[i] != '\n')
+	while (str[i] && (check_del(shell, &str[i], &flag, i) == 0) && str[i] != '\n')
 	{
 		start->content[i] = str[i];
 		i++;
 		set_flag(&str[i], &flag);
 	}
 	return (start->content[i] = '\0', start->next = NULL, start);
+}
+
+//check if chr equals one of the DEL (delimiters)
+int	check_del(t_shell *shell, char *chr, int *flag, int pos)
+{
+	int		i;
+
+	i = 0;
+	if (*flag)
+		return (0);
+	if (pos > 0 && (*chr == '<' | *chr == '>'))
+	{
+		if (shell->del_flag == 1)
+			return (0);
+		return (1);
+	}
+	if (pos == 0 && (*chr == '<' | *chr == '>'))
+	{
+		shell->del_flag = 1;
+		return (0);
+	}
+	while (DEL[i])
+	{
+		if (*chr == DEL[i])
+			return (shell->del_flag = 0, 1);
+		i++;
+	}
+	if (shell->del_flag == 1 && *chr != '<' && *chr != '>')
+		return (shell->del_flag = 0, 1);
+	return (0);
 }
 
 void	ft_lstadd_back(t_list *lst, t_list *new)
@@ -55,23 +85,6 @@ void	ft_lstadd_back(t_list *lst, t_list *new)
 	}
 	else
 		lst = new;
-}
-
-//check if chr equals one of the DEL (delimiters)
-int	check_del(char chr, int flag)
-{
-	int	i;
-
-	i = 0;
-	if (flag)
-		return (0);
-	while (DEL[i])
-	{
-		if (chr == DEL[i])
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 t_hname	*ft_lstnew_hdoc(t_shell *shell, void *content)

@@ -39,14 +39,17 @@ unexpected token `newline'\n", 2);
 	return (0);
 }
 
-void	handle_node(t_list *ptr, char *tmp)
+void	handle_node(t_shell *shell, t_list *ptr, char *tmp)
 {
-	ptr->content = tmp;
-	ptr->type = he_doc_fin;
-	del_next_node(ptr);
-	if (ptr->next)
-		if (ptr->next->type == he_doc)
-			ptr->type = delete_a;
+	//ptr->content = tmp;
+	ptr->content = ft_strdup(shell, "<");
+	ptr->type = re_in;
+	free(ptr->next->content);
+	ptr->next->content = tmp;
+	//del_next_node(ptr);
+	// if (ptr->next)
+	// 	if (ptr->next->type == he_doc)
+	// 		ptr->type = delete_a;
 }
 
 void	set_flag_and_num_lines(int *flag, int *num_lines)

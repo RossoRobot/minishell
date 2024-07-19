@@ -71,5 +71,5 @@ void	heredoc_helper(t_shell *shell, char *content, t_list *ptr, char *tmp)
 {
 	recieve_signal(shell, 2, 0, "0");
 	free(content);
-	handle_node(ptr, tmp);
+	handle_node(shell, ptr, tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/07 15:12:23 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/19 22:02:08 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ void						trim_hedoc(t_shell *shell);
 int							cmd_is_null_or_del(char *cmd, int fd, char *arg,
 								t_shell *shell);
 int							no_del(t_list *ptr);
-void						handle_node(t_list *ptr, char *tmp);
+void						handle_node(t_shell *shell, t_list *ptr, char *tmp);
 void						set_flag_and_num_lines(int *flag, int *num_lines);
 char						*check_g_var(t_shell *shell, int fd);
 

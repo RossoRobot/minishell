@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:56:09 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/27 11:56:19 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/19 22:03:23 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ void	heredoc_helper(t_shell *shell, char *content, t_list *ptr, char *tmp)
 {
 	recieve_signal(shell, 2, 0, "0");
 	free(content);
-	handle_node(ptr, tmp);
+	handle_node(shell, ptr, tmp);
 }

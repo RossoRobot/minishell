@@ -107,7 +107,6 @@ int	parse(char *cmd, t_shell *shell)
 		exit (1);
 	sep_env_cmd(shell);
 	define_type(shell);
-	print_tokens(shell);
 	unquote(shell);
 	if (start_w_pipe(shell, shell->lists[0]->content))
 		return (1);

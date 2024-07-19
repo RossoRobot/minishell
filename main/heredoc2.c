@@ -42,7 +42,7 @@ unexpected token `newline'\n", 2);
 void	handle_node(t_list *ptr, char *tmp)
 {
 	ptr->content = tmp;
-	ptr->type = text_a;
+	ptr->type = he_doc_fin;
 	del_next_node(ptr);
 	if (ptr->next)
 		if (ptr->next->type == he_doc)

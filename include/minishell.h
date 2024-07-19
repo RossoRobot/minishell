@@ -53,6 +53,7 @@ typedef enum e_tokentype
 	unset_a = 14,
 	env_a = 15,
 	exit_a = 16,
+	he_doc_fin = 17,
 }							t_tokentype;
 
 typedef struct s_pids

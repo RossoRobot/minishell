@@ -17,6 +17,7 @@ static int	process(t_shell *shell, char *cmd)
 	add_history(cmd);
 	if (parse(cmd, shell))
 		return (0);
+	print_tokens(shell);
 	execute(shell);
 	free_hname(shell);
 	free_parse(shell);

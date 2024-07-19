@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:47:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 12:52:20 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:14:49 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ static void	fork_no_pipe(t_shell *shell, t_list *list)
 	if (pid == 0)
 	{
 		close(shell->fd[0]);
+		close(shell->fd[1]);
 		recieve_signal(shell, 3, 0, "0");
 		no_pipe_child(shell, list);
-		close(shell->fd[1]);
 	}
 	else
 	{
 		close(shell->fd[1]);
-		wait_for_child(shell, 0, pid);
 		close(shell->fd[0]);
+		wait_for_child(shell, 0, pid);
 	}
 }
 

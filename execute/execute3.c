@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:47:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/19 22:17:07 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/19 22:32:09 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	check_for_builtin(t_shell *shell, t_list *list)
 
 	dummy = shell;
 	temp = list;
+	if (!(temp->type >= 4 && temp->type <= 7))
+		return (0);
 	while (temp)
 	{
 		if (temp->type >= 4 && temp->type <= 7)
@@ -27,7 +29,6 @@ static int	check_for_builtin(t_shell *shell, t_list *list)
 			temp = temp->next;
 		if (temp)
 		{
-			set_type(temp);
 			if (temp->type >= 10 && temp->type <= 16)
 				return (1);
 		}

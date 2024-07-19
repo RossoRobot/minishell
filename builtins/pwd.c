@@ -90,7 +90,7 @@ void	append_node(t_shell *data, char *key, char *value, char *str)
 char	*increment_shlvl(t_shell *data, char *str)
 {
 	char	*value;
-	int		temp;
+	long	temp;
 
 	if (!str)
 		return (NULL);
@@ -99,6 +99,12 @@ char	*increment_shlvl(t_shell *data, char *str)
 		free_exit(data, 1);
 	temp = ft_atoi(value) + 1;
 	free(value);
+	if (temp > 999)
+	{
+		temp = 1;
+		ft_putstr_fd("minishell: warning: shell level (1000) \
+	too high, resetting to 1\n", 2);
+	}
 	value = ft_itoa(temp);
 	if (!value)
 		free_exit(data, 1);

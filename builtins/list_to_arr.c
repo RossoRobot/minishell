@@ -73,22 +73,15 @@ char	**transform_list_to_arr(t_shell *data, t_env *myenv)
 void	env_duplicate(t_shell *data, char **envp)
 {
 	int		i;
-	char	*shlvl;
-	char	*key;
 
 	i = 0;
-	shlvl = NULL;
 	if (!envp || !envp[i])
 		return (handle_empty_env(data));
 	while (envp[i])
 	{
 		if (ft_strncmp(envp[i], "SHLVL=", 6) == 0)
 		{
-			key = ft_strdup(data, "SHLVL");
-			shlvl = increment_shlvl(data, envp[i]);
-			append_node(data, key, shlvl, NULL);
-			free(key);
-			free(shlvl);
+			create_shlvl(data, envp[i]);
 			i++;
 		}
 		append_node(data, NULL, NULL, envp[i]);

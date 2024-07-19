@@ -27,6 +27,7 @@ void	handle_empty_env(t_shell *data)
 	export_malloc(data, pwd_str, NULL, NULL);
 	export_malloc(data, lst_cmd, NULL, NULL);
 	export_malloc(data, last_return_value, NULL, NULL);
+	handle_shlvl(data);
 	add_oldpwd(data);
 }
 
@@ -87,7 +88,7 @@ static int	get_last_return_value(t_shell *shell)
 {
 	char	*str;
 	int		res;
-	
+
 	res = 0;
 	str = my_getenv(shell, "lrv", 0);
 	res = ft_atoi(str);

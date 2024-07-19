@@ -85,3 +85,17 @@ int	check_missing_env(t_shell *data)
 	else
 		return (-1);
 }
+
+char	*create_shlvl(t_shell *data, char *envp)
+{
+	char	*shlvl;
+	char	*key;
+
+	shlvl = NULL;
+	key = ft_strdup(data, "SHLVL");
+	shlvl = increment_shlvl(data, envp);
+	append_node(data, key, shlvl, NULL);
+	free(key);
+	free(shlvl);
+	return ("SHLVL=");
+}

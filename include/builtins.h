@@ -105,5 +105,6 @@ int						execute_env(t_shell *shell, t_list *list);
 int						execute_unset(t_shell *shell, t_list *list);
 int						execute_cd(t_shell *shell, t_list *list);
 int						execute_echo(t_shell *shell, t_list *temp);
+void					handle_shlvl(t_shell *data);
 
 #endif

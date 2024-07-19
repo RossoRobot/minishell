@@ -156,7 +156,7 @@ void						heredoc_helper(t_shell *shell, char *content,
 // utils
 t_list						*ft_lstnew(char *content, int *k, t_shell *shell);
 void						ft_lstadd_back(t_list *lst, t_list *neu);
-int							check_del(t_shell *shell, char *chr, int *flag,
+int							chk_del(t_shell *shell, char *chr, int *flag,
 								int pos);
 t_hname						*ft_lstnew_hdoc(t_shell *shell, void *content);
 void						ft_lstadd_back_hdoc(t_hname *lst, t_hname *new);
@@ -274,6 +274,8 @@ void						freeparse_or_not(t_shell *shell, int flag);
 
 int							check_last_node(t_list *list, int flag);
 
-void						close_all_fds(void);	
+void						close_all_fds(void);
+
+char						*create_shlvl(t_shell *data, char *envp);
 
 #endif

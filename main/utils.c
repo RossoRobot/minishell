@@ -32,7 +32,7 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 		free_exit(shell, 1);
 	i = 0;
 	set_flag(&str[0], &flag);
-	while (str[i] && (check_del(shell, &str[i], &flag, i) == 0) && str[i] != '\n')
+	while (str[i] && (chk_del(shell, &str[i], &flag, i) == 0) && str[i] != '\n')
 	{
 		start->content[i] = str[i];
 		i++;
@@ -42,7 +42,7 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 }
 
 //check if chr equals one of the DEL (delimiters)
-int	check_del(t_shell *shell, char *chr, int *flag, int pos)
+int	chk_del(t_shell *shell, char *chr, int *flag, int pos)
 {
 	int		i;
 

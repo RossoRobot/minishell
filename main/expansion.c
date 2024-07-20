@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:55:24 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/27 17:44:11 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:33:48 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	expansion(t_shell *shell)
 	while (ptr)
 	{
 		n = 0;
-		while (ptr->content[n])
+		while (ptr->content && ptr->content[n])
 		{
 			len_str = 0;
 			set_flag(&ptr->content[n], &flag);

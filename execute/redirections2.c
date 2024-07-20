@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 15:25:49 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 10:38:01 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 	t_list	*temp;
 
 	temp = find_command(list);
+	if (!temp)
+	{
+		free_arr(arr);
+		close_all_fds();
+		return (0);
+	}
 	if (temp->type >= 10 && temp->type <= 16)
 	{
 		free_arr(arr);
@@ -96,12 +102,13 @@ int	redirect_input(t_shell *shell, t_list *list, char **arr, t_list *list_begin)
 		ft_putstr_fd("minishell: no such file or directory: ", 2);
 		ft_putstr_fd(list->next->content, 2);
 		ft_putstr_fd("\n", 2);
-		if (cmd->type >= 10 && cmd->type <= 16)
-		{
-			return (1);
-		}
 		free_arr(arr);
-		close_all_fds();
+		// if (!cmd)
+		// 	free_exit(shell, 1);
+		// if (cmd->type >= 10 && cmd->type <= 16)
+		// {
+		// 	return (1);
+		// }
 		free_exit(shell, 1);
 	}
 	dup2(fd, STDIN_FILENO);

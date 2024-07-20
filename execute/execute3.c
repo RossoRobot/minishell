@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:47:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/19 19:14:49 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/19 22:34:55 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	check_for_builtin(t_shell *shell, t_list *list)
 
 	dummy = shell;
 	temp = list;
+	if (!(temp->type >= 4 && temp->type <= 7))
+		return (0);
 	while (temp)
 	{
 		if (temp->type >= 4 && temp->type <= 7)
@@ -27,7 +29,6 @@ static int	check_for_builtin(t_shell *shell, t_list *list)
 			temp = temp->next;
 		if (temp)
 		{
-			set_type(temp);
 			if (temp->type >= 10 && temp->type <= 16)
 				return (1);
 		}
@@ -61,6 +62,7 @@ static void	fork_no_pipe(t_shell *shell, t_list *list)
 
 int	execute_no_pipe(t_shell *shell, t_list *list)
 {
+	;
 	if (check_last_node(list, 1))
 		return (1);
 	if (is_redirection(shell, list) != 0 && ((list->type >= 10

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 15:21:04 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 10:36:55 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ void	prep_redir_exec(t_shell *shell, t_list *list, int flag)
 		j++;
 	}
 	temp = list;
+	
 	if (!check_for_bad_rds(shell, list))
 		exec_redir(shell, temp, cmd_arr, list);
 	if (flag == 1)
-		free_exit(shell, 1);
+		free_exit(shell, 0);
 }
 
 void	dup_stds(t_shell *shell)
@@ -112,7 +113,7 @@ int	exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
 			&& temp->type != 7)
 			temp = temp->next;
 		if (temp == NULL)
-			return (execute_it(shell, arr, list), 0);
+			return (execute_it(shell, arr, list));
 		else if (temp->type == 5)
 			ret = redirect_output(shell, temp->next, arr, 0);
 		else if (temp->type == 7)

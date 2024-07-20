@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:38:38 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/20 13:08:22 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 13:31:06 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ void	define_type_helper(t_list *ptr)
 	while (ptr)
 	{
 		ptr->type = text_a;
-		// if (check_n_flag(ptr->content))
-		// 	ptr->type = flag_a;
 		set_type2(ptr);
 		ptr = ptr->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 12:09:53 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/19 22:03:01 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 13:30:48 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,10 @@ unexpected token `newline'\n", 2);
 
 void	handle_node(t_shell *shell, t_list *ptr, char *tmp)
 {
-	//ptr->content = tmp;
 	ptr->content = ft_strdup(shell, "<");
 	ptr->type = re_in;
 	free(ptr->next->content);
 	ptr->next->content = tmp;
-	//del_next_node(ptr);
-	// if (ptr->next)
-	// 	if (ptr->next->type == he_doc)
-	// 		ptr->type = delete_a;
 }
 
 void	set_flag_and_num_lines(int *flag, int *num_lines)

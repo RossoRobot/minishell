@@ -6,25 +6,87 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 16:35:21 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/20 13:09:59 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:55:16 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../include/minishell.h"
 
-static void	skip_redirection(t_list *ptr)
+static t_list	*skip_redirection(t_list *ptr, int *flag)
 {
-	while (ptr->type == 4 || ptr->type == 5 || ptr->type == 7
-		|| ptr->type == 17)
+	while (ptr->type == 4 || ptr->type == 5 || ptr->type == 7)
+	{
+		ptr = ptr->next;
+		if (ptr)
+			ptr = ptr->next;
+		if (!ptr)
+			break ;
+		while (ptr->type == flag_a)
+		{
+			*flag = 1;
+			ptr = ptr->next;
+		}
+	}
+	return (ptr);
+}
+
+static void	find_flag(t_list *node)
+{
+	int		flag_n;
+	t_list	*ptr;
+
+	flag_n = 0;
+	ptr = node;
+	while (ptr)
+	{
+		if (flag_n == 1 && !is_n_flag(ptr->content) && !(ptr->type == re_in
+				|| ptr->type == re_out || ptr->type == out_app))
+			break ;
+		if (ptr->type == re_in || ptr->type == re_out || ptr->type == out_app)
+		{
+			ptr = ptr->next;
+			if (!ptr)
+				continue ;
+		}
+		else if (is_n_flag(ptr->content))
+		{
+			flag_n = 1;
+			ptr->type = flag_a;
+		}
+		else if (!is_n_flag(ptr->content) && ptr->type == flag_a)
+			ptr->type = text_a;
+		ptr = ptr->next;
+	}
+}
+
+static int	check_for_last_pos(t_list *ptr)
+{
+	if (!ptr)
+		return (0);
+	while (ptr)
 	{
 		if (ptr->type == 4 || ptr->type == 5 || ptr->type == 7)
 		{
-			if (ptr->next && ptr->next->next)
-				ptr = ptr->next->next;
-		}
-		else if (ptr->type == 17 && ptr->next)
 			ptr = ptr->next;
+			if (ptr)
+				ptr = ptr->next;
+		}
+		if (!ptr)
+			return (0);
+		if (ptr->type != 4 && ptr->type != 5 && ptr->type != 7)
+			return (1);
 	}
+	return (0);
+}
+
+static t_list	*echo_loop(t_list *ptr, int *flag)
+{
+	while (ptr && ptr->type == flag_a)
+	{
+		*flag = 1;
+		ptr = ptr->next;
+	}
+	return (ptr);
 }
 
 int	execute_echo(t_shell *shell, t_list *list)
@@ -36,36 +98,21 @@ int	execute_echo(t_shell *shell, t_list *list)
 	dummy = shell;
 	flag = 0;
 	ptr = list->next;
-	print_tokens(shell);
-	while (ptr && ptr->type == flag_a)
-	{
-		flag = 1;
-		ptr = ptr->next;
-	}
+	find_flag(list);
+	ptr = echo_loop(ptr, &flag);
 	while (ptr)
 	{
 		if (ptr->type == 4 || ptr->type == 5 || ptr->type == 7)
-			skip_redirection(ptr);
-		printf("%s", ptr->content);
-		ptr = ptr->next;
+			ptr = skip_redirection(ptr, &flag);
 		if (ptr)
-			printf(" ");
+		{
+			ft_putstr_fd(ptr->content, 1);
+			ptr = ptr->next;
+		}
+		if (ptr && check_for_last_pos(ptr))
+			ft_putstr_fd(" ", 1);
 	}
 	if (flag == 0)
-		printf("\n");
+		write(1, "\n", 1);
 	return (0);
-}
-
-void	handle_shlvl(t_shell *data)
-{
-	char	*str;
-	char	*value;
-
-	str = NULL;
-	value = NULL;
-	str = my_getenv(data, "SHLVL", 0);
-	if (!str)
-		export_malloc(data, ft_strdup(data, "SHLVL=0"), NULL, NULL);
-	else
-		free(str);
 }

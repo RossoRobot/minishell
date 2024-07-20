@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/19 22:02:08 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:56:56 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,6 +265,8 @@ int							execute_it(t_shell *shell, char **arr,
 
 void						reset_fds(t_shell *shell, int stdin_backup,
 								int stdout_backup);
+
+int							is_n_flag(char *str);
 
 int							cmd_position(t_list *list);
 

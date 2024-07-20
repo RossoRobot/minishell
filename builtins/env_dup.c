@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/19 22:08:14 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:51:33 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,31 +94,4 @@ static int	get_last_return_value(t_shell *shell)
 	res = ft_atoi(str);
 	free(str);
 	return (res);
-}
-
-int	ft_exit(t_shell *shell, t_list *list)
-{
-	long	nr;
-
-	nr = get_last_return_value(shell);
-	if (list != NULL)
-	{
-		if (list->next != NULL)
-		{
-			if (exit_code_check(list->next->content) == -1 || (list->next
-					&& (ft_atol(list->next->content) == LONG_MAX)))
-			{
-				exit_helper(shell, list->next->content, 1);
-				free_exit(shell, 2);
-				exit(2);
-			}
-		}
-		if (list->next && list->next->next)
-			return (exit_helper(shell, NULL, 0));
-		if (list->next && list->next->content)
-			nr = ft_atol(list->next->content);
-	}
-	printf("exit\n");
-	free_exit(shell, nr);
-	exit(nr);
 }

@@ -6,53 +6,17 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/20 13:14:20 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 13:47:19 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../include/minishell.h"
 
-void	reset_fds(t_shell *shell, int stdin_backup, int stdout_backup)
+static void	builtin_option(t_shell *shell, t_list *temp, char **arr)
 {
-	if (dup2(stdin_backup, STDIN_FILENO) == -1)
-	{
-		free_exit(shell, 1);
-	}
-	close(stdin_backup);
-	if (dup2(stdout_backup, STDOUT_FILENO) == -1)
-	{
-		close(stdin_backup);
-		free_exit(shell, 1);
-	}
-	close(stdout_backup);
-}
-
-t_list	*find_command(t_list *list)
-{
-	t_list	*temp;
-	t_list	*temp2;
-
-	temp = list;
-	while (temp != NULL)
-	{
-		if ((temp->type >= 10 && temp->type <= 16) || temp->type == 0
-			|| temp->type == 2)
-		{
-			temp2 = temp;
-			while (temp2 != NULL)
-			{
-				set_type(temp2);
-				temp2 = temp2->next;
-			}
-			return (temp);
-		}
-		if ((temp->type >= 4 && temp->type <= 7))
-		{
-			temp = temp->next;
-		}
-		temp = temp->next;
-	}
-	return (temp);
+	free_arr(arr);
+	execute_builtin(shell, temp);
+	reset_fds(shell, shell->stdin_backup, shell->stdout_backup);
 }
 
 int	execute_it(t_shell *shell, char **arr, t_list *list)
@@ -60,21 +24,14 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 	char	*path;
 	t_list	*temp;
 
-	
 	temp = find_command(list);
 	if (!temp)
 	{
 		free_arr(arr);
-		close_all_fds();
-		return (0);
+		return (close_all_fds(), 0);
 	}
 	if (temp->type >= 10 && temp->type <= 16)
-	{
-		free_arr(arr);
-		execute_builtin(shell, temp);
-		reset_fds(shell, shell->stdin_backup, shell->stdout_backup);
-		return (0);
-	}
+		return (builtin_option(shell, temp, arr), 0);
 	path = get_path(shell, temp);
 	shell->env_arr = transform_list_to_arr(shell, shell->env_line);
 	if (!(shell->env_arr))
@@ -93,9 +50,9 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 
 static void	write_access_err(char *str, int flag)
 {
-	if  (flag == 1)
+	if (flag == 1)
 	{
-		if (access(str, W_OK) == -1)
+		if (access(str, F_OK) == 0 && access(str, W_OK) == -1)
 		{
 			ft_putstr_fd("minishell: permission denied: ", 2);
 			ft_putstr_fd(str, 2);
@@ -131,12 +88,6 @@ int	redirect_input(t_shell *shell, t_list *list, char **arr, t_list *list_begin)
 	if (fd == -1)
 	{
 		free_arr(arr);
-		// if (!cmd)
-		// 	free_exit(shell, 1);
-		// if (cmd->type >= 10 && cmd->type <= 16)
-		// {
-		// 	return (1);
-		// }
 		free_exit(shell, 1);
 	}
 	dup2(fd, STDIN_FILENO);

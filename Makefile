@@ -6,7 +6,7 @@
 #    By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 14:00:52 by kbrauer           #+#    #+#              #
-#    Updated: 2024/07/20 10:04:13 by mvolgger         ###   ########.fr        #
+#    Updated: 2024/07/20 13:27:44 by mvolgger         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRCS = $(MAIN_DIR)/main.c $(MAIN_DIR)/utils.c $(MAIN_DIR)/utils2.c \
 	$(MAIN_DIR)/parse2.c $(BI_DIR)/printenv.c $(MAIN_DIR)/sep_env_cmd.c \
 	$(MAIN_DIR)/set_return_value.c $(MAIN_DIR)/signal.c $(MAIN_DIR)/helper.c \
 	$(EXEC_DIR)/process_helpers.c $(EXEC_DIR)/execute2.c \
-	$(EXEC_DIR)/redirections2.c $(EXEC_DIR)/execute3.c  $(BI_DIR)/exit_helper.c
+	$(EXEC_DIR)/redirections2.c $(EXEC_DIR)/execute3.c  $(BI_DIR)/exit_helper.c \
+	$(EXEC_DIR)/redirections3.c 
 	
 OBJS = $(SRCS:.c=.o)
 

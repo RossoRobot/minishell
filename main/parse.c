@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:59:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/20 17:09:36 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:12:28 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	print_tokens(t_shell *shell)
 		ptr = shell->lists[i];
 		while (ptr)
 		{
-			printf("content: %s\n", ptr->content);
-			printf("   type:  %d\n", ptr->type);
+			dprintf(2, "content: %s\n", ptr->content);
+			dprintf(2, "   type:  %d\n", ptr->type);
 			ptr = ptr->next;
 		}
 		i++;

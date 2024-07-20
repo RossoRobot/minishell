@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/20 10:36:55 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:24:58 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,18 @@ int	exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
 
 	ret = 0;
 	dup_stds(shell);
+	
 	while (temp != NULL)
 	{
+		
 		while (temp != NULL && temp->type != 4 && temp->type != 5
 			&& temp->type != 7)
 			temp = temp->next;
+		
 		if (temp == NULL)
+		{
 			return (execute_it(shell, arr, list));
+		}
 		else if (temp->type == 5)
 			ret = redirect_output(shell, temp->next, arr, 0);
 		else if (temp->type == 7)

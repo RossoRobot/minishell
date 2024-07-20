@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 16:35:21 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/19 22:07:57 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 13:09:59 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	execute_echo(t_shell *shell, t_list *list)
 	dummy = shell;
 	flag = 0;
 	ptr = list->next;
+	print_tokens(shell);
 	while (ptr && ptr->type == flag_a)
 	{
 		flag = 1;

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/20 10:38:01 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 13:14:20 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 	char	*path;
 	t_list	*temp;
 
+	
 	temp = find_command(list);
 	if (!temp)
 	{
@@ -90,18 +91,45 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 	return (0);
 }
 
+static void	write_access_err(char *str, int flag)
+{
+	if  (flag == 1)
+	{
+		if (access(str, W_OK) == -1)
+		{
+			ft_putstr_fd("minishell: permission denied: ", 2);
+			ft_putstr_fd(str, 2);
+			ft_putstr_fd("\n", 2);
+		}
+	}
+	else
+	{
+		if (access(str, F_OK) == -1)
+		{
+			ft_putstr_fd("minishell: No such file or directory: ", 2);
+			ft_putstr_fd(str, 2);
+			ft_putstr_fd("\n", 2);
+			return ;
+		}
+		if (access(str, R_OK) == -1)
+		{
+			ft_putstr_fd("minishell: permission denied: ", 2);
+			ft_putstr_fd(str, 2);
+			ft_putstr_fd("\n", 2);
+		}
+	}
+}
+
 int	redirect_input(t_shell *shell, t_list *list, char **arr, t_list *list_begin)
 {
 	int		fd;
 	t_list	*cmd;
 
 	cmd = find_command(list_begin);
+	write_access_err(list->next->content, 2);
 	fd = open(list->next->content, O_RDONLY);
 	if (fd == -1)
 	{
-		ft_putstr_fd("minishell: no such file or directory: ", 2);
-		ft_putstr_fd(list->next->content, 2);
-		ft_putstr_fd("\n", 2);
 		free_arr(arr);
 		// if (!cmd)
 		// 	free_exit(shell, 1);
@@ -125,15 +153,14 @@ int	redirect_output(t_shell *shell, t_list *list, char **arr, int append)
 	ptr = shell;
 	ptr2 = arr;
 	fd = 0;
+	write_access_err(list->content, 1);
 	if (append == 0)
 		fd = open(list->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (append == 1)
 		fd = open(list->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
 	{
-		ft_putstr_fd(list->content, 2);
-		ft_putstr_fd(": permission denied\n", 2);
-		return (free_arr(arr), -1);
+		return (1);
 	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{

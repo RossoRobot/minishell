@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/19 22:23:23 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 10:01:27 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 	char	*path;
 	t_list	*temp;
 
-	dprintf(2, "TEst we are hereNOWWW\n");
 	temp = find_command(list);
 	if (temp->type >= 10 && temp->type <= 16)
 	{

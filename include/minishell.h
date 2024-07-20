@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/20 15:56:56 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:28:57 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,5 +279,7 @@ int							check_last_node(t_list *list, int flag);
 void						close_all_fds(void);
 
 char						*create_shlvl(t_shell *data, char *envp);
+
+int							get_last_return_value(t_shell *shell);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/20 15:51:33 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:28:43 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	exit_code_check(char *str)
 	return (0);
 }
 
-static int	get_last_return_value(t_shell *shell)
+int	get_last_return_value(t_shell *shell)
 {
 	char	*str;
 	int		res;

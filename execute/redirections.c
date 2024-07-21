@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 20:35:22 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:59:37 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ void	prep_redir_exec(t_shell *shell, t_list *list, int flag)
 		j++;
 	}
 	temp = list;
+	i = 0;
 	if (!check_for_bad_rds(shell, list))
-		exec_redir(shell, temp, cmd_arr, list);
+		i = exec_redir(shell, temp, cmd_arr, list);
 	if (flag == 1)
-		free_exit(shell, 0);
+		free_exit(shell, i);
 }
 
 void	dup_stds(t_shell *shell)

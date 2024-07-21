@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:45:52 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 14:06:37 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 15:26:11 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	check_for_empty_cmd(t_shell *shell, t_list *list, int flag)
 	t_list *temp;
 
 	temp = list;
-	while (ft_strncmp(temp->content, "\0", 1) == 0)
+	while (temp && ft_strncmp(temp->content, "\0", 1) == 0)
 		temp = temp->next;
 	if (!temp)
 	{

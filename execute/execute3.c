@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:47:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 14:05:49 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 15:08:19 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static void	fork_no_pipe(t_shell *shell, t_list *list)
 {
 	shell->pid = malloc(4);
 	if (!shell->pid)
-		free_exit(shell, 1);
-	if (pipe(shell->fd) == -1)
 		free_exit(shell, 1);
 	shell->pid[0] = fork();
 	if (shell->pid[0] < 0)
@@ -106,7 +104,7 @@ void	check_error(t_list *temp, int count)
 {
 	if (count)
 	{
-		ft_putstr_fd("check last minishell: syntax error", 2);
+		ft_putstr_fd("minishell: syntax error", 2);
 		ft_putstr_fd(" near unexpected token `newline'\n", 2);
 	}
 	else

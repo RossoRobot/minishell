@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:14:44 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 14:58:06 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 15:29:41 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	pick_child_process(t_shell *shell, int i, int *pipes, int temp_fd)
 	t_list	**list;
 
 	list = shell->lists;
+	if (check_for_empty_cmd(shell, list[i], 1))
+		free_exit(shell, 127);
 	if (i < shell->n_pipes)
 		first_child_process(shell, list[i], pipes, temp_fd);
 	else

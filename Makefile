@@ -35,7 +35,7 @@ SRCS = $(MAIN_DIR)/main.c $(MAIN_DIR)/utils.c $(MAIN_DIR)/utils2.c \
 	$(MAIN_DIR)/set_return_value.c $(MAIN_DIR)/signal.c $(MAIN_DIR)/helper.c \
 	$(EXEC_DIR)/process_helpers.c $(EXEC_DIR)/execute2.c \
 	$(EXEC_DIR)/redirections2.c $(EXEC_DIR)/execute3.c  $(BI_DIR)/exit_helper.c \
-	$(BI_DIR)/echo_helpers.c $(EXEC_DIR)/execute4.c
+	$(BI_DIR)/echo_helpers.c $(EXEC_DIR)/execute4.c $(MAIN_DIR)/hyper_helper.c
 	
 OBJS = $(SRCS:.c=.o)
 

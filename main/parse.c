@@ -122,23 +122,3 @@ int	parse(char *cmd, t_shell *shell)
 	trim_hedoc(shell);
 	return (0);
 }
-
-void	set_here_del_type(t_shell *shell)
-{
-	t_list	*ptr;
-	int		i;
-
-	i = 0;
-	if (!shell->lists)
-		return ;
-	ptr = shell->lists[i];
-	while (ptr)
-	{
-		if (ptr->type == he_doc && ptr->next)
-			ptr->next->type = here_del;
-		ptr = ptr->next;
-		if (!ptr)
-			ptr = shell->lists[++i];
-	}
-	ptr = NULL;
-}

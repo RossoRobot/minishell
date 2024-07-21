@@ -6,13 +6,13 @@
 #    By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 14:00:52 by kbrauer           #+#    #+#              #
-#    Updated: 2024/07/21 17:51:43 by mvolgger         ###   ########.fr        #
+#    Updated: 2024/07/21 19:56:43 by mvolgger         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FLAGS = -g  -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror 
 
 MAIN_DIR = ./main
 

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:55:24 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/21 19:51:11 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:11:38 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	expansion(t_shell *shell)
 	return (0);
 }
 
-//create shell->exp_str and return length of dollar str ($HOME = 5)
+// create shell->exp_str and return length of dollar str ($HOME = 5)
 int	mal_dollar(t_shell *shell, char *str)
 {
 	int		i;
@@ -49,15 +49,15 @@ int	mal_dollar(t_shell *shell, char *str)
 
 	i = 0;
 	str++;
-	while (ft_isalnum(str[i]) || str[i] == '_'
-		|| str[i] == '?' || str[i] == '!')
+	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?'
+		|| str[i] == '!')
 		i++;
-	tmp = (char *) malloc (sizeof(char) + (i + 1));
+	tmp = (char *)malloc(sizeof(char) + (i + 1));
 	if (!tmp)
 		return (-1);
 	i = 0;
-	while (ft_isalnum(str[i]) || str[i] == '_'
-		|| str[i] == '?' || str[i] == '!')
+	while (ft_isalnum(str[i]) || str[i] == '_' || str[i] == '?'
+		|| str[i] == '!')
 	{
 		tmp[i] = str[i];
 		i++;
@@ -81,7 +81,7 @@ char	*replace_dollar(t_shell *shell, char *str, int len)
 	set_data(&i, &n, &flag, shell);
 	while (str[i])
 		i++;
-	tmp = malloc (sizeof(char) * (i - len + ft_strlen(shell->exp_str) + 1));
+	tmp = malloc(sizeof(char) * (i - len + ft_strlen(shell->exp_str) + 1));
 	if (!tmp)
 		return (NULL);
 	i = 0;
@@ -96,7 +96,7 @@ char	*replace_dollar(t_shell *shell, char *str, int len)
 		n++;
 	}
 	tmp[n] = '\0';
-	free (str);
+	free(str);
 	return (tmp);
 }
 
@@ -104,7 +104,7 @@ int	replace_dollar_str(t_shell *shell, char *tmp)
 {
 	int	i;
 	int	n;
-	int c;
+	int	c;
 
 	i = 0;
 	n = 0;

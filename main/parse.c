@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:59:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/21 19:37:26 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:05:29 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	parse(char *cmd, t_shell *shell)
 	define_type(shell);
 	set_here_del_type(shell);
 	if (expansion(shell))
-		exit (1);
+		free_exit(shell, 1);
 	sep_env_cmd(shell);
 	unquote(shell);
 	if (start_w_pipe(shell, shell->lists[0]->content))

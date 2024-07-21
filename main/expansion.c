@@ -26,7 +26,7 @@ int	expansion(t_shell *shell)
 	while (ptr)
 	{
 		n = 0;
-		while (ptr->content[n])
+		while (ptr->content && ptr->content[n])
 		{
 			len_str = 0;
 			set_flag(&ptr->content[n], &flag);

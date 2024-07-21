@@ -96,7 +96,6 @@ void	handle_shlvl(t_shell *data)
 		free(str);
 }
 
-
 int	is_n_flag(char *str)
 {
 	int		i;

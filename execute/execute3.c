@@ -81,13 +81,16 @@ int	check_last_node(t_list *list, int flag)
 	temp = list;
 	while (temp->next)
 		temp = temp->next;
-	if (!ft_strncmp(temp->content, "<", ft_strlen(temp->content))
+	if ((!ft_strncmp(temp->content, "<", ft_strlen(temp->content))
 		|| !ft_strncmp(temp->content, "<<", ft_strlen(temp->content))
 		|| !ft_strncmp(temp->content, ">>", ft_strlen(temp->content))
 		|| !ft_strncmp(temp->content, ">", ft_strlen(temp->content)))
+		&& (temp->type != text_a))
 	{
 		if (flag == 1)
 		{
+			if (!ft_strncmp(temp->content, "", 1))
+				return (ft_putstr_fd("Command \'\' not found\n", 2), 1);
 			ft_putstr_fd("minishell: syntax error", 2);
 			ft_putstr_fd(" near unexpected token `newline'\n", 2);
 		}

@@ -50,7 +50,7 @@ char	*here_doc(t_shell *shell, char *arg)
 	{
 		cmd = readline("> ");
 		if (g_var == 2)
-			return (free(cmd), check_g_var(shell, fd));
+			return (free(cmd), set_return_value(shell, 130), check_g_var(shell, fd));
 		if (cmd_is_null_or_del(cmd, fd, arg, shell))
 		{
 			count_lines_newl(shell, num_lines, flag, fd);

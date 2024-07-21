@@ -167,6 +167,8 @@ char						*while_del(t_shell *shell, char *str);
 int							while_not_del(char *str, int *flag, t_shell *shell,
 								int *k);
 void						set_flag(char *c, int *flag);
+int							only_quotes(char *ptr);
+void						check_for_empty_quotes(char *ptr);
 
 // define_type
 int							set_type(t_list *node);

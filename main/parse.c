@@ -79,7 +79,10 @@ int	check_input(char *str, t_shell *shell)
 	set_data(&i, &flag1, &flag2, shell);
 	flagflag = 0;
 	if (start_w_pipe(shell, str))
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
 		return (1);
+	}
 	while (str[i])
 	{
 		pipe_counter(shell, str[i], flag1, flag2);
@@ -109,7 +112,10 @@ int	parse(char *cmd, t_shell *shell)
 	define_type(shell);
 	unquote(shell);
 	if (start_w_pipe(shell, shell->lists[0]->content))
+	{
+		ft_putstr_fd("|: command not found\n", 2);
 		return (1);
+	}
 	if (start_heredoc(shell))
 		return (free_parse(shell), 1);
 	trim_hedoc(shell);

@@ -57,7 +57,7 @@ int	start_w_pipe(t_shell *shell, char *str)
 		i++;
 	if (str[i] == '|')
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		//ft_putstr_fd("start_w_pipe minishell: syntax error near unexpected token `|'\n", 2);
 		return (1);
 	}
 	return (0);

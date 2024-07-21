@@ -77,27 +77,49 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 int	check_last_node(t_list *list, int flag)
 {
 	t_list	*temp;
+	int		count;
 
 	temp = list;
+	count = 0;
 	while (temp->next)
+	{
+		count++;
 		temp = temp->next;
-	if ((!ft_strncmp(temp->content, "<", ft_strlen(temp->content))
-		|| !ft_strncmp(temp->content, "<<", ft_strlen(temp->content))
-		|| !ft_strncmp(temp->content, ">>", ft_strlen(temp->content))
-		|| !ft_strncmp(temp->content, ">", ft_strlen(temp->content)))
-		&& (temp->type != text_a))
+	}
+	if (check_for_redirections(temp))
 	{
 		if (flag == 1)
 		{
 			if (!ft_strncmp(temp->content, "", 1))
 				return (ft_putstr_fd("Command \'\' not found\n", 2), 1);
-			ft_putstr_fd("minishell: syntax error", 2);
-			ft_putstr_fd(" near unexpected token `newline'\n", 2);
+			check_error(temp, count);
 		}
 		else
 			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
 				2);
 		return (1);
 	}
+	return (0);
+}
+
+void	check_error(t_list *temp, int count)
+{
+	if (count)
+	{
+		ft_putstr_fd("check last minishell: syntax error", 2);
+		ft_putstr_fd(" near unexpected token `newline'\n", 2);
+	}
+	else
+		printf("%s: command not found\n", temp->content);
+}
+
+int	check_for_redirections(t_list *temp)
+{
+	if ((!ft_strncmp(temp->content, "<", ft_strlen(temp->content))
+		|| !ft_strncmp(temp->content, "<<", ft_strlen(temp->content))
+		|| !ft_strncmp(temp->content, ">>", ft_strlen(temp->content))
+		|| !ft_strncmp(temp->content, ">", ft_strlen(temp->content)))
+		&& (temp->type != text_a))
+		return (1);
 	return (0);
 }

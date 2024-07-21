@@ -98,5 +98,7 @@ int	check_n_flag(char *str)
 		}
 		i++;
 	}
+	if (c == 0)
+		return (0);
 	return (1);
 }

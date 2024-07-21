@@ -287,4 +287,8 @@ int							get_last_return_value(t_shell *shell);
 
 void						wait_for_child2(t_shell *shell, int status);
 
+int							check_for_redirections(t_list *temp);
+
+void						check_error(t_list *temp, int count);
+
 #endif

@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/20 21:33:35 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:25:02 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +251,8 @@ void						pick_child_process(t_shell *shell, int i,
 
 void						close_fds(t_shell *shell, int *fd, int temp_fd);
 
-void						wait_for_child(t_shell *shell, int flag, int *pid, int x);
+void						wait_for_child(t_shell *shell, int flag, int *pid,
+								int x);
 
 void						no_pipe_child(t_shell *shell, t_list *list);
 
@@ -290,7 +290,8 @@ int							get_last_return_value(t_shell *shell);
 
 void						wait_for_child2(t_shell *shell, int status);
 
-int							check_for_empty_cmd(t_shell *shell, t_list *list, int flag);
+int							check_for_empty_cmd(t_shell *shell, t_list *list,
+								int flag);
 
 int							check_for_redirections(t_list *temp);
 
@@ -299,6 +300,5 @@ void						check_error(t_list *temp, int count);
 void						set_here_del_type(t_shell *shell);
 
 void						print_error_msg(int err, char *path);
-
 
 #endif

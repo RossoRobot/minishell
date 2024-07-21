@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 08:21:43 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/20 10:30:56 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 10:14:26 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	free_exit(t_shell *data, int error_flag)
 
 void	freeparse_or_not(t_shell *shell, int flag)
 {
+	if (shell->pid)
+		free(shell->pid);
 	if (flag != 0)
 	{
 		free_parse(shell);

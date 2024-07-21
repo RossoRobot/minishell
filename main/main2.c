@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 10:38:38 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/20 13:31:06 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 21:32:12 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	first_init(t_shell *shell, int argc, char **argv)
 	shell->hname = NULL;
 	shell->h_lines = 0;
 	shell->flag = 0;
+	shell->pid = NULL;
 	shell->sig_flag = false;
 	return (0);
 }
@@ -38,6 +39,7 @@ int	init_values(t_shell *shell)
 	shell->n_pipes = 0;
 	shell->heredoc_flag = 0;
 	shell->del_flag = 0;
+	shell->pid = NULL;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/20 16:28:57 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/20 21:33:35 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_shell
 	int						stdin_backup;
 	int						stdout_backup;
 	int						fd[2];
+	pid_t					*pid;
 	t_env					*env_line;
 	t_list					**lists;
 	t_hname					*hname;
@@ -248,7 +249,7 @@ void						pick_child_process(t_shell *shell, int i,
 
 void						close_fds(t_shell *shell, int *fd, int temp_fd);
 
-void						wait_for_child(t_shell *shell, int flag, int pid);
+void						wait_for_child(t_shell *shell, int flag, int *pid, int x);
 
 void						no_pipe_child(t_shell *shell, t_list *list);
 
@@ -283,5 +284,7 @@ void						close_all_fds(void);
 char						*create_shlvl(t_shell *data, char *envp);
 
 int							get_last_return_value(t_shell *shell);
+
+void						wait_for_child2(t_shell *shell, int status);
 
 #endif

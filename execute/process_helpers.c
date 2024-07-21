@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:14:44 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 15:25:31 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 09:55:43 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,32 +42,49 @@ void	close_fds(t_shell *shell, int *fd, int temp_fd)
 	close(fd[0]);
 }
 
-void	wait_for_child(t_shell *shell, int flag, int pid)
+void	wait_for_child(t_shell *shell, int flag, int *pid, int x)
 {
 	int	status;
-	int	childexitstatus;
+	int	i;
 
+	i = 0;
 	(void)flag;
-	if (g_var == 3)
-		kill(pid, SIGQUIT);
-	while (waitpid(pid, &status, WNOHANG) == 0)
+	while (i < x)
 	{
-		if (g_var == 3)
+		if (waitpid(pid[i], &status, WNOHANG) == 0)
 		{
-			kill(pid, SIGINT);
-			set_return_value(shell, 131);
+			if (g_var == 3)
+			{
+				kill(pid[i], SIGINT);
+				set_return_value(shell, 131);
+			}
 		}
+		else
+			i++;
 	}
+	wait_for_child2(shell, status);
+}
+
+void	wait_for_child2(t_shell *shell, int status)
+{
+	int	childexitstatus;
+	
 	if (WIFEXITED(status))
 	{
 		childexitstatus = WEXITSTATUS(status);
 		set_return_value(shell, childexitstatus);
 	}
-	else if (g_var != 3)
-		set_return_value(shell, 0);
+	else if (WIFSIGNALED(status))
+	{
+		childexitstatus = WTERMSIG(status);
+		if (g_var == 3)
+			set_return_value(shell, 131);
+		else
+			set_return_value(shell, 128 + childexitstatus);
+	}
 	else
-		g_var = 0;
-	return ;
+		set_return_value(shell, 0);
+	g_var = 0;
 }
 
 static int	check_for_bad_things(t_shell *shell, t_list *list)

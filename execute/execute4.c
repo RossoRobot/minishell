@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:50:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 17:51:23 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:48:52 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_error_msg(int err, char *path)
 	if (err == EACCES)
 		ft_putstr_fd(": Permission denied\n", 2);
 	else if (err == ENOENT)
-		ft_putstr_fd(" : No such file or directory\n", 2);
+		ft_putstr_fd(" : command not found\n", 2);
 	else if (err == ENOEXEC)
 		ft_putstr_fd(" : Exec format error\n", 2);
 	else if (err == EISDIR)

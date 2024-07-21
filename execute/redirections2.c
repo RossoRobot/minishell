@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 17:52:19 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:54:28 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,17 @@ int	redirect_input(t_shell *shell, t_list *list, char **arr, t_list *list_begin)
 {
 	int		fd;
 	t_list	*cmd;
+	t_shell	*dumm;
+	char	**dummy;
 
+	dummy = arr;
+	dumm = shell;
 	cmd = find_command(list_begin);
 	write_access_err(list->next->content, 2);
 	fd = open(list->next->content, O_RDONLY);
 	if (fd == -1)
 	{
-		free_arr(arr);
-		free_exit(shell, 1);
+		return (1);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);

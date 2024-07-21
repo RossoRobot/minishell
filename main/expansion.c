@@ -104,7 +104,7 @@ int	replace_dollar_str(t_shell *shell, char *tmp)
 {
 	int	i;
 	int	n;
-	int c;
+	int	c;
 
 	i = 0;
 	n = 0;
@@ -114,11 +114,6 @@ int	replace_dollar_str(t_shell *shell, char *tmp)
 	while (shell->exp_str[n])
 	{
 		tmp[i] = shell->exp_str[n];
-		// while (shell->exp_str[n] == ' ')
-		// {
-		// 	c++;
-		// 	n++;
-		// }
 		i++;
 		n++;
 	}

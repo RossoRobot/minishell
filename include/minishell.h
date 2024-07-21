@@ -143,7 +143,7 @@ void						set_exp_str(t_shell *shell, char *tmp);
 
 // sep_env_cmd
 int							squeeze_node(t_list *ptr, char *content);
-int							split_token(t_list *ptr, int n);
+int							split_token(t_list *ptr);
 int							sep_env_cmd(t_shell *shell);
 void						negative_fd(t_shell *shell, int fd);
 void						newl_numl(int *flag, int fd, int *num_lines,

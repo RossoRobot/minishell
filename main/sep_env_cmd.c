@@ -28,24 +28,32 @@ int	squeeze_node(t_list *ptr, char *content)
 	return (0);
 }
 
-int	split_token(t_list *ptr, int n)
+int	split_token(t_list *ptr)
 {
 	int		i;
-	int		flag;
-	char	*new_str;
+	char	**arr;
 
-	i = ft_strlen(&ptr->content[n + 1]);
-	flag = 0;
-	new_str = malloc (sizeof(char) * (i + 1));
-	if (!new_str)
-		return (0);
-	i = 0;
-	while (ptr->content[n])
+	arr = ft_split(ptr->content, ' ');
+	if (!arr)
+		return (1);
+	i = -1;
+	while (ptr->content[++i])
 	{
-		new_str[i++] = ptr->content[n + 1];
-		ptr->content[n++] = 0;
+		if (ptr->content[i] == ' ')
+		{
+			ptr->content[i] = 0;
+			break ;
+		}
 	}
-	squeeze_node(ptr, new_str);
+	i = 1;
+	while (arr[i])
+	{
+		squeeze_node(ptr, arr[i]);
+		ptr = ptr->next;
+		i++;
+	}
+	free(arr[0]);
+	free(arr);
 	return (0);
 }
 
@@ -66,13 +74,14 @@ int	sep_env_cmd(t_shell *shell)
 		while (ptr->content[n])
 		{
 			set_flag(&ptr->content[n], &flag);
-			if (ptr->content[n] == ' ' && flag == 0)
+			if (ptr->content[n++] == ' ' && flag == 0)
 			{
-				// while (ptr->content[n] == ' ')
-				// 	n++;
-				split_token(ptr, n);
+				if (split_token(ptr))
+				{
+					free_exit(shell, 1);
+					break ;	
+				}
 			}
-			n++;
 		}
 		ptr = ptr->next;
 		if (!ptr)

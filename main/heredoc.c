@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:20:17 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/21 16:53:08 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:22:42 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*here_doc(t_shell *shell, char *arg)
 	{
 		cmd = readline("> ");
 		if (g_var == 2)
-			return (free(cmd), set_return_value(shell, 130), check_g_var(shell, fd));
+			return (free(cmd), shell->hd_cc_flag = 1, check_g_var(shell, fd));
 		if (cmd_is_null_or_del(cmd, fd, arg, shell))
 		{
 			count_lines_newl(shell, num_lines, flag, fd);

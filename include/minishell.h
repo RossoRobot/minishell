@@ -94,6 +94,7 @@ typedef struct s_shell
 	bool					sig_flag;
 	int						del_flag;
 	int						heredoc_flag;
+	int						hd_cc_flag;
 	int						stdin_backup;
 	int						stdout_backup;
 	int						fd[2];

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:15:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/07 13:23:47 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:06:47 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,39 @@ void	close_all_fds(void)
 		close(fd);
 		fd++;
 	}
+}
+
+int	check_for_empty_cmd(t_shell *shell, t_list *list, int flag)
+{
+	t_list	*temp;
+
+	temp = list;
+	while (temp && ft_strncmp(temp->content, "\0", 1) == 0)
+		temp = temp->next;
+	if (!temp)
+	{
+		if (flag == 0)
+		{
+			ft_putstr_fd("minishell: Command '' not found\n", 2);
+			set_return_value(shell, 127);
+			return (127);
+		}
+		else
+		{
+			ft_putstr_fd("minishell: Command '' not found\n", 2);
+			free_exit(shell, 127);
+		}
+	}
+	return (0);
+}
+
+int	check_for_redirections(t_list *temp)
+{
+	if ((!ft_strncmp(temp->content, "<", ft_strlen(temp->content))
+			|| !ft_strncmp(temp->content, "<<", ft_strlen(temp->content))
+			|| !ft_strncmp(temp->content, ">>", ft_strlen(temp->content))
+			|| !ft_strncmp(temp->content, ">", ft_strlen(temp->content)))
+		&& (temp->type != text_a))
+		return (1);
+	return (0);
 }

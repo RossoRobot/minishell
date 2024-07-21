@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -287,6 +288,8 @@ char						*create_shlvl(t_shell *data, char *envp);
 int							get_last_return_value(t_shell *shell);
 
 void						wait_for_child2(t_shell *shell, int status);
+
+int							check_for_empty_cmd(t_shell *shell, t_list *list, int flag);
 
 int							check_for_redirections(t_list *temp);
 

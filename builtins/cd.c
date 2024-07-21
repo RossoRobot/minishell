@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 12:00:31 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 14:50:59 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,19 @@ int	ft_cd(t_shell *data, char *parameter)
 void	export_pwds(t_shell *data, char *old_pwd)
 {
 	char	*old_pwd_key;
+	char	*old_pwd_str;
 	char	*pwd_key;
 	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
-	old_pwd_key = ft_strdup(data, "OLDPWD");
 	pwd_key = ft_strdup(data, "PWD");
-	export_malloc(data, NULL, old_pwd_key, old_pwd);
 	export(data, NULL, pwd_key, pwd);
+	if (old_pwd)
+	{
+		old_pwd_key = ft_strdup(data, "OLDPWD");
+		old_pwd_str = ft_strjoin(data, old_pwd_key, old_pwd);
+		free(old_pwd_key);
+		free(old_pwd);
+		export_malloc(data, old_pwd_str, NULL, NULL);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:14:44 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 09:55:43 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:03:17 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	pick_child_process(t_shell *shell, int i, int *pipes, int temp_fd)
 	t_list	**list;
 
 	list = shell->lists;
+	if (check_for_empty_cmd(shell, list[i], 1))
+		free_exit(shell, 127);
 	if (i < shell->n_pipes)
 		first_child_process(shell, list[i], pipes, temp_fd);
 	else
@@ -27,19 +29,6 @@ void	pick_child_process(t_shell *shell, int i, int *pipes, int temp_fd)
 	free_parse(shell);
 	free(shell);
 	exit(EXIT_SUCCESS);
-}
-
-void	close_fds(t_shell *shell, int *fd, int temp_fd)
-{
-	close(fd[1]);
-	close(temp_fd);
-	temp_fd = dup(fd[0]);
-	if (temp_fd == -1)
-	{
-		close(fd[0]);
-		free_exit(shell, 1);
-	}
-	close(fd[0]);
 }
 
 void	wait_for_child(t_shell *shell, int flag, int *pid, int x)
@@ -68,7 +57,7 @@ void	wait_for_child(t_shell *shell, int flag, int *pid, int x)
 void	wait_for_child2(t_shell *shell, int status)
 {
 	int	childexitstatus;
-	
+
 	if (WIFEXITED(status))
 	{
 		childexitstatus = WEXITSTATUS(status);

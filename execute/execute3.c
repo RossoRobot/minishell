@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:47:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 10:15:23 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:02:00 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static void	fork_no_pipe(t_shell *shell, t_list *list)
 	shell->pid = malloc(4);
 	if (!shell->pid)
 		free_exit(shell, 1);
-	if (pipe(shell->fd) == -1)
-		free_exit(shell, 1);
 	shell->pid[0] = fork();
 	if (shell->pid[0] < 0)
 		free_exit(shell, 1);
@@ -60,6 +58,8 @@ static void	fork_no_pipe(t_shell *shell, t_list *list)
 
 int	execute_no_pipe(t_shell *shell, t_list *list)
 {
+	if (check_for_empty_cmd(shell, list, 0))
+		return (127);
 	if (check_last_node(list, 1))
 		return (1);
 	if (is_redirection(shell, list) != 0 && ((list->type >= 10
@@ -109,15 +109,4 @@ void	check_error(t_list *temp, int count)
 	}
 	else
 		printf("%s: command not found\n", temp->content);
-}
-
-int	check_for_redirections(t_list *temp)
-{
-	if ((!ft_strncmp(temp->content, "<", ft_strlen(temp->content))
-		|| !ft_strncmp(temp->content, "<<", ft_strlen(temp->content))
-		|| !ft_strncmp(temp->content, ">>", ft_strlen(temp->content))
-		|| !ft_strncmp(temp->content, ">", ft_strlen(temp->content)))
-		&& (temp->type != text_a))
-		return (1);
-	return (0);
 }

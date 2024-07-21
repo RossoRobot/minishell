@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 15:28:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/20 11:56:06 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:03:28 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,17 @@ void	check_some_things(t_shell *shell, t_list *list)
 		free_exit(shell, 0);
 		exit(2);
 	}
+}
+
+void	close_fds(t_shell *shell, int *fd, int temp_fd)
+{
+	close(fd[1]);
+	close(temp_fd);
+	temp_fd = dup(fd[0]);
+	if (temp_fd == -1)
+	{
+		close(fd[0]);
+		free_exit(shell, 1);
+	}
+	close(fd[0]);
 }

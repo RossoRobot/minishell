@@ -294,4 +294,6 @@ int							check_for_redirections(t_list *temp);
 
 void						check_error(t_list *temp, int count);
 
+void						print_error_msg(int err, char *path);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/20 21:18:27 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:52:19 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 		free_exit(shell, 1);
 	if (execve(path, arr, shell->env_arr) == -1)
 	{
-		ft_putstr_fd(temp->content, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		close_all_fds();
+		print_error_msg(errno, path);
 		free(path);
 		free_arr(arr);
 		free_exit(shell, 1);

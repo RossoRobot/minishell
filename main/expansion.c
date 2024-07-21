@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 13:55:24 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/20 18:33:48 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:51:11 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,6 @@ int	replace_dollar_str(t_shell *shell, char *tmp)
 	while (shell->exp_str[n])
 	{
 		tmp[i] = shell->exp_str[n];
-		// while (shell->exp_str[n] == ' ')
-		// {
-		// 	c++;
-		// 	n++;
-		// }
 		i++;
 		n++;
 	}

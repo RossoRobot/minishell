@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:45:52 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/20 19:38:29 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 14:06:37 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,30 @@ int	execute_command(t_shell *shell, t_list *list)
 		ret = execute_binary(shell, list);
 		return (ret);
 	}
+}
+
+int	check_for_empty_cmd(t_shell *shell, t_list *list, int flag)
+{
+	t_list *temp;
+
+	temp = list;
+	while (ft_strncmp(temp->content, "\0", 1) == 0)
+		temp = temp->next;
+	if (!temp)
+	{
+		if (flag == 0)
+		{
+			ft_putstr_fd("minishell: Command '' not found\n" ,2);
+			set_return_value(shell, 127);
+			return (127);
+		}
+		else
+		{
+			ft_putstr_fd("minishell: Command '' not found\n" ,2);
+			free_exit(shell, 127);
+		}
+	}
+	return (0);
 }
 
 int	execute(t_shell *shell)

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:47:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 10:15:23 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 14:05:49 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ static void	fork_no_pipe(t_shell *shell, t_list *list)
 
 int	execute_no_pipe(t_shell *shell, t_list *list)
 {
+	if (check_for_empty_cmd(shell, list, 0))
+		return (127);
 	if (check_last_node(list, 1))
 		return (1);
 	if (is_redirection(shell, list) != 0 && ((list->type >= 10

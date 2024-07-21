@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/25 10:03:38 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 12:00:31 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,13 @@ int	change_to_home(t_shell *data, char *oldpwd, char *parameter)
 	}
 	else
 	{
-		replace_var(data, "OLDPWD", oldpwd, 0);
+		export_malloc(data, NULL, "OLDPWD", oldpwd);
 		replace_var(data, "PWD", home, 0);
 		free(home);
 		return (0);
 	}
 }
 
-// does not work if parameter is not trimmed properly
 int	change_directory(t_shell *data, char *parameter)
 {
 	if (parameter && ft_strncmp(".", parameter, ft_strlen(parameter)) == 0)
@@ -110,6 +109,6 @@ void	export_pwds(t_shell *data, char *old_pwd)
 	pwd = getcwd(NULL, 0);
 	old_pwd_key = ft_strdup(data, "OLDPWD");
 	pwd_key = ft_strdup(data, "PWD");
-	export(data, NULL, old_pwd_key, old_pwd);
+	export_malloc(data, NULL, old_pwd_key, old_pwd);
 	export(data, NULL, pwd_key, pwd);
 }

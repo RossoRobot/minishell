@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/25 11:23:27 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 11:59:09 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	check_export_str(t_shell *data, char *str)
 
 	dummy = data;
 	flag = 0;
+	if (!str)
+		return (-1);
 	if (ft_isalpha(*str) == 0 && (*str) != '_' && (*str) != '?')
 	{
 		ft_putstr_fd("export: `", 2);

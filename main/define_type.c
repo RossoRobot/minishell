@@ -29,7 +29,7 @@ int	set_type(t_list *node)
 	else if (!ft_strncmp(node->content, "exit", 10))
 		node->type = exit_a;
 	else if (!ft_strncmp(node->content, "\"", 1)
-			|| !(!ft_strncmp(node->content, "\'", 1)))
+		|| !(!ft_strncmp(node->content, "\'", 1)))
 		node->type = text_a;
 	else
 		node->type = command_a;

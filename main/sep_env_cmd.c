@@ -64,9 +64,7 @@ int	sep_env_cmd(t_shell *shell)
 	int		flag;
 	t_list	*ptr;
 
-	i = 0;
-	n = 0;
-	flag = 0;
+	set_data(&i, &n, &flag, shell);
 	ptr = shell->lists[i];
 	while (ptr)
 	{
@@ -77,10 +75,7 @@ int	sep_env_cmd(t_shell *shell)
 			if (ptr->content[n++] == ' ' && flag == 0)
 			{
 				if (split_token(ptr))
-				{
 					free_exit(shell, 1);
-					break ;	
-				}
 			}
 		}
 		ptr = ptr->next;

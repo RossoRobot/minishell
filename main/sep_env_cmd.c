@@ -24,6 +24,7 @@ int	squeeze_node(t_list *ptr, char *content)
 	ptr->next = new_node;
 	new_node->next = tmp;
 	new_node->content = content;
+	new_node->type = text_a;
 	return (0);
 }
 
@@ -66,7 +67,11 @@ int	sep_env_cmd(t_shell *shell)
 		{
 			set_flag(&ptr->content[n], &flag);
 			if (ptr->content[n] == ' ' && flag == 0)
+			{
+				// while (ptr->content[n] == ' ')
+				// 	n++;
 				split_token(ptr, n);
+			}
 			n++;
 		}
 		ptr = ptr->next;

@@ -20,6 +20,7 @@ char	*add_hname(t_shell *shell)
 
 	buf = (char *) malloc (sizeof(char) * 11);
 	fd = open("/dev/urandom", O_RDONLY);
+	negative_fd(shell, fd);
 	read(fd, buf, 10);
 	buf[10] = 0;
 	name = ft_strjoin(shell, buf, ".txt");

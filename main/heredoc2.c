@@ -63,6 +63,7 @@ char	*check_g_var(t_shell *shell, int fd)
 	close(fd);
 	hname_new = add_hname(shell);
 	fd_new = open(hname_new, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	negative_fd(shell, fd_new);
 	write(fd_new, "\0", 1);
 	close(fd_new);
 	return (hname_new);

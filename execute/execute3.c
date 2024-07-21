@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:47:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 15:08:19 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:02:00 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,15 +109,4 @@ void	check_error(t_list *temp, int count)
 	}
 	else
 		printf("%s: command not found\n", temp->content);
-}
-
-int	check_for_redirections(t_list *temp)
-{
-	if ((!ft_strncmp(temp->content, "<", ft_strlen(temp->content))
-		|| !ft_strncmp(temp->content, "<<", ft_strlen(temp->content))
-		|| !ft_strncmp(temp->content, ">>", ft_strlen(temp->content))
-		|| !ft_strncmp(temp->content, ">", ft_strlen(temp->content)))
-		&& (temp->type != text_a))
-		return (1);
-	return (0);
 }

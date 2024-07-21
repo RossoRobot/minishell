@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 10:14:57 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:07:07 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,25 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes,
 	free_exit(shell, ret);
 }
 
+static int	forkex_helper(t_shell *shell, int temp_fd)
+{
+	shell->pid = malloc(sizeof(pid_t) * (shell->n_pipes + 1));
+	if (!shell->pid)
+	{
+		close(temp_fd);
+		free_exit(shell, 1);
+	}
+	return (0);
+}
+
 int	forkex(t_shell *shell, int temp_fd)
 {
 	int		i;
 	int		fd[2];
 	t_list	**list;
 
-	i = 0;
 	list = shell->lists;
-	shell->pid = malloc(sizeof(pid_t) * (shell->n_pipes + 1));
-	if (!shell->pid)
-		free_exit(shell, 1);
+	i = forkex_helper(shell, temp_fd);
 	while (i < shell->n_pipes + 1)
 	{
 		if (pipe(fd) == -1)
@@ -82,9 +90,7 @@ int	forkex(t_shell *shell, int temp_fd)
 			pick_child_process(shell, i, fd, temp_fd);
 		}
 		else
-		{
 			close_fds(shell, fd, temp_fd);
-		}
 		i++;
 	}
 	wait_for_child(shell, 1, shell->pid, i);

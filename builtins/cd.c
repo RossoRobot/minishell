@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 14:50:59 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:21:37 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ int	change_to_home(t_shell *data, char *oldpwd, char *parameter)
 	home = my_getenv(data, "HOME", 0);
 	if (home == NULL)
 	{
-		return (printf("cd: HOME not set\n"), 1);
+		return (ft_putstr_fd("cd: HOME not set\n", 2), 1);
 	}
 	if (chdir(home) == -1)
 	{
-		printf("cd: HOME not set\n");
+		ft_putstr_fd("cd: HOME not set\n", 2);
 		free(home);
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:47:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 18:09:56 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:23:34 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,8 @@ void	check_error(t_list *temp, int count)
 		ft_putstr_fd(" near unexpected token `newline'\n", 2);
 	}
 	else
-		printf("%s: command not found\n", temp->content);
+	{
+		ft_putstr_fd(temp->content, 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
 }

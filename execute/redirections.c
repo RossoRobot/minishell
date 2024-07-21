@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/20 13:28:46 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:35:22 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
 			return (free_arr(arr), ret);
 		temp = temp->next;
 		if (ret == -1)
-			return (-1);
+			return (free_arr(arr), 1);
 	}
 	return (ret);
 }

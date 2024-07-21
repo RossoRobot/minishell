@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 19:54:28 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:34:28 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ int	redirect_input(t_shell *shell, t_list *list, char **arr, t_list *list_begin)
 	fd = open(list->next->content, O_RDONLY);
 	if (fd == -1)
 	{
-		return (1);
+		reset_fds(shell, shell->stdin_backup, shell->stdout_backup);
+		set_return_value(shell, 1);
+		return (-1);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
@@ -111,11 +113,10 @@ int	redirect_output(t_shell *shell, t_list *list, char **arr, int append)
 	else if (append == 1)
 		fd = open(list->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-	{
-		return (1);
-	}
+		return (-1);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
+		set_return_value(shell, 1);
 		free_arr(arr);
 		close(fd);
 		free_exit(shell, 1);

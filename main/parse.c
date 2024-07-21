@@ -106,10 +106,11 @@ int	parse(char *cmd, t_shell *shell)
 	create_tokens(cmd, shell);
 	if (!shell->lists)
 		return (1);
+	define_type(shell);
+	set_here_del_type(shell);
 	if (expansion(shell))
 		exit (1);
 	sep_env_cmd(shell);
-	define_type(shell);
 	unquote(shell);
 	if (start_w_pipe(shell, shell->lists[0]->content))
 	{
@@ -120,4 +121,24 @@ int	parse(char *cmd, t_shell *shell)
 		return (free_parse(shell), 1);
 	trim_hedoc(shell);
 	return (0);
+}
+
+void	set_here_del_type(t_shell *shell)
+{
+	t_list	*ptr;
+	int		i;
+
+	i = 0;
+	if (!shell->lists)
+		return ;
+	ptr = shell->lists[i];
+	while (ptr)
+	{
+		if (ptr->type == he_doc && ptr->next)
+			ptr->next->type = here_del;
+		ptr = ptr->next;
+		if (!ptr)
+			ptr = shell->lists[++i];
+	}
+	ptr = NULL;
 }

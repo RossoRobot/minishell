@@ -54,6 +54,7 @@ typedef enum e_tokentype
 	env_a = 15,
 	exit_a = 16,
 	he_doc_fin = 17,
+	here_del = 18,
 }							t_tokentype;
 
 typedef struct s_pids
@@ -290,5 +291,7 @@ void						wait_for_child2(t_shell *shell, int status);
 int							check_for_redirections(t_list *temp);
 
 void						check_error(t_list *temp, int count);
+
+void						set_here_del_type(t_shell *shell);
 
 #endif

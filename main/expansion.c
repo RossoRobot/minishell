@@ -30,7 +30,7 @@ int	expansion(t_shell *shell)
 		{
 			len_str = 0;
 			set_flag(&ptr->content[n], &flag);
-			if (ptr->content[n] == '$' && flag != 1)
+			if (ptr->content[n] == '$' && flag != 1 && ptr->type != here_del)
 				flag = expand_str(shell, &n, ptr);
 			n++;
 		}

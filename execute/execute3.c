@@ -104,7 +104,7 @@ void	check_error(t_list *temp, int count)
 {
 	if (count)
 	{
-		ft_putstr_fd("check last minishell: syntax error", 2);
+		ft_putstr_fd("minishell: syntax error", 2);
 		ft_putstr_fd(" near unexpected token `newline'\n", 2);
 	}
 	else

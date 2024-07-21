@@ -95,6 +95,7 @@ typedef struct s_shell
 	bool					sig_flag;
 	int						del_flag;
 	int						heredoc_flag;
+	int						hd_cc_flag;
 	int						stdin_backup;
 	int						stdout_backup;
 	int						fd[2];
@@ -296,5 +297,8 @@ int							check_for_redirections(t_list *temp);
 void						check_error(t_list *temp, int count);
 
 void						set_here_del_type(t_shell *shell);
+
+void						print_error_msg(int err, char *path);
+
 
 #endif

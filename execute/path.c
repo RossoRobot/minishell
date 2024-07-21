@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:15:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 17:06:47 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 17:17:37 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ int	check_for_empty_cmd(t_shell *shell, t_list *list, int flag)
 	{
 		if (flag == 0)
 		{
-			ft_putstr_fd("minishell: Command '' not found\n", 2);
+			ft_putstr_fd("Command '' not found\n", 2);
 			set_return_value(shell, 127);
 			return (127);
 		}
 		else
 		{
-			ft_putstr_fd("minishell: Command '' not found\n", 2);
+			ft_putstr_fd("Command '' not found\n", 2);
 			free_exit(shell, 127);
 		}
 	}

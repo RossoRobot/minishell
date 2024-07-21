@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:55:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/20 21:24:56 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:23:25 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,17 @@
 
 static int	process(t_shell *shell, char *cmd)
 {
+	shell->hd_cc_flag = 0;
 	add_history(cmd);
 	if (parse(cmd, shell))
 		return (0);
+	if (shell->hd_cc_flag == 1)
+	{
+		set_return_value(shell, 130);
+		free_hname(shell);
+		free_parse(shell);
+		return (0);
+	}
 	execute(shell);
 	free_hname(shell);
 	free_parse(shell);

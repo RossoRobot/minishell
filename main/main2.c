@@ -28,6 +28,7 @@ int	first_init(t_shell *shell, int argc, char **argv)
 	shell->flag = 0;
 	shell->pid = NULL;
 	shell->sig_flag = false;
+	shell->cmd = NULL;
 	return (0);
 }
 

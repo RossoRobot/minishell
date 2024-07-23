@@ -89,6 +89,7 @@ typedef struct s_shell
 	char					**str;
 	char					*exp_str;
 	char					**env_arr;
+	char					*cmd;
 	int						last_return_value;
 	int						flag;
 	bool					sig_flag;

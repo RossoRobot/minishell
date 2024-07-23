@@ -31,5 +31,8 @@ int	replace_dollar_helper(int *n, int *i, int *flag, int len)
 
 int	check_shlvl(char *str)
 {
-	return (ft_strncmp(str, "./minishell", 11));
+	if (ft_strncmp(str, "./minishell", 11) == 0)
+		return (0);
+	else
+		return (1);
 }

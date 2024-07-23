@@ -47,7 +47,6 @@ static int	press_enter_only(char *cmd)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char				*cmd;
 	t_shell				*shell;
 
 	shell = (t_shell *) malloc (sizeof(t_shell));
@@ -58,18 +57,18 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		recieve_signal(shell, 0, 0, "0");
-		cmd = readline("minishell$ ");
-		recieve_signal(shell, 2, 1, cmd);
+		shell->cmd = readline("minishell$ ");
+		recieve_signal(shell, 2, 1, shell->cmd);
 		if (g_var == 2)
 			set_return_value(shell, 130);
 		g_var = 0;
 		shell->h_lines++;
-		if (!cmd)
+		if (!shell->cmd)
 			free_exit(shell, 1408);
-		if (press_enter_only(cmd))
+		if (press_enter_only(shell->cmd))
 			continue ;
-		if (process(shell, cmd))
+		if (process(shell, shell->cmd))
 			return (1);
-		free(cmd);
+		free(shell->cmd);
 	}
 }

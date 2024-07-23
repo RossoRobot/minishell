@@ -111,6 +111,9 @@ int	parse(char *cmd, t_shell *shell)
 	if (expansion(shell))
 		free_exit(shell, 1);
 	sep_env_cmd(shell);
+	// if (del_empty_tk(shell))
+	// 	return (1);
+	print_tokens(shell);
 	unquote(shell);
 	if (start_w_pipe(shell, shell->lists[0]->content))
 	{

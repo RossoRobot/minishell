@@ -141,6 +141,9 @@ int							check_shlvl(char *str);
 
 // helper
 void						set_exp_str(t_shell *shell, char *tmp);
+int							del_empty_tk(t_shell *shell);
+t_list						*del_first_node(t_shell *shell, int i, t_list *ptr);
+void						re_mal_list(t_shell *shell, int i);
 
 // sep_env_cmd
 int							squeeze_node(t_list *ptr, char *content);

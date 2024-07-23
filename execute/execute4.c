@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:50:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/23 21:42:39 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:54:23 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ static int	check_for_slash(char *path)
 	}
 	return (slashflag);
 }
+static void	exit_cfdir(t_shell *shell, char *path, char **ar, int flag)
+{
+	free_arr(ar);
+	free(path);
+	free_exit(shell, flag);
+}
 
 void	check_for_dir(t_shell *shell, char *path, char **ar)
 {
@@ -56,20 +62,24 @@ void	check_for_dir(t_shell *shell, char *path, char **ar)
 
 	if (!check_for_slash(path))
 		return ;
-	stat(path, &path_stat);
+	if (stat(path, &path_stat))
+	{
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		exit_cfdir(shell, path, ar, 127);
+	}
 	if (S_ISDIR(path_stat.st_mode))
 	{
 		ft_putstr_fd(path, 2);
-		ft_putstr_fd(": is a directory.\n", 2);
-		free_arr(ar);
-		free(path);
-		free_exit(shell, 126);
+		ft_putstr_fd(": is a directory\n", 2);
+		exit_cfdir(shell, path, ar, 126);
 	}
 	if (execve(path, ar, shell->env_arr) == -1)
 	{
-		print_error_msg(errno, path);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": permission denied\n", 2);
 		free(path);
 		free_arr(ar);
-		free_exit(shell, 127);
+		free_exit(shell, 126);
 	}
 }

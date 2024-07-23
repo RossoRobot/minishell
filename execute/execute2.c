@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:45:52 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 18:07:36 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:42:10 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,11 @@ int	execute_binary(t_shell *shell, t_list *list)
 	argv = trans_argv(shell, list);
 	shell->sig_flag = true;
 	recieve_signal(shell, 0, 0, "0");
+	check_for_dir(shell, path, argv);
 	if (execve(path, argv, shell->env_arr) == -1)
 	{
-		print_error_msg(errno, path);
+		ft_putstr_fd(path, 2);
+		ft_putstr_fd(": command not found\n", 2);
 		free(path);
 		free_arr(argv);
 		free_exit(shell, 127);

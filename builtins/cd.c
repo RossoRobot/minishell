@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:20:19 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 19:21:37 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:18:53 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,13 @@ void	export_pwds(t_shell *data, char *old_pwd)
 {
 	char	*old_pwd_key;
 	char	*old_pwd_str;
-	char	*pwd_key;
 	char	*pwd;
+	char	*pwd_str;
 
 	pwd = getcwd(NULL, 0);
-	pwd_key = ft_strdup(data, "PWD");
-	export(data, NULL, pwd_key, pwd);
+	pwd_str = ft_strjoin(data, "PWD=", pwd);
+	free(pwd);
+	export_malloc(data, pwd_str, NULL, NULL);
 	if (old_pwd)
 	{
 		old_pwd_key = ft_strdup(data, "OLDPWD");

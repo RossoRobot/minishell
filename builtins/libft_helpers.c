@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:54:45 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/25 11:25:09 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:21:27 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ char	*ft_strjoin(t_shell *data, char const *s1, char const *s2)
 	if (newstr == NULL)
 		free_exit(data, 138);
 	i = 0;
-	while (*s1)
+	while (s1 && *s1)
 		newstr[i++] = *s1++;
-	while (*s2)
+	while (s2 && *s2)
 		newstr[i++] = *s2++;
 	newstr[i] = '\0';
 	return (newstr);

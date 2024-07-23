@@ -30,8 +30,6 @@ void	handler2(int sig)
 	g_var = sig;
 	if (sig == 2)
 		write(1, "\n", 1);
-	if (sig == 3)
-		ft_putstr_fd("Quit (core dumped)\n", 2);
 }
 
 void	handler3(int sig)

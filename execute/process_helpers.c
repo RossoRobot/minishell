@@ -35,7 +35,9 @@ void	wait_for_child(t_shell *shell, int flag, int *pid, int x)
 {
 	int	status;
 	int	i;
+	int	f;
 
+	f = 0;
 	i = 0;
 	(void)flag;
 	while (i < x)
@@ -44,7 +46,10 @@ void	wait_for_child(t_shell *shell, int flag, int *pid, int x)
 		{
 			if (g_var == 3)
 			{
-				kill(pid[i], SIGINT);
+				if (check_shlvl(shell->cmd) != 0)
+					kill(pid[i], SIGINT);
+				if (!f && check_shlvl(shell->cmd))
+					f = write(2, "Quit (core dumped)\n", 20);
 				set_return_value(shell, 131);
 			}
 		}

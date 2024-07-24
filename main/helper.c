@@ -72,7 +72,7 @@ void	re_mal_list(t_shell *shell, int i)
 
 	set_data(&n, &m, &c, shell);
 	c = shell->n_pipes;
-	new_list = malloc (shell->n_pipes + 1);
+	new_list = malloc (sizeof(t_list *) * (shell->n_pipes + 1));
 	if (!new_list)
 		free_parse(shell);
 	while(c + 1)

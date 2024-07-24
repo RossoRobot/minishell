@@ -109,6 +109,7 @@ void	check_error(t_list *temp, int count)
 	}
 	else
 	{
+		ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(temp->content, 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}

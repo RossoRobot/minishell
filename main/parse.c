@@ -86,6 +86,11 @@ int	check_input(char *str, t_shell *shell)
 		set_return_value(shell, 2);
 		return (1);
 	}
+	if (start_w_red(str))
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+		return (1);
+	}
 	while (str[i])
 	{
 		pipe_counter(shell, str[i], flag1, flag2);

@@ -43,7 +43,7 @@ int	start_w_red(char *str)
 	n = i;
 	while (str[n] == '<')
 		n++;
-	if (n == i + 2 && str[n] == '<' && str[n] == '>')
+	if (n == i + 2 && str[n] != '<' && str[n] != '>')
 		return (0);
 	n = 0;
 	while (str[i + n] == '>')
@@ -51,6 +51,7 @@ int	start_w_red(char *str)
 		n++;
 		if ((n == 1 || n == 2) && str[i + n] == 0)
 			return (1);
+		return (1);
 	}
 	n = 0;
 	while (str[i + n] == '<')
@@ -58,6 +59,7 @@ int	start_w_red(char *str)
 		n++;
 		if ((n >= 1 && n <= 3) && str[i + n] == 0)
 			return (1);
+		return (1);
 	}
 
 
@@ -68,5 +70,33 @@ int	start_w_red(char *str)
 		// }
 		// return (1);
 	
+	return (0);
+}
+
+int	red_del(t_shell *shell, t_list *ptr)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	tmp = ptr->next->content;
+	if (ptr->next->content[0] == '<' || ptr->next->content[0] == '>')
+	{
+		ft_putstr_fd("minishell: syntax error near \
+unexpected token `", 2);
+		if (ptr->next->content[0] == '<')
+			write(2, "<", 1);
+		if (ptr->next->content[0] == '>')
+			write(2, ">", 1);
+		if (ptr->next->content[1] == '<' && ptr->next->content[1] == tmp[0])
+			write(2, "<", 1);
+		if (ptr->next->content[1] == '>')
+			write(2, ">", 1);
+		if (ptr->next->content[1] && ptr->next->content[2] == '<'
+				&& ptr->next->content[2] == tmp[0])
+			write(2, "<", 1);
+		write(2, "'\n", 2);
+		return (set_return_value(shell, 2), 2);
+	}
 	return (0);
 }

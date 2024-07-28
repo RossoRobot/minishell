@@ -147,6 +147,7 @@ void						re_mal_list(t_shell *shell, int i);
 
 //hyper_helper
 int							start_w_red(char *str);
+int							red_del(t_shell *shell, t_list *ptr);
 
 // sep_env_cmd
 int							squeeze_node(t_list *ptr, char *content);
@@ -205,7 +206,7 @@ void						trim_hedoc(t_shell *shell);
 // heredoc2
 int							cmd_is_null_or_del(char *cmd, int fd, char *arg,
 								t_shell *shell);
-int							no_del(t_list *ptr);
+int							no_del(t_shell* shell, t_list *ptr);
 void						handle_node(t_shell *shell, t_list *ptr, char *tmp);
 void						set_flag_and_num_lines(int *flag, int *num_lines);
 char						*check_g_var(t_shell *shell, int fd);

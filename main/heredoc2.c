@@ -28,13 +28,23 @@ int	cmd_is_null_or_del(char *cmd, int fd, char *arg, t_shell *shell)
 	return (0);
 }
 
-int	no_del(t_list *ptr)
+int	no_del(t_shell *shell, t_list *ptr)
 {
+	int	i;
+
+	i = 0;
 	if (!ptr->next)
 	{
 		ft_putstr_fd("minishell: syntax error near \
-unexpected token `newline'\n", 2);
-		return (1);
+unexpected token `", 2);
+		if (ptr->content[2] == '|' && ptr->content[3] == 0)
+			write(2, "|", 1);
+		else if(ptr->content[2] == '|' && ptr->content[3] == '|')
+			write(2, "||", 2);
+		else
+			write(2, "newline", 7);
+		write(2, "'\n", 2);
+		return (set_return_value(shell, 2), 2);
 	}
 	return (0);
 }

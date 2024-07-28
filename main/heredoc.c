@@ -88,7 +88,7 @@ int	start_heredoc(t_shell *shell)
 		{
 			if (ptr->type == he_doc)
 			{
-				if (no_del(ptr))
+				if (no_del(shell, ptr) || red_del(shell, ptr))
 					return (1);
 				recieve_signal(shell, 0, 0, "0");
 				tmp = ft_strdup(shell, here_doc(shell, ptr->next->content));

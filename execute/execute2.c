@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 15:45:52 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 12:55:29 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:38:01 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	execute_binary(t_shell *shell, t_list *list)
 	check_for_dir(shell, list->content, path, argv);
 	if (execve(path, argv, shell->env_arr) == -1)
 	{
-		ft_putstr_fd("minishell: ", 2);
+		//ft_putstr_fd("minishell: ", 2);
 		ft_putstr_fd(path, 2);
 		ft_putstr_fd(": command not found\n", 2);
 		free(path);

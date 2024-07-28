@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 10:38:28 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/25 15:55:23 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:10:48 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,20 @@ static int	ft_countwords(char *s1, char c)
 	int	i;
 	int	words;
 
+	if (!s1)
+		return (0);
 	i = 0;
 	words = 0;
-	if (s1[i] != c && s1[i] != '\0')
-		words++;
 	while (s1[i] != '\0')
 	{
 		while (s1[i] == c && s1[i] != '\0')
-		{
-			if (s1[i] == c && s1[i + 1] != c && s1[i + 1] != '\0')
-				words++;
 			i++;
+		if (s1[i] != c && s1[i] != '\0')
+		{
+			words++;
+			while (s1[i] != c && s1[i] != '\0')
+				i++;
 		}
-		i++;
 	}
 	return (words);
 }

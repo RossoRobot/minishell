@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:59:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/21 20:05:29 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:11:03 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ int	parse(char *cmd, t_shell *shell)
 	// if (del_empty_tk(shell))
 	// 	return (1);
 	unquote(shell);
-	print_tokens(shell);
 	if (start_w_pipe(shell, shell->lists[0]->content))
 	{
 		ft_putstr_fd("minishell: ", 2);

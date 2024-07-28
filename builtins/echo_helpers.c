@@ -6,19 +6,34 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:27:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/20 16:33:46 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:53:20 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../include/minishell.h"
+
+void exit_hardcode234(t_shell *shell, t_list *list)
+{
+	if (list->next == NULL)
+		return;
+	list = list->next;
+	if (list->content[0] == '\0')
+	{
+		ft_putstr_fd("exit\nminishell: exit: numeric argument required\n", 2);
+		free_exit(shell, 2);
+	}
+	return ;
+}
 
 int	ft_exit(t_shell *shell, t_list *list)
 {
 	long	nr;
 
 	nr = get_last_return_value(shell);
+
 	if (list != NULL)
 	{
+		exit_hardcode234(shell, list);
 		if (list->next != NULL)
 		{
 			if (exit_code_check(list->next->content) == -1 || (list->next
@@ -68,7 +83,7 @@ t_list	*find_command(t_list *list)
 			temp2 = temp;
 			while (temp2 != NULL)
 			{
-				set_type(temp2);
+				//set_type(temp2);
 				temp2 = temp2->next;
 			}
 			return (temp);

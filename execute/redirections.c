@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 20:59:37 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:25:03 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static int	check_for_bad_rds(t_shell *shell, t_list *list)
 			ft_putstr_fd("'\n", 2);
 			return (set_return_value(shell, 2));
 		}
-		else if (!ft_strncmp(temp->content, "<<", 2)
-			|| !ft_strncmp(temp->content, ">>", 2))
+		else if (!ft_strncmp(temp->content, ">>", 2))
 		{
 			ft_putstr_fd("syntax error near unexpected token `", 2);
 			write(2, temp->content, 2);

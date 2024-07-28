@@ -6,30 +6,30 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:50:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 12:59:50 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:37:05 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../include/minishell.h"
 
-void	print_error_msg(int err, char *path)
+int	print_error_msg(int err, char *path)
 {
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(path, 2);
 	if (err == EACCES)
-		ft_putstr_fd(": Permission denied\n", 2);
+		return (ft_putstr_fd(": Permission denied\n", 2), 126);
 	else if (err == ENOENT)
-		ft_putstr_fd(" : command not found\n", 2);
+		return (ft_putstr_fd(" : command not found\n", 2), 127);
 	else if (err == ENOEXEC)
-		ft_putstr_fd(" : Exec format error\n", 2);
+		return (ft_putstr_fd(" : Exec format error\n", 2), 126);
 	else if (err == EISDIR)
-		ft_putstr_fd(" : Is a directory\n", 2);
+		return (ft_putstr_fd(" : Is a directory\n", 2), 126);
 	else if (err == ETXTBSY)
-		ft_putstr_fd(" : Text file busy\n", 2);
+		return (ft_putstr_fd(" : Text file busy\n", 2), 126);
 	else if (err == ENOMEM)
-		ft_putstr_fd(" : Out of memory\n", 2);
+		return (ft_putstr_fd(" : Out of memory\n", 2), 1);
 	else
-		ft_putstr_fd("execve failed\n", 2);
+		return (ft_putstr_fd("execve failed\n", 2), 1);
 }
 
 static int	check_for_slash(char *path)

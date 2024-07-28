@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 17:26:53 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:34:22 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ static void	builtin_option(t_shell *shell, t_list *temp, char **arr)
 	reset_fds(shell, shell->stdin_backup, shell->stdout_backup);
 }
 
+
+
 int	execute_it(t_shell *shell, char **arr, t_list *list)
 {
 	char	*path;
 	t_list	*temp;
+	int		flag;
 
 	temp = find_command(list);
 	if (!temp)
@@ -38,7 +41,7 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 		free_exit(shell, 1);
 	if (execve(path, arr, shell->env_arr) == -1)
 	{
-		print_error_msg(errno, path);
+		flag = print_error_msg(errno, path);
 		free(path);
 		free_arr(arr);
 		free_exit(shell, 1);
@@ -52,25 +55,22 @@ static void	write_access_err(char *str, int flag)
 	{
 		if (access(str, F_OK) == 0 && access(str, W_OK) == -1)
 		{
-			ft_putstr_fd("permission denied: ", 2);
 			ft_putstr_fd(str, 2);
-			ft_putstr_fd("\n", 2);
+			ft_putstr_fd(": Permission denied\n", 2);
 		}
 	}
 	else
 	{
 		if (access(str, F_OK) == -1)
 		{
-			ft_putstr_fd("No such file or directory: ", 2);
 			ft_putstr_fd(str, 2);
-			ft_putstr_fd("\n", 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
 			return ;
 		}
 		if (access(str, R_OK) == -1)
 		{
-			ft_putstr_fd("permission denied: ", 2);
 			ft_putstr_fd(str, 2);
-			ft_putstr_fd("\n", 2);
+			ft_putstr_fd(": Permission denied\n", 2);
 		}
 	}
 }

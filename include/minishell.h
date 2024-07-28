@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/28 19:57:34 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:24:33 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int							del_empty_tk(t_shell *shell);
 t_list						*del_first_node(t_shell *shell, int i, t_list *ptr);
 void						re_mal_list(t_shell *shell, int i);
 
-//hyper_helper
+// hyper_helper
 int							start_w_red(char *str);
 int							red_del(t_shell *shell, t_list *ptr);
 int							correct_red(char *str);
@@ -207,7 +207,7 @@ void						trim_hedoc(t_shell *shell);
 // heredoc2
 int							cmd_is_null_or_del(char *cmd, int fd, char *arg,
 								t_shell *shell);
-int							no_del(t_shell* shell, t_list *ptr);
+int							no_del(t_shell *shell, t_list *ptr);
 void						handle_node(t_shell *shell, t_list *ptr, char *tmp);
 void						set_flag_and_num_lines(int *flag, int *num_lines);
 char						*check_g_var(t_shell *shell, int fd);
@@ -308,11 +308,11 @@ void						check_error(t_list *temp, int count);
 
 void						set_here_del_type(t_shell *shell);
 
-int						print_error_msg(int err, char *path);
+int							print_error_msg(int err, char *path);
 
-void						check_for_dir(t_shell *shell, char *node_content, char *path,
-								char **ar);
+void						check_for_dir(t_shell *shell, char *node_content,
+								char *path, char **ar);
 
-void 						exit_hardcode234(t_shell *shell, t_list *list);
+void						exit_hardcode234(t_shell *shell, t_list *list);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 20:38:55 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/05 18:26:30 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 17:35:30 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@
 int	execute_export(t_shell *shell, t_list *list)
 {
 	t_list	*temp;
+	int		ret;
 
 	temp = list;
+	ret = 0;
 	if (temp->next == NULL)
 		return (export(shell, NULL, NULL, NULL));
 	while (temp->next != NULL)
 	{
-		export(shell, temp->next->content, NULL, NULL);
+		ret = export(shell, temp->next->content, NULL, NULL);
 		temp = temp->next;
 	}
-	return (0);
+	return (ret);
 }
 
 int	execute_env(t_shell *shell, t_list *list)

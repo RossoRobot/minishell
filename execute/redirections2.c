@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 21:00:32 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 17:26:53 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	write_access_err(char *str, int flag)
 	{
 		if (access(str, F_OK) == 0 && access(str, W_OK) == -1)
 		{
-			ft_putstr_fd("minishell: permission denied: ", 2);
+			ft_putstr_fd("permission denied: ", 2);
 			ft_putstr_fd(str, 2);
 			ft_putstr_fd("\n", 2);
 		}
@@ -61,14 +61,14 @@ static void	write_access_err(char *str, int flag)
 	{
 		if (access(str, F_OK) == -1)
 		{
-			ft_putstr_fd("minishell: No such file or directory: ", 2);
+			ft_putstr_fd("No such file or directory: ", 2);
 			ft_putstr_fd(str, 2);
 			ft_putstr_fd("\n", 2);
 			return ;
 		}
 		if (access(str, R_OK) == -1)
 		{
-			ft_putstr_fd("minishell: permission denied: ", 2);
+			ft_putstr_fd("permission denied: ", 2);
 			ft_putstr_fd(str, 2);
 			ft_putstr_fd("\n", 2);
 		}

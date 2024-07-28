@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 18:13:29 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 11:59:09 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 17:34:06 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	export(t_shell *data, char *str, char *key, char *value)
 	if (str)
 	{
 		if (check_export_str(data, str) == -1)
-			return (-1);
+			return (1);
 		key = get_key(data, str);
 		value = get_value(data, str);
 		if (export_clear(data, key, value, str) == 0)

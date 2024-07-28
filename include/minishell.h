@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/28 18:48:17 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 19:57:34 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 extern int					g_var;
 
-# define DEL " |"
+# define DEL " |	"
 
 typedef struct s_env		t_env;
 typedef struct s_key_value	t_key_value;

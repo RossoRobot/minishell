@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:59:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/28 16:11:03 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 19:25:44 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ int	parse(char *cmd, t_shell *shell)
 	if (!shell->lists)
 		return (1);
 	define_type(shell);
-	print_tokens(shell);
 	set_here_del_type(shell);
 	if (expansion(shell))
 		free_exit(shell, 1);

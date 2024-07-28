@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 18:34:22 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 20:08:05 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	execute_it(t_shell *shell, char **arr, t_list *list)
 		flag = print_error_msg(errno, path);
 		free(path);
 		free_arr(arr);
-		free_exit(shell, 1);
+		free_exit(shell, flag);
 	}
 	return (0);
 }

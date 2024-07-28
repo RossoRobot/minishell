@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:39:31 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/04/19 14:36:31 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 19:35:28 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	chk_del(t_shell *shell, char *chr, int *flag, int pos)
 		i++;
 	}
 	if (shell->del_flag == 1 && *chr != '<' && *chr != '>')
-		return (printf("chk_del"), shell->del_flag = 0, 1);
+		return (shell->del_flag = 0, 1);
 	return (0);
 }
 

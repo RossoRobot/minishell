@@ -47,7 +47,7 @@ int	chk_del(t_shell *shell, char *chr, int *flag, int pos)
 	int		i;
 
 	i = 0;
-	if (*flag)
+	if (*flag && !shell->flag)
 		return (0);
 	if (pos > 0 && (*chr == '<' | *chr == '>'))
 	{

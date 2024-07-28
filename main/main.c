@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:55:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/21 18:23:25 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:57:59 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,32 @@ static int	press_enter_only(char *cmd)
 	return (0);
 }
 
+static void	controld_exit(t_shell *data, int last_return_value)
+{
+	t_env	*temp;
+	int		ex_code;
+
+	while (data->env_line != NULL)
+	{
+		temp = data->env_line;
+		if (temp->key_value)
+		{
+			if (temp->key_value->key)
+				free(temp->key_value->key);
+			if (temp->key_value->value)
+				free(temp->key_value->value);
+			free(temp->key_value);
+		}
+		data->env_line = data->env_line->next;
+		if (temp)
+			free(temp);
+	}
+	free_arr(data->env_arr);
+	free(data);
+	printf("exit\n");
+	exit(last_return_value);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell				*shell;
@@ -64,7 +90,7 @@ int	main(int argc, char **argv, char **envp)
 		g_var = 0;
 		shell->h_lines++;
 		if (!shell->cmd)
-			free_exit(shell, 1408);
+			controld_exit(shell, get_last_return_value(shell));
 		if (press_enter_only(shell->cmd))
 			continue ;
 		if (process(shell, shell->cmd))

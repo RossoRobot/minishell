@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 08:21:43 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 10:14:26 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:58:32 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,6 @@ void	free_exit(t_shell *data, int error_flag)
 			free(temp);
 	}
 	free_arr(data->env_arr);
-	if (error_flag == 1408)
-	{
-		free(data);
-		printf("exit\n");
-		exit(0);
-	}
 	freeparse_or_not(data, error_flag);
 }
 

@@ -99,3 +99,32 @@ unexpected token `", 2);
 	}
 	return (0);
 }
+
+int	correct_red(char *str)
+{
+	int	len;
+	int	i;
+
+	i = 0;
+	len = ft_strlen(str);
+	if (len <= 2)
+		return (1);
+	if (len == 3)
+	{
+		if (str[1] == ' ' && str[2] != '<' && str[2] != '>')
+			return (0);
+	}
+	if (len >= 4)
+	{
+		if (str[1] == ' ' && str[2] != '<' && str[2] != '>')
+			return (0);
+		if (str[2] == ' ' && str[3] != '<' && str[3] != '>')
+		{
+			if (str[0] == '<' && str[0] == str[1])
+				return (0);
+			if (str[0] == '>' && str[0] == str[1])
+				return (0);
+		}
+	}
+	return (1);
+}

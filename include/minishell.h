@@ -148,6 +148,7 @@ void						re_mal_list(t_shell *shell, int i);
 //hyper_helper
 int							start_w_red(char *str);
 int							red_del(t_shell *shell, t_list *ptr);
+int							correct_red(char *str);
 
 // sep_env_cmd
 int							squeeze_node(t_list *ptr, char *content);

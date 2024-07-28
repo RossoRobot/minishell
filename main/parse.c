@@ -85,7 +85,7 @@ int	check_input(char *str, t_shell *shell)
 		write(2, "'\n", 2);
 		return (set_return_value(shell, 2), 1);
 	}
-	if (start_w_red(str))
+	if (correct_red(str) && start_w_red(str))
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
 		return (set_return_value(shell, 2), 1);

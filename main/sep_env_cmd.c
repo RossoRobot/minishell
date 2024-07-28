@@ -19,7 +19,7 @@ int	squeeze_node(t_list *ptr, char *content)
 
 	new_node = malloc (sizeof(t_list));
 	if (!new_node)
-		return (0);
+		return (1);
 	tmp = ptr->next;
 	ptr->next = new_node;
 	new_node->next = tmp;
@@ -36,19 +36,23 @@ int	split_token(t_list *ptr)
 	arr = ft_split(ptr->content, ' ');
 	if (!arr)
 		return (1);
-	i = -1;
-	while (ptr->content[++i])
+	i = 0;
+	while (ptr->content[i] == ' ')
+		i++;
+	while (ptr->content[i])
 	{
 		if (ptr->content[i] == ' ')
 		{
 			ptr->content[i] = 0;
 			break ;
 		}
+		i++;
 	}
 	i = 1;
 	while (arr[i])
 	{
-		squeeze_node(ptr, arr[i]);
+		if (squeeze_node(ptr, arr[i]))
+			return (1);
 		ptr = ptr->next;
 		i++;
 	}
@@ -69,12 +73,12 @@ int	sep_env_cmd(t_shell *shell)
 	while (ptr)
 	{
 		n = 0;
+		while (ptr->content[n] == ' ')
+			n++;
 		while (ptr->content[n])
 		{
 			set_flag(&ptr->content[n], &flag);
-			while (ptr->content[n] == ' ')
-				n++;
-			if (ptr->content[n] && ptr->content[n++] == ' ' && flag == 0)
+			if (ptr->content[n++] == ' ' && flag == 0)
 			{
 				if (split_token(ptr))
 					free_exit(shell, 1);

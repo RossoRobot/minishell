@@ -75,10 +75,8 @@ int	start_w_red(char *str)
 
 int	red_del(t_shell *shell, t_list *ptr)
 {
-	int		i;
 	char	*tmp;
 
-	i = 0;
 	tmp = ptr->next->content;
 	if (ptr->next->content[0] == '<' || ptr->next->content[0] == '>')
 	{
@@ -93,7 +91,8 @@ unexpected token `", 2);
 		if (ptr->next->content[1] == '>')
 			write(2, ">", 1);
 		if (ptr->next->content[1] && ptr->next->content[2] == '<'
-				&& ptr->next->content[2] == tmp[0])
+				&& ptr->next->content[2] == tmp[0]
+				&& ptr->next->content[1] == '<')
 			write(2, "<", 1);
 		write(2, "'\n", 2);
 		return (set_return_value(shell, 2), 2);

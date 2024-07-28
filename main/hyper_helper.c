@@ -31,3 +31,42 @@ void	set_here_del_type(t_shell *shell)
 	}
 	ptr = NULL;
 }
+
+int	start_w_red(char *str)
+{
+	int		i;
+	int		n;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	n = i;
+	while (str[n] == '<')
+		n++;
+	if (n == i + 2 && str[n] == '<' && str[n] == '>')
+		return (0);
+	n = 0;
+	while (str[i + n] == '>')
+	{
+		n++;
+		if ((n == 1 || n == 2) && str[i + n] == 0)
+			return (1);
+	}
+	n = 0;
+	while (str[i + n] == '<')
+	{
+		n++;
+		if ((n >= 1 && n <= 3) && str[i + n] == 0)
+			return (1);
+	}
+
+
+		// if (str[i + 1])
+		// {
+		// 	if (str[i + 1] == '|')
+		// 		return (2);
+		// }
+		// return (1);
+	
+	return (0);
+}

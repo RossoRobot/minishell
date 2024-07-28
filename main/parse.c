@@ -80,7 +80,15 @@ int	check_input(char *str, t_shell *shell)
 	flagflag = 0;
 	if (start_w_pipe(shell, str))
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+		write(2, "||", start_w_pipe(shell, str));
+		write(2, "'\n", 2);
+		set_return_value(shell, 2);
+		return (1);
+	}
+	if (start_w_red(str))
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
 		return (1);
 	}
 	while (str[i])
@@ -111,11 +119,17 @@ int	parse(char *cmd, t_shell *shell)
 	if (expansion(shell))
 		free_exit(shell, 1);
 	sep_env_cmd(shell);
+	// if (del_empty_tk(shell))
+	// 	return (1);
+	// print_tokens(shell);
 	unquote(shell);
 	if (start_w_pipe(shell, shell->lists[0]->content))
 	{
-		ft_putstr_fd("|: command not found\n", 2);
-		return (1);
+		ft_putstr_fd("minishell: ", 2);
+		write(2, shell->lists[0]->content, ft_strlen(shell->lists[0]->content));			
+		ft_putstr_fd(": command not found\n", 2);
+		set_return_value(shell, 127);
+		return (free_parse(shell), 1);
 	}
 	if (start_heredoc(shell))
 		return (free_parse(shell), 1);

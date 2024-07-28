@@ -17,7 +17,7 @@ static int	process(t_shell *shell, char *cmd)
 	shell->hd_cc_flag = 0;
 	add_history(cmd);
 	if (parse(cmd, shell))
-		return (0);
+		return (1);
 	if (shell->hd_cc_flag == 1)
 	{
 		set_return_value(shell, 130);
@@ -68,7 +68,7 @@ int	main(int argc, char **argv, char **envp)
 		if (press_enter_only(shell->cmd))
 			continue ;
 		if (process(shell, shell->cmd))
-			return (1);
+			continue;
 		free(shell->cmd);
 	}
 }

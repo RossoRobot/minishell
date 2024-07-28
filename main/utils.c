@@ -67,7 +67,7 @@ int	chk_del(t_shell *shell, char *chr, int *flag, int pos)
 		i++;
 	}
 	if (shell->del_flag == 1 && *chr != '<' && *chr != '>')
-		return (shell->del_flag = 0, 1);
+		return (printf("chk_del"), shell->del_flag = 0, 1);
 	return (0);
 }
 

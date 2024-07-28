@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/23 21:43:10 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 12:55:45 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,7 +302,7 @@ void						set_here_del_type(t_shell *shell);
 
 void						print_error_msg(int err, char *path);
 
-void						check_for_dir(t_shell *shell, char *path,
+void						check_for_dir(t_shell *shell, char *node_content, char *path,
 								char **ar);
 
 #endif

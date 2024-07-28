@@ -72,7 +72,9 @@ int	sep_env_cmd(t_shell *shell)
 		while (ptr->content[n])
 		{
 			set_flag(&ptr->content[n], &flag);
-			if (ptr->content[n++] == ' ' && flag == 0)
+			while (ptr->content[n] == ' ')
+				n++;
+			if (ptr->content[n] && ptr->content[n++] == ' ' && flag == 0)
 			{
 				if (split_token(ptr))
 					free_exit(shell, 1);

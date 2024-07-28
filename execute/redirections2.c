@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 20:08:05 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:23:42 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static void	builtin_option(t_shell *shell, t_list *temp, char **arr)
 	execute_builtin(shell, temp);
 	reset_fds(shell, shell->stdin_backup, shell->stdout_backup);
 }
-
-
 
 int	execute_it(t_shell *shell, char **arr, t_list *list)
 {

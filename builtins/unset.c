@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 13:30:33 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/06/24 19:13:50 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:22:42 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,18 @@ t_key_value	*set_keys_n_values(t_shell *data, char *key, char *value, char *str)
 		return (key_value_pair);
 	}
 	return (key_value_pair);
+}
+
+void	handle_shlvl(t_shell *data)
+{
+	char	*str;
+	char	*value;
+
+	str = NULL;
+	value = NULL;
+	str = my_getenv(data, "SHLVL", 0);
+	if (!str)
+		export_malloc(data, ft_strdup(data, "SHLVL=0"), NULL, NULL);
+	else
+		free(str);
 }

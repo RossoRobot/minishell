@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:50:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 18:37:05 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:23:06 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static int	check_for_slash(char *path)
 	}
 	return (slashflag);
 }
+
 static void	exit_cfdir(t_shell *shell, char *path, char **ar, int flag)
 {
 	free_arr(ar);

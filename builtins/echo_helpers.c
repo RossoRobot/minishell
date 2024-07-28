@@ -6,16 +6,16 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:27:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 18:53:20 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 21:22:12 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../include/minishell.h"
 
-void exit_hardcode234(t_shell *shell, t_list *list)
+void	exit_hardcode234(t_shell *shell, t_list *list)
 {
 	if (list->next == NULL)
-		return;
+		return ;
 	list = list->next;
 	if (list->content[0] == '\0')
 	{
@@ -30,7 +30,6 @@ int	ft_exit(t_shell *shell, t_list *list)
 	long	nr;
 
 	nr = get_last_return_value(shell);
-
 	if (list != NULL)
 	{
 		exit_hardcode234(shell, list);
@@ -83,7 +82,6 @@ t_list	*find_command(t_list *list)
 			temp2 = temp;
 			while (temp2 != NULL)
 			{
-				//set_type(temp2);
 				temp2 = temp2->next;
 			}
 			return (temp);
@@ -97,23 +95,9 @@ t_list	*find_command(t_list *list)
 	return (temp);
 }
 
-void	handle_shlvl(t_shell *data)
-{
-	char	*str;
-	char	*value;
-
-	str = NULL;
-	value = NULL;
-	str = my_getenv(data, "SHLVL", 0);
-	if (!str)
-		export_malloc(data, ft_strdup(data, "SHLVL=0"), NULL, NULL);
-	else
-		free(str);
-}
-
 int	is_n_flag(char *str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '-')

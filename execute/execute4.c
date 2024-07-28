@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 17:50:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 12:58:15 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/28 12:59:50 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	check_for_dir(t_shell *shell, char *node_content, char *path, char **ar)
 		ft_putstr_fd(": is a directory\n", 2);
 		exit_cfdir(shell, path, ar, 126);
 	}
-	dprintf(2, "path:%s\n", path);
 	if (execve(path, ar, shell->env_arr) == -1)
 	{
 		ft_putstr_fd(node_content, 2);

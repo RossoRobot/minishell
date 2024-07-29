@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:55:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/29 19:36:04 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:58:19 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@ static int	zwischenparser3000(t_shell *shell)
 		if (temp->type == 4 || temp->type == 5 || temp->type == 7)
 		{
 			if (temp->type == 4)
-				ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+				ft_putstr_fd("minishell: syntax error near\
+unexpected token `|'\n", 2);
 			else
-				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+				ft_putstr_fd("minishell: syntax error near\
+ unexpected token `newline'\n",
+					2);
 			set_return_value(shell, 2);
 			free_hname(shell);
 			free_parse(shell);
@@ -101,9 +104,9 @@ static void	controld_exit(t_shell *data, int last_return_value)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_shell				*shell;
+	t_shell	*shell;
 
-	shell = (t_shell *) malloc (sizeof(t_shell));
+	shell = (t_shell *)malloc(sizeof(t_shell));
 	test_malloc(shell);
 	first_init(shell, argc, argv);
 	init_values(shell);

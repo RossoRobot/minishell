@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   split2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/14 10:38:28 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/29 20:41:13 by mvolgger         ###   ########.fr       */
+/*   Created: 2024/07/29 20:40:05 by mvolgger          #+#    #+#             */
+/*   Updated: 2024/07/29 20:52:07 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ static int	ft_countwords(char *s1, char c)
 		return (0);
 	i = 0;
 	words = 0;
-	while (s1 && s1[i] && s1[i] == c)
+	while (s1 && s1[i] && (s1[i] == c || s1[i] == '\t'))
 		i++;
 	while (s1[i] != '\0')
 	{
-		while (s1[i] == c && s1[i] != '\0')
+		while ((s1[i] == c || s1[i] == '\t') && s1[i] != '\0')
 			i++;
-		if (s1[i] != c && s1[i] != '\0')
+		if ((s1[i] != c || s1[i] != '\t') && s1[i] != '\0')
 		{
 			words++;
-			while (s1[i] != c && s1[i] != '\0')
+			while ((s1[i] != c || s1[i] != '\t') && s1[i] != '\0')
 				i++;
 		}
 	}
@@ -42,9 +42,9 @@ static void	ft_strcpy(char *src, char *dest, char c, int start)
 	int	i;
 
 	i = 0;
-	while (src[start] != '\0' && src[start] == c)
+	while (src[start] != '\0' && (src[start] == c || src[start] == '\t'))
 		start++;
-	while (src[start + i] != '\0' && src[start + i] != c)
+	while (src[start + i] != '\0' && (src[start + i] != c || src[start + i] != '\t'))
 	{
 		dest[i] = src[start + i];
 		i++;
@@ -57,9 +57,9 @@ static int	ft_strlength(char *s1, char c, int *pos)
 	int	i;
 
 	i = 0;
-	while (s1[*pos] == c)
+	while (s1[*pos] == c || s1[*pos] == '\t')
 		(*pos)++;
-	while (s1[*pos + i] != c && s1[*pos + i] != '\0')
+	while ((s1[*pos + i] != c || s1[*pos + i] != '\t') && s1[*pos + i] != '\0')
 		i++;
 	return (i);
 }
@@ -75,7 +75,7 @@ static char	*ft_substralloc(char *s1, char c, int *pos)
 	substr = NULL;
 	while (s1[*pos] != '\0')
 	{
-		if (s1[*pos] == c)
+		if (s1[*pos] == c || s1[*pos] == '\t')
 		{
 			substr = (char *)malloc(sizeof(char) * (length + 1));
 			if (substr == NULL)
@@ -92,7 +92,7 @@ static char	*ft_substralloc(char *s1, char c, int *pos)
 	return (substr);
 }
 
-char	**ft_split(const char *s1, char c)
+char	**ft_split2(const char *s1, char c)
 {
 	char	**strs;
 	int		words;
@@ -117,6 +117,6 @@ char	**ft_split(const char *s1, char c)
 			return (NULL);
 		}
 		i++;
-	}
+	}	
 	return (strs);
 }

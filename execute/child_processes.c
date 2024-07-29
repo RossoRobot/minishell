@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/29 19:26:10 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 20:01:43 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	first_child_process(t_shell *shell, t_list *list, int *pipes,
 	int	ret;
 
 	ret = 0;
-	if ((dup2(temp_fd, STDIN_FILENO) == -1)
-		|| dup2(pipes[1], STDOUT_FILENO) == -1)
+	if ((dup2(temp_fd, STDIN_FILENO) == -1) || dup2(pipes[1], STDOUT_FILENO)
+		== -1)
 	{
 		close(pipes[0]);
 		close(pipes[1]);
@@ -42,7 +42,7 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes,
 	int	ret;
 
 	ret = 0;
-	if (dup2(temp_fd, STDIN_FILENO) == -1 )
+	if (dup2(temp_fd, STDIN_FILENO) == -1)
 	{
 		close(pipes[0]);
 		close(pipes[1]);

@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:47:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/29 19:26:20 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:59:36 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	check_last_node(t_list *list)
 	if (check_for_redirections(temp))
 	{
 		ft_putstr_fd("minishell: 111syntax error near unexpected token `|'\n",
-				2);
+			2);
 		return (1);
 	}
 	return (0);

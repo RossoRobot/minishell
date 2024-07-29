@@ -6,7 +6,7 @@
 #    By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/01 14:00:52 by kbrauer           #+#    #+#              #
-#    Updated: 2024/07/21 20:32:41 by mvolgger         ###   ########.fr        #
+#    Updated: 2024/07/29 20:41:30 by mvolgger         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRCS = $(MAIN_DIR)/main.c $(MAIN_DIR)/utils.c $(MAIN_DIR)/utils2.c \
 	$(EXEC_DIR)/process_helpers.c $(EXEC_DIR)/execute2.c \
 	$(EXEC_DIR)/redirections2.c $(EXEC_DIR)/execute3.c  $(BI_DIR)/exit_helper.c \
 	$(BI_DIR)/echo_helpers.c $(EXEC_DIR)/execute4.c $(MAIN_DIR)/hyper_helper.c \
-	$(MAIN_DIR)/emergency_helper.c
+	$(MAIN_DIR)/emergency_helper.c $(EXEC_DIR)/redirections3.c $(MAIN_DIR)/split2.c
 	
 OBJS = $(SRCS:.c=.o)
 

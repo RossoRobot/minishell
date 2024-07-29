@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/29 19:06:11 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 20:03:54 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,8 @@ void	prep_redir_exec(t_shell *shell, t_list *list, int flag)
 	temp = find_command(list);
 	while (j < i)
 	{
-		cmd_arr[j] = ft_strdup(shell, temp->content);
+		cmd_arr[j++] = ft_strdup(shell, temp->content);
 		temp = temp->next;
-		j++;
 	}
 	temp = list;
 	i = 0;
@@ -111,32 +110,4 @@ void	dup_stds(t_shell *shell)
 		close(shell->stdin_backup);
 		free_exit(shell, 1);
 	}
-}
-
-int	exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
-{
-	int	ret;
-
-	ret = 0;
-	dup_stds(shell);
-	while (temp != NULL)
-	{
-		while (temp != NULL && temp->type != 4 && temp->type != 5
-			&& temp->type != 7)
-			temp = temp->next;
-		if (temp == NULL)
-			return (execute_it(shell, arr, list));
-		else if (temp->type == 5)
-			ret = redirect_output(shell, temp->next, arr, 0);
-		else if (temp->type == 7)
-			ret = redirect_output(shell, temp->next, arr, 1);
-		else if (temp->type == 4)
-			ret = redirect_input(shell, temp, arr, list);
-		if (ret == 1)
-			return (free_arr(arr), ret);
-		temp = temp->next;
-		if (ret != 0)
-			return (free_arr(arr), ret);
-	}
-	return (ret);
 }

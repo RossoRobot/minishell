@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sep_env_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbrauer <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 11:59:45 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/06/15 11:59:46 by kbrauer          ###   ########.fr       */
+/*   Updated: 2024/07/29 20:44:59 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ int	split_token(t_list *ptr)
 	int		i;
 	char	**arr;
 
-	arr = ft_split(ptr->content, ' ');
+	arr = ft_split2(ptr->content, ' ');
 	if (!set_data_return_shell(NULL, &i, NULL, NULL) && !arr)
 		return (1);
-	while (ptr->content[i] == ' ')
+	while (ptr->content[i] == ' ' || ptr->content[i] == '\t')
 		i++;
 	while (ptr->content[i])
 	{
-		if (ptr->content[i] == ' ')
+		if (ptr->content[i] == ' ' || ptr->content[i] == '\t')		
 		{
 			ptr->content[i] = 0;
 			break ;

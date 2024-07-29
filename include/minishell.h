@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/29 19:25:53 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 20:40:35 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,8 @@ int							handle_empty_tokens(t_shell *shell);
 
 // emergency_helper
 int							maybe_del_next(t_list *ptr);
-int							loopyloop(t_shell *shell, t_list *ptr, int i, int *n);
+int							loopyloop(t_shell *shell, t_list *ptr, int i,
+								int *n);
 
 // sep_env_cmd
 int							squeeze_node(t_list *ptr, char *content);
@@ -321,8 +322,11 @@ void						check_for_dir(t_shell *shell, char *node_content,
 
 void						exit_hardcode234(t_shell *shell, t_list *list);
 
-int	check_for_empty_exp(t_list *list);
+void						exit_syntax_err(t_shell *shell, int flag);
 
-void	exit_syntax_err(t_shell *shell, int flag);
+void						write_access_err(char *str, int flag);
+
+char						**ft_split2(const char *s1, char c);
 
 #endif
+	

@@ -32,29 +32,7 @@ int	del_empty_tk(t_shell *shell, int i)
 	{
 		ptr = shell->lists[i];
 		n = 0;
-		while (ptr)
-		{
-			if (ptr->type == null_a && !n)
-			{
-				ptr = del_first_node(shell, i, ptr);
-				continue ;
-			}
-			n++;
-			if (ptr->type >= 4 && ptr->type <= 7)
-			{
-				ptr = ptr->next;
-				if (!ptr)
-					break ;
-				ptr = ptr->next;
-				continue ;
-			}
-			if (ptr->next && ptr->next->type == null_a)
-			{
-				del_next_node(ptr);
-				continue ;
-			}
-			ptr = ptr->next;
-		}
+		loopyloop(shell, ptr, i, &n);
 		if (!shell->lists[i])
 			create_null_node(shell, i);
 		i++;

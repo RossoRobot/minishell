@@ -110,7 +110,6 @@ int	parse(char *cmd, t_shell *shell)
 	set_here_del_type(shell);
 	if (expansion(shell))
 		free_exit(shell, 1);
-	sep_env_cmd(shell);
 	if (handle_empty_tokens(shell))
 		return (1);
 	unquote(shell);

@@ -111,6 +111,7 @@ int	correct_red(char *str)
 
 int	handle_empty_tokens(t_shell *shell)
 {
+	sep_env_cmd(shell);
 	set_null_type(shell);
 	if (del_empty_tk(shell, 0))
 		return (1);

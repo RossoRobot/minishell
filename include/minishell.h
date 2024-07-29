@@ -153,7 +153,11 @@ void						set_here_del_type(t_shell *shell);
 int							start_w_red(char *str);
 int							red_del(t_shell *shell, t_list *ptr);
 int							correct_red(char *str);
-int						handle_empty_tokens(t_shell *shell);
+int							handle_empty_tokens(t_shell *shell);
+
+// emergency_helper
+int							maybe_del_next(t_list *ptr);
+int							loopyloop(t_shell *shell, t_list *ptr, int i, int *n);
 
 // sep_env_cmd
 int							squeeze_node(t_list *ptr, char *content);

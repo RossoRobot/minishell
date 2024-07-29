@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:27:17 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 21:22:12 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:49:53 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ t_list	*find_command(t_list *list)
 		{
 			temp = temp->next;
 		}
-		temp = temp->next;
+		if (temp)
+			temp = temp->next;
 	}
 	return (temp);
 }

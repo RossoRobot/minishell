@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 12:59:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/28 19:25:44 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:06:58 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int	parse(char *cmd, t_shell *shell)
 	sep_env_cmd(shell);
 	if (handle_empty_tokens(shell))
 		return (1);
-	print_tokens(shell);
 	unquote(shell);
 	if (start_w_pipe(shell, shell->lists[0]->content))
 	{

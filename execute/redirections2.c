@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 21:23:42 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:47:03 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	write_access_err(char *str, int flag)
 	{
 		if (access(str, F_OK) == 0 && access(str, W_OK) == -1)
 		{
+			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(str, 2);
 			ft_putstr_fd(": Permission denied\n", 2);
 		}
@@ -61,12 +62,14 @@ static void	write_access_err(char *str, int flag)
 	{
 		if (access(str, F_OK) == -1)
 		{
+			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(str, 2);
 			ft_putstr_fd(": No such file or directory\n", 2);
 			return ;
 		}
 		if (access(str, R_OK) == -1)
 		{
+			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(str, 2);
 			ft_putstr_fd(": Permission denied\n", 2);
 		}
@@ -77,19 +80,17 @@ int	redirect_input(t_shell *shell, t_list *list, char **arr, t_list *list_begin)
 {
 	int		fd;
 	t_list	*cmd;
-	t_shell	*dumm;
-	char	**dummy;
 
-	dummy = arr;
-	dumm = shell;
 	cmd = find_command(list_begin);
+	if (!list || list->type == 19 || list)
+		return (check_for_empty_exp(list));
 	write_access_err(list->next->content, 2);
 	fd = open(list->next->content, O_RDONLY);
 	if (fd == -1)
 	{
 		reset_fds(shell, shell->stdin_backup, shell->stdout_backup);
 		set_return_value(shell, 1);
-		return (-1);
+		return (1);
 	}
 	if (dup2(fd, STDIN_FILENO) == -1)
 	{
@@ -102,6 +103,25 @@ int	redirect_input(t_shell *shell, t_list *list, char **arr, t_list *list_begin)
 	return (0);
 }
 
+int	check_for_empty_exp(t_list *list)
+{
+	if (!list)
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+		return (2);
+	}
+	if (list->type == 19)
+	{
+		ft_putstr_fd("minishell: ambiguous redirect\n",2);
+		return (1);
+	}
+	// if (!list->content[0] == '|')
+	// {
+	// 	ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+	// }
+	return (0);
+}
+
 int	redirect_output(t_shell *shell, t_list *list, char **arr, int append)
 {
 	int		fd;
@@ -111,13 +131,15 @@ int	redirect_output(t_shell *shell, t_list *list, char **arr, int append)
 	ptr = shell;
 	ptr2 = arr;
 	fd = 0;
+	if (!list || list->type == 19)
+		return (check_for_empty_exp(list));
 	write_access_err(list->content, 1);
 	if (append == 0)
 		fd = open(list->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (append == 1)
 		fd = open(list->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd == -1)
-		return (set_return_value(shell, 1), -1);
+		return (set_return_value(shell, 1), 1);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
 		set_return_value(shell, 1);

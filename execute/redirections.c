@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:42:50 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 18:25:03 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:06:11 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,17 @@ static int	check_for_bad_rds(t_shell *shell, t_list *list)
 	return (0);
 }
 
+void	exit_syntax_err(t_shell *shell, int flag)
+{
+	ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+	if (flag == 1)
+	{
+		free_exit(shell, 2);
+		set_return_value(shell, 2);
+	}
+	return ;
+}
+
 void	prep_redir_exec(t_shell *shell, t_list *list, int flag)
 {
 	t_list	*temp;
@@ -66,6 +77,8 @@ void	prep_redir_exec(t_shell *shell, t_list *list, int flag)
 
 	j = 0;
 	i = cmd_position(list);
+	if (i == -1)
+		return (exit_syntax_err(shell, flag));
 	cmd_arr = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!cmd_arr)
 		free_exit(shell, 1);
@@ -122,8 +135,8 @@ int	exec_redir(t_shell *shell, t_list *temp, char **arr, t_list *list)
 		if (ret == 1)
 			return (free_arr(arr), ret);
 		temp = temp->next;
-		if (ret == -1)
-			return (free_arr(arr), 1);
+		if (ret != 0)
+			return (free_arr(arr), ret);
 	}
 	return (ret);
 }

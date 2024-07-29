@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:47:18 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 19:23:34 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:26:20 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ static void	fork_no_pipe(t_shell *shell, t_list *list)
 int	execute_no_pipe(t_shell *shell, t_list *list)
 {
 	if (check_for_empty_cmd(shell, list, 0))
-		return (127);
-	if (check_last_node(list, 1))
-		return (1);
+		return (0);
 	if (is_redirection(shell, list) != 0 && ((list->type >= 10
 				&& list->type <= 16) || check_for_builtin(shell, list)))
 		return (prep_redir_exec(shell, list, 0), 0);
@@ -72,7 +70,7 @@ int	execute_no_pipe(t_shell *shell, t_list *list)
 	return (0);
 }
 
-int	check_last_node(t_list *list, int flag)
+int	check_last_node(t_list *list)
 {
 	t_list	*temp;
 	int		count;
@@ -86,14 +84,7 @@ int	check_last_node(t_list *list, int flag)
 	}
 	if (check_for_redirections(temp))
 	{
-		if (flag == 1)
-		{
-			if (!ft_strncmp(temp->content, "", 1))
-				return (ft_putstr_fd("Command \'\' not found\n", 2), 1);
-			check_error(temp, count);
-		}
-		else
-			ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
+		ft_putstr_fd("minishell: 111syntax error near unexpected token `|'\n",
 				2);
 		return (1);
 	}

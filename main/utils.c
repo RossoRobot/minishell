@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 17:39:31 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/28 19:35:28 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:04:47 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 	{
 		start->content[i] = str[i];
 		i++;
-		if (chk_del(shell, &str[i], &flag, i) == 0)
-			continue;
 		set_flag(&str[i], &flag);
 	}
 	return (start->content[i] = '\0', start->next = NULL, start);

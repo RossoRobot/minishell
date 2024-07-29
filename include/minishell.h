@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/28 21:24:33 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:25:53 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,8 +295,6 @@ void						dup_stds(t_shell *shell);
 
 void						freeparse_or_not(t_shell *shell, int flag);
 
-int							check_last_node(t_list *list, int flag);
-
 void						close_all_fds(void);
 
 char						*create_shlvl(t_shell *data, char *envp);
@@ -318,5 +316,9 @@ void						check_for_dir(t_shell *shell, char *node_content,
 								char *path, char **ar);
 
 void						exit_hardcode234(t_shell *shell, t_list *list);
+
+int	check_for_empty_exp(t_list *list);
+
+void	exit_syntax_err(t_shell *shell, int flag);
 
 #endif

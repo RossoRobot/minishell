@@ -6,11 +6,38 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:55:07 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/28 19:33:42 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:36:04 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../include/minishell.h"
+
+static int	zwischenparser3000(t_shell *shell)
+{
+	int		i;
+	t_list	*temp;
+
+	i = 0;
+	while (shell->lists[i])
+	{
+		temp = shell->lists[i];
+		while (temp->next)
+			temp = temp->next;
+		if (temp->type == 4 || temp->type == 5 || temp->type == 7)
+		{
+			if (temp->type == 4)
+				ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+			else
+				ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+			set_return_value(shell, 2);
+			free_hname(shell);
+			free_parse(shell);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 static int	process(t_shell *shell, char *cmd)
 {
@@ -25,6 +52,8 @@ static int	process(t_shell *shell, char *cmd)
 		free_parse(shell);
 		return (0);
 	}
+	if (zwischenparser3000(shell))
+		return (0);
 	execute(shell);
 	free_hname(shell);
 	free_parse(shell);

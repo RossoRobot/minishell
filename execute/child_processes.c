@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:21 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/21 17:07:07 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:26:10 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	first_child_process(t_shell *shell, t_list *list, int *pipes,
 
 	ret = 0;
 	if ((dup2(temp_fd, STDIN_FILENO) == -1)
-		|| dup2(pipes[1], STDOUT_FILENO) == -1 || check_last_node(list, 1))
+		|| dup2(pipes[1], STDOUT_FILENO) == -1)
 	{
 		close(pipes[0]);
 		close(pipes[1]);
@@ -42,12 +42,12 @@ void	last_child_process(t_shell *shell, t_list *list, int *pipes,
 	int	ret;
 
 	ret = 0;
-	if (dup2(temp_fd, STDIN_FILENO) == -1 || check_last_node(list, 2))
+	if (dup2(temp_fd, STDIN_FILENO) == -1 )
 	{
 		close(pipes[0]);
 		close(pipes[1]);
 		close(temp_fd);
-		free_exit(shell, 1);
+		free_exit(shell, 2);
 	}
 	close(pipes[0]);
 	close(pipes[1]);
@@ -105,6 +105,8 @@ int	cmd_position(t_list *list)
 
 	i = 0;
 	temp = find_command(list);
+	if (!temp || (temp->type == 4 || temp->type == 5 || temp->type == 7))
+		return (-1);
 	while (temp != NULL && temp->type != 4 && temp->type != 5
 		&& temp->type != 7)
 	{

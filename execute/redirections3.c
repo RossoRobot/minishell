@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:52:28 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/29 20:55:56 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:19:59 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,8 @@ int	redirect_output(t_shell *shell, t_list *list, char **arr, int append)
 	{
 		set_return_value(shell, 1);
 		free_arr(arr);
-		close(fd);  
+		close(fd);
 		free_exit(shell, 1);
 	}
 	return (close(fd), 0);
 }
-

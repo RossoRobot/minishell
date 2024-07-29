@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 10:15:27 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 13:44:57 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:15:06 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,12 @@ long	ft_atol(char *str)
 	result = 0;
 	sign = 1;
 	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
-		if (str[i] == '-')
+		if (str[i++] == '-')
 			sign = -1;
-		i++;
 	}
 	while (str[i])
 	{
@@ -45,8 +46,7 @@ long	ft_atol(char *str)
 				return (LONG_MIN);
 			return (LONG_MAX);
 		}
-		result = result * 10 + (str[i] - '0');
-		i++;
+		result = result * 10 + (str[i++] - '0');
 	}
 	return (result * sign);
 }

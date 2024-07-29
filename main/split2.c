@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 20:40:05 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/29 20:52:07 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:19:04 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void	ft_strcpy(char *src, char *dest, char c, int start)
 	i = 0;
 	while (src[start] != '\0' && (src[start] == c || src[start] == '\t'))
 		start++;
-	while (src[start + i] != '\0' && (src[start + i] != c || src[start + i] != '\t'))
+	while (src[start + i] != '\0' && (src[start + i] != c
+			|| src[start + i] != '\t'))
 	{
 		dest[i] = src[start + i];
 		i++;
@@ -117,6 +118,6 @@ char	**ft_split2(const char *s1, char c)
 			return (NULL);
 		}
 		i++;
-	}	
+	}
 	return (strs);
 }

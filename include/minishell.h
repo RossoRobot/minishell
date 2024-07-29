@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 13:52:08 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/29 20:40:35 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:20:14 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,4 +329,3 @@ void						write_access_err(char *str, int flag);
 char						**ft_split2(const char *s1, char c);
 
 #endif
-	

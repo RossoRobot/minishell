@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 11:59:45 by kbrauer           #+#    #+#             */
-/*   Updated: 2024/07/29 20:44:59 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:19:28 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	split_token(t_list *ptr)
 		i++;
 	while (ptr->content[i])
 	{
-		if (ptr->content[i] == ' ' || ptr->content[i] == '\t')		
+		if (ptr->content[i] == ' ' || ptr->content[i] == '\t')
 		{
 			ptr->content[i] = 0;
 			break ;

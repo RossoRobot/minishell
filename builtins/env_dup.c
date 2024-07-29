@@ -6,7 +6,7 @@
 /*   By: mvolgger <mvolgger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:01:54 by mvolgger          #+#    #+#             */
-/*   Updated: 2024/07/28 13:29:38 by mvolgger         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:13:48 by mvolgger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	exit_code_check(char *str)
 	int	i;
 
 	i = 0;
+	while (str[i] == ' ' || str[i] == '\t')
+		i++;
 	if (str[i] == '+' || str[i] == '-')
 		i++;
 	while (str[i] != '\0')

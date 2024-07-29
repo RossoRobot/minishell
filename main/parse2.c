@@ -14,9 +14,12 @@
 
 t_shell	*set_data_return_shell(t_shell *shell, int *i, int *k, int *pipes)
 {
-	*i = 0;
-	*k = 0;
-	*pipes = shell->n_pipes;
+	if (i)
+		*i = 0;
+	if (k)
+		*k = 0;
+	if (pipes && shell)
+		*pipes = shell->n_pipes;
 	return (shell);
 }
 

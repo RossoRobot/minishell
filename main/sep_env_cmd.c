@@ -34,9 +34,8 @@ int	split_token(t_list *ptr)
 	char	**arr;
 
 	arr = ft_split(ptr->content, ' ');
-	if (!arr)
+	if (!set_data_return_shell(NULL, &i, NULL, NULL) && !arr)
 		return (1);
-	i = 0;
 	while (ptr->content[i] == ' ')
 		i++;
 	while (ptr->content[i])
@@ -48,20 +47,17 @@ int	split_token(t_list *ptr)
 		}
 		i++;
 	}
-	i = 1;
-	while (arr[i])
+	i = 0;
+	while (arr[++i])
 	{
 		if (squeeze_node(ptr, arr[i]))
 			return (1);
 		ptr = ptr->next;
-		i++;
 	}
-	free(arr[0]);
-	free(arr);
-	return (0);
+	return (free(arr[0]), free(arr), 0);
 }
 
-int	sep_env_cmd(t_shell *shell)
+void	sep_env_cmd(t_shell *shell)
 {
 	int		i;
 	int		n;
@@ -88,7 +84,6 @@ int	sep_env_cmd(t_shell *shell)
 		if (!ptr)
 			ptr = shell->lists[++i];
 	}
-	return (0);
 }
 
 void	negative_fd(t_shell *shell, int fd)

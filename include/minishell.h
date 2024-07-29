@@ -145,6 +145,7 @@ void						set_exp_str(t_shell *shell, char *tmp);
 int							del_empty_tk(t_shell *shell, int i);
 t_list						*del_first_node(t_shell *shell, int i, t_list *ptr);
 void						set_null_type(t_shell *shell);
+int							check_pipe_red(t_shell *shell, char *str);
 
 // hyper_helper
 void						set_here_del_type(t_shell *shell);
@@ -156,7 +157,7 @@ void						handle_empty_tokens(t_shell *shell);
 // sep_env_cmd
 int							squeeze_node(t_list *ptr, char *content);
 int							split_token(t_list *ptr);
-int							sep_env_cmd(t_shell *shell);
+void						sep_env_cmd(t_shell *shell);
 void						negative_fd(t_shell *shell, int fd);
 void						newl_numl(int *flag, int fd, int *num_lines,
 								char *cmd);
@@ -182,8 +183,9 @@ char						*while_del(t_shell *shell, char *str);
 int							while_not_del(char *str, int *flag, t_shell *shell,
 								int *k);
 void						set_flag(char *c, int *flag);
-int							only_quotes(char *ptr);
-void						check_for_empty_quotes(char *ptr);
+int							pipe_error(t_shell *shell, char *str, int i);
+// int							only_quotes(char *ptr);
+// void						check_for_empty_quotes(char *ptr);
 
 // define_type
 int							set_type(t_list *node);
@@ -309,7 +311,7 @@ int							check_for_redirections(t_list *temp);
 
 void						check_error(t_list *temp, int count);
 
-int								print_error_msg(int err, char *path);
+int							print_error_msg(int err, char *path);
 
 void						check_for_dir(t_shell *shell, char *node_content,
 								char *path, char **ar);

@@ -93,7 +93,7 @@ int	main(int argc, char **argv, char **envp)
 		if (press_enter_only(shell->cmd))
 			continue ;
 		if (process(shell, shell->cmd))
-			continue;
+			continue ;
 		free(shell->cmd);
 	}
 }

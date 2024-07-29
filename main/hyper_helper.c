@@ -47,20 +47,10 @@ int	start_w_red(char *str)
 		return (0);
 	n = 0;
 	while (str[i + n] == '>')
-	{
-		// n++;
-		// if ((n == 1 || n == 2) && str[i + n] == 0)
-		// 	return (1);
 		return (1);
-	}
 	n = 0;
 	while (str[i + n] == '<')
-	{
-		// n++;
-		// if ((n >= 1 && n <= 3) && str[i + n] == 0)
-		// 	return (1);
 		return (1);
-	}
 	return (0);
 }
 
@@ -82,8 +72,8 @@ unexpected token `", 2);
 		if (ptr->next->content[1] == '>')
 			write(2, ">", 1);
 		if (ptr->next->content[1] && ptr->next->content[2] == '<'
-				&& ptr->next->content[2] == tmp[0]
-				&& ptr->next->content[1] == '<')
+			&& ptr->next->content[2] == tmp[0]
+			&& ptr->next->content[1] == '<')
 			write(2, "<", 1);
 		write(2, "'\n", 2);
 		return (set_return_value(shell, 2), 2);
@@ -107,13 +97,13 @@ int	correct_red(char *str)
 	if (len >= 3)
 	{
 		if ((str[1] != '<' && str[1] != '>')
-				&& str[2] != '<' && str[2] != '>')
+			&& str[2] != '<' && str[2] != '>')
 			return (0);
 		if ((str[0] == '<' && str[0] == str[1]) && str[2] != '<'
-				&& str[2] != '>' && str[2] != ' ')
+			&& str[2] != '>' && str[2] != ' ')
 			return (0);
 		if ((str[0] == '>' && str[0] == str[1]) && str[2] != '<'
-				&& str[2] != '>' && str[2] != ' ')
+			&& str[2] != '>' && str[2] != ' ')
 			return (0);
 	}
 	return (1);

@@ -43,7 +43,7 @@ int	increase_flag(char c, int *f1, int *f2, int *ff)
 		else if (*ff == 2)
 			*ff = 0;
 	}
-	return (0);
+	return (1);
 }
 
 void	pipe_counter(t_shell *s, char c, int f1, int f2)

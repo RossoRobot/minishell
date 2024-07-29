@@ -30,13 +30,13 @@ int	del_empty_tk(t_shell *shell, int i)
 	while (shell->lists[i])
 	{
 		ptr = shell->lists[i];
-		while(ptr)
+		while (ptr)
 		{
 			if (ptr->type >= 4 && ptr->type <= 7)
 			{
 				ptr = ptr->next;
 				if (!ptr)
-					break;
+					break ;
 				ptr = ptr->next;
 				continue ;
 			}
@@ -63,7 +63,7 @@ t_list	*del_first_node(t_shell *shell, int i, t_list *ptr)
 	return (shell->lists[i]);
 }
 
-void set_null_type(t_shell *shell)
+void	set_null_type(t_shell *shell)
 {
 	int		i;
 	t_list	*ptr;
@@ -72,7 +72,7 @@ void set_null_type(t_shell *shell)
 	ptr = shell->lists[i];
 	while (ptr)
 	{
-		while(ptr)
+		while (ptr)
 		{
 			if (!ptr->content[0])
 				ptr->type = null_a;
@@ -80,4 +80,22 @@ void set_null_type(t_shell *shell)
 		}
 		ptr = shell->lists[++i];
 	}
+}
+
+int	check_pipe_red(t_shell *shell, char *str)
+{
+	if (start_w_pipe(shell, str))
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
+		write(2, "||", start_w_pipe(shell, str));
+		write(2, "'\n", 2);
+		return (set_return_value(shell, 2), 1);
+	}
+	if (correct_red(str) && start_w_red(str))
+	{
+		ft_putstr_fd("minishell: syntax error near \
+unexpected token `newline'\n", 2);
+		return (set_return_value(shell, 2), 1);
+	}
+	return (0);
 }

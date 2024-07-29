@@ -73,3 +73,16 @@ void	set_flag(char *c, int *flag)
 		return ;
 	}
 }
+
+int	pipe_error(t_shell *shell, char *str, int i)
+{
+	if (str[i] && str[i + 1] == '|')
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token `|", 2);
+		if (str[i + 1] && str[i + 2] == '|')
+			ft_putstr_fd("|", 2);
+		ft_putstr_fd("'\n", 2);
+		return (set_return_value(shell, 2), 1);
+	}
+	return (0);
+}

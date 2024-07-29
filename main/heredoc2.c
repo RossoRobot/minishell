@@ -39,7 +39,7 @@ int	no_del(t_shell *shell, t_list *ptr)
 unexpected token `", 2);
 		if (ptr->content[2] == '|' && ptr->content[3] == 0)
 			write(2, "|", 1);
-		else if(ptr->content[2] == '|' && ptr->content[3] == '|')
+		else if (ptr->content[2] == '|' && ptr->content[3] == '|')
 			write(2, "||", 2);
 		else
 			write(2, "newline", 7);

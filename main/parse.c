@@ -78,37 +78,20 @@ int	check_input(char *str, t_shell *shell)
 
 	set_data(&i, &flag1, &flag2, shell);
 	flagflag = 0;
-	if (start_w_pipe(shell, str))
-	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
-		write(2, "||", start_w_pipe(shell, str));
-		write(2, "'\n", 2);
-		return (set_return_value(shell, 2), 1);
-	}
-	if (correct_red(str) && start_w_red(str))
-	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
-		return (set_return_value(shell, 2), 1);
-	}
+	if (check_pipe_red(shell, str))
+		return (1);
 	while (str[i])
 	{
 		pipe_counter(shell, str[i], flag1, flag2);
 		while (str[i] == '|')
 		{
 			i++;
-			if (str[i] && str[i + 1] == '|')
-			{
-				ft_putstr_fd("minishell: syntax error near unexpected token `|", 2);
-				if (str[i + 1] && str[i + 2] == '|')
-					ft_putstr_fd("|", 2);
-				ft_putstr_fd("'\n", 2);
-				return (set_return_value(shell, 2), 1);
-			}
+			if (pipe_error(shell, str, i))
+				return (1);
 		}
 		if (!str[i])
 			break ;
-		increase_flag(str[i], &flag1, &flag2, &flagflag);
-		i++;
+		i = i + increase_flag(str[i], &flag1, &flag2, &flagflag);
 	}
 	if (flag1 % 2 || flag2 % 2)
 		return (check_input_helper(shell), 1);
@@ -129,12 +112,11 @@ int	parse(char *cmd, t_shell *shell)
 		free_exit(shell, 1);
 	sep_env_cmd(shell);
 	handle_empty_tokens(shell);
-	//print_tokens(shell);
 	unquote(shell);
-	if ( start_w_pipe(shell, shell->lists[0]->content))
+	if (start_w_pipe(shell, shell->lists[0]->content))
 	{
 		ft_putstr_fd("minishell: ", 2);
-		write(2, shell->lists[0]->content, ft_strlen(shell->lists[0]->content));			
+		write(2, shell->lists[0]->content, ft_strlen(shell->lists[0]->content));
 		ft_putstr_fd(": command not found\n", 2);
 		set_return_value(shell, 127);
 		return (free_parse(shell), 1);

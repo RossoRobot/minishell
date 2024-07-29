@@ -119,3 +119,17 @@ int	replace_dollar_str(t_shell *shell, char *tmp)
 	}
 	return (n - 1);
 }
+
+int	create_null_node(t_shell *shell, int i)
+{
+	shell->lists[i] = malloc (sizeof(t_list));
+	if (!shell->lists[i])
+		return (free_parse(shell), 1);
+	shell->lists[i]->content = malloc (sizeof(char));
+	if (!shell->lists[i]->content)
+		return (free(shell->lists[i]), free_parse(shell), 1);
+	shell->lists[i]->content[0] = 0;
+	shell->lists[i]->type = 19;
+	shell->lists[i]->next = NULL;
+	return (0);
+}

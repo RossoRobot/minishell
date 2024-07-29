@@ -36,6 +36,8 @@ t_list	*ft_lstnew(char *str, int *k, t_shell *shell)
 	{
 		start->content[i] = str[i];
 		i++;
+		if (chk_del(shell, &str[i], &flag, i) == 0)
+			continue;
 		set_flag(&str[i], &flag);
 	}
 	return (start->content[i] = '\0', start->next = NULL, start);
@@ -47,7 +49,7 @@ int	chk_del(t_shell *shell, char *chr, int *flag, int pos)
 	int		i;
 
 	i = 0;
-	if (*flag && !shell->flag)
+	if (*flag)
 		return (0);
 	if (pos > 0 && (*chr == '<' | *chr == '>'))
 	{

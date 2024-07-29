@@ -26,12 +26,20 @@ void	set_exp_str(t_shell *shell, char *tmp)
 int	del_empty_tk(t_shell *shell, int i)
 {
 	t_list	*ptr;
+	int		n;
 
 	while (shell->lists[i])
 	{
 		ptr = shell->lists[i];
+		n = 0;
 		while (ptr)
 		{
+			if (ptr->type == null_a && !n)
+			{
+				ptr = del_first_node(shell, i, ptr);
+				continue ;
+			}
+			n++;
 			if (ptr->type >= 4 && ptr->type <= 7)
 			{
 				ptr = ptr->next;
@@ -47,6 +55,8 @@ int	del_empty_tk(t_shell *shell, int i)
 			}
 			ptr = ptr->next;
 		}
+		if (!shell->lists[i])
+			create_null_node(shell, i);
 		i++;
 	}
 	return (0);

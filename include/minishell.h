@@ -133,6 +133,7 @@ int							expansion(t_shell *shell);
 int							mal_dollar(t_shell *shell, char *str);
 char						*replace_dollar(t_shell *shell, char *str, int len);
 int							replace_dollar_str(t_shell *shell, char *tmp);
+int							create_null_node(t_shell *shell, int i);
 
 // expansion2
 int							expand_str(t_shell *shell, int *n, t_list *ptr);
@@ -152,7 +153,7 @@ void						set_here_del_type(t_shell *shell);
 int							start_w_red(char *str);
 int							red_del(t_shell *shell, t_list *ptr);
 int							correct_red(char *str);
-void						handle_empty_tokens(t_shell *shell);
+int						handle_empty_tokens(t_shell *shell);
 
 // sep_env_cmd
 int							squeeze_node(t_list *ptr, char *content);

@@ -109,8 +109,10 @@ int	correct_red(char *str)
 	return (1);
 }
 
-void	handle_empty_tokens(t_shell *shell)
+int	handle_empty_tokens(t_shell *shell)
 {
 	set_null_type(shell);
-	del_empty_tk(shell, 0);
+	if (del_empty_tk(shell, 0))
+		return (1);
+	return (0);
 }

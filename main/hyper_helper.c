@@ -48,17 +48,17 @@ int	start_w_red(char *str)
 	n = 0;
 	while (str[i + n] == '>')
 	{
-		n++;
-		if ((n == 1 || n == 2) && str[i + n] == 0)
-			return (1);
+		// n++;
+		// if ((n == 1 || n == 2) && str[i + n] == 0)
+		// 	return (1);
 		return (1);
 	}
 	n = 0;
 	while (str[i + n] == '<')
 	{
-		n++;
-		if ((n >= 1 && n <= 3) && str[i + n] == 0)
-			return (1);
+		// n++;
+		// if ((n >= 1 && n <= 3) && str[i + n] == 0)
+		// 	return (1);
 		return (1);
 	}
 	return (0);
@@ -117,4 +117,10 @@ int	correct_red(char *str)
 			return (0);
 	}
 	return (1);
+}
+
+void	handle_empty_tokens(t_shell *shell)
+{
+	set_null_type(shell);
+	del_empty_tk(shell, 0);
 }

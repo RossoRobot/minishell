@@ -128,10 +128,10 @@ int	parse(char *cmd, t_shell *shell)
 	if (expansion(shell))
 		free_exit(shell, 1);
 	sep_env_cmd(shell);
-	// if (del_empty_tk(shell))
-	// 	return (1);
+	handle_empty_tokens(shell);
+	//print_tokens(shell);
 	unquote(shell);
-	if (start_w_pipe(shell, shell->lists[0]->content))
+	if ( start_w_pipe(shell, shell->lists[0]->content))
 	{
 		ft_putstr_fd("minishell: ", 2);
 		write(2, shell->lists[0]->content, ft_strlen(shell->lists[0]->content));			

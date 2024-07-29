@@ -48,7 +48,7 @@ int	ft_exit(t_shell *shell, t_list *list)
 		if (list->next && list->next->content)
 			nr = ft_atol(list->next->content);
 	}
-	printf("exit\n");
+	ft_putstr_fd("exit\n", 2);
 	free_exit(shell, nr);
 	exit(nr);
 }

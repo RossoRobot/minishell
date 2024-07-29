@@ -48,7 +48,6 @@ static int	press_enter_only(char *cmd)
 static void	controld_exit(t_shell *data, int last_return_value)
 {
 	t_env	*temp;
-	int		ex_code;
 
 	while (data->env_line != NULL)
 	{
@@ -67,7 +66,7 @@ static void	controld_exit(t_shell *data, int last_return_value)
 	}
 	free_arr(data->env_arr);
 	free(data);
-	printf("exit\n");
+	ft_putstr_fd("exit\n", 2);
 	exit(last_return_value);
 }
 

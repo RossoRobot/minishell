@@ -55,6 +55,7 @@ typedef enum e_tokentype
 	exit_a = 16,
 	he_doc_fin = 17,
 	here_del = 18,
+	null_a = 19,
 }							t_tokentype;
 
 typedef struct s_pids
@@ -141,14 +142,16 @@ int							check_shlvl(char *str);
 
 // helper
 void						set_exp_str(t_shell *shell, char *tmp);
-int							del_empty_tk(t_shell *shell);
+int							del_empty_tk(t_shell *shell, int i);
 t_list						*del_first_node(t_shell *shell, int i, t_list *ptr);
-void						re_mal_list(t_shell *shell, int i);
+void						set_null_type(t_shell *shell);
 
 // hyper_helper
+void						set_here_del_type(t_shell *shell);
 int							start_w_red(char *str);
 int							red_del(t_shell *shell, t_list *ptr);
 int							correct_red(char *str);
+void						handle_empty_tokens(t_shell *shell);
 
 // sep_env_cmd
 int							squeeze_node(t_list *ptr, char *content);
@@ -306,9 +309,7 @@ int							check_for_redirections(t_list *temp);
 
 void						check_error(t_list *temp, int count);
 
-void						set_here_del_type(t_shell *shell);
-
-int							print_error_msg(int err, char *path);
+int								print_error_msg(int err, char *path);
 
 void						check_for_dir(t_shell *shell, char *node_content,
 								char *path, char **ar);

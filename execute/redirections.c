@@ -77,8 +77,6 @@ void	prep_redir_exec(t_shell *shell, t_list *list, int flag)
 
 	j = 0;
 	i = cmd_position(list);
-	if (i == -1)
-		return (exit_syntax_err(shell, flag));
 	cmd_arr = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!cmd_arr)
 		free_exit(shell, 1);

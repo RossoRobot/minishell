@@ -84,7 +84,7 @@ int	check_last_node(t_list *list)
 	}
 	if (check_for_redirections(temp))
 	{
-		ft_putstr_fd("minishell: 111syntax error near unexpected token `|'\n",
+		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n",
 			2);
 		return (1);
 	}

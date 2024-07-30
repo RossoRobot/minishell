@@ -48,7 +48,7 @@ int	check_export_str(t_shell *data, char *str)
 	flag = 0;
 	if (!str)
 		return (-1);
-	if (ft_isalpha(*str) == 0 && (*str) != '_' && (*str) != '?')
+	if (chk_inv_c(str))
 	{
 		ft_putstr_fd("export: `", 2);
 		ft_putstr_fd(str, 2);

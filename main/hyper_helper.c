@@ -100,10 +100,10 @@ int	correct_red(char *str)
 			&& str[2] != '<' && str[2] != '>')
 			return (0);
 		if ((str[0] == '<' && str[0] == str[1]) && str[2] != '<'
-			&& str[2] != '>' && str[2] != ' ')
+			&& str[2] != '>')
 			return (0);
 		if ((str[0] == '>' && str[0] == str[1]) && str[2] != '<'
-			&& str[2] != '>' && str[2] != ' ')
+			&& str[2] != '>')
 			return (0);
 	}
 	return (1);

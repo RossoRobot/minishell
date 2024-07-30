@@ -36,11 +36,11 @@ int	split_token(t_list *ptr)
 	arr = ft_split2(ptr->content, ' ');
 	if (!set_data_return_shell(NULL, &i, NULL, NULL) && !arr)
 		return (1);
-	while (ptr->content[i] == ' ' || ptr->content[i] == '\t')
+	while (ptr->content[i] == ' ' || ptr->content[i] == '	')
 		i++;
 	while (ptr->content[i])
 	{
-		if (ptr->content[i] == ' ' || ptr->content[i] == '\t')
+		if (ptr->content[i] == ' ' || ptr->content[i] == '	')
 		{
 			ptr->content[i] = 0;
 			break ;

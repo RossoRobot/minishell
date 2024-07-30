@@ -159,6 +159,7 @@ int							handle_empty_tokens(t_shell *shell);
 int							maybe_del_next(t_list *ptr);
 int							loopyloop(t_shell *shell, t_list *ptr, int i,
 								int *n);
+int							chk_inv_c(char *str);
 
 // sep_env_cmd
 int							squeeze_node(t_list *ptr, char *content);

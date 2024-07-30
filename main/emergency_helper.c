@@ -46,3 +46,19 @@ int	loopyloop(t_shell *shell, t_list *ptr, int i, int *n)
 	}
 	return (0);
 }
+
+int	chk_inv_c(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+	{
+		if (ft_isalpha(str[i]) == 0 && str[i] != '_' && str[i] != '?')
+			return (1);
+		i++;
+	}
+	if (!i)
+		return (1);
+	return (0);
+}

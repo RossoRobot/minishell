@@ -25,9 +25,9 @@ static int	zwischenparser3000(t_shell *shell)
 			temp = temp->next;
 		if (temp->type == 4 || temp->type == 5 || temp->type == 7)
 		{
-			if (temp->type == 4)
+			if (temp->type == 4 && shell->lists[i + 1])
 				ft_putstr_fd("minishell: syntax error near\
-unexpected token `|'\n", 2);
+ unexpected token `|'\n", 2);
 			else
 				ft_putstr_fd("minishell: syntax error near\
  unexpected token `newline'\n",

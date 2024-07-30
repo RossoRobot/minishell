@@ -106,7 +106,7 @@ int	cmd_position(t_list *list)
 	i = 0;
 	temp = find_command(list);
 	if (!temp || (temp->type == 4 || temp->type == 5 || temp->type == 7))
-		return (-1);
+		return (0);
 	while (temp != NULL && temp->type != 4 && temp->type != 5
 		&& temp->type != 7)
 	{
